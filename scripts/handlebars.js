@@ -32,4 +32,17 @@ export function registerHandlebarsHelpers() {
   Handlebars.registerHelper("percentage", function (value, max) {
     return (Number(value) * 100) / Number(max);
   });
+  Handlebars.registerHelper("toLowerCase", function (str) {
+    return str.toLowerCase();
+  });
+  Handlebars.registerHelper("replace", function (str, toReplace, replace) {
+    return str.replace(toReplace, replace);
+  });
+  Handlebars.registerHelper("capitalize", function (str) {
+    if (typeof str !== "string") {
+      return "";
+    }
+
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  });
 }

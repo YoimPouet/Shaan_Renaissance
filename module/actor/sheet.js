@@ -387,7 +387,7 @@ export class ActorSheetSR extends ActorSheet {
       .replace("î", "i");
     let description = game.i18n.translations.SRspéDesc[spécialisation];
 
-    const actorData = actor.toObject(!1)
+    const actorData = actor.toObject(!1);
     // Filtre Race
     let race = actorData.items.filter(function (item) {
       return item.type == "Race";
@@ -402,7 +402,7 @@ export class ActorSheetSR extends ActorSheet {
         return this.actor.deleteEmbeddedDocuments("Item", [itemId]);
       }
     });
-    if(lastElement){
+    if (lastElement) {
       race = lastElement.name;
     }
 
@@ -412,7 +412,7 @@ export class ActorSheetSR extends ActorSheet {
       spécialisation: spécialisation,
       description: description,
       askForOptions: event.shiftKey,
-      race:race
+      race: race,
     });
   }
 
@@ -429,7 +429,7 @@ export class ActorSheetSR extends ActorSheet {
   _onTest(event) {
     const dataset = event.target.closest(".roll-data").dataset.itemId;
     let actor = this.actor;
-    const actorData = actor.toObject(!1)
+    const actorData = actor.toObject(!1);
     // Filtre Race
     let race = actorData.items.filter(function (item) {
       return item.type == "Race";
@@ -444,14 +444,14 @@ export class ActorSheetSR extends ActorSheet {
         return this.actor.deleteEmbeddedDocuments("Item", [itemId]);
       }
     });
-    if(lastElement){
+    if (lastElement) {
       race = lastElement.name;
     }
     if (dataset == "domainTest" || "necroseTest") {
       Dice[dataset]({
         actor,
         checkType: dataset,
-        race: race
+        race: race,
       });
     }
   }
@@ -585,7 +585,17 @@ export class ActorSheetSR extends ActorSheet {
     const corpsBtn = event.target.closest("#Corps-add");
     const necroseBtn = event.target.closest("#Nécrose-add");
     const magicTrihnBtn = event.target.closest("#MagicTrihn-add");
+    const magicTrihnRoll = event.target.closest("#MagicTrihn-roll");
     const graftAddBtn = event.target.closest("#graft-add");
+
+    if (magicTrihnRoll) {
+      Dice.SpéTest({
+        actor,
+        domain: "Magie",
+        spécialisation: "invocation",
+        askForOptions: false,
+      });
+    }
 
     if (magicTrihnBtn) {
       trihnCreate({
@@ -603,12 +613,6 @@ export class ActorSheetSR extends ActorSheet {
         if (checkOptions.cancelled) {
           return;
         }
-        let invocation = await Dice.SpéTest({
-          actor,
-          domain: "Magie",
-          spécialisation: "invocation",
-          askForOptions: false,
-        });
         (trihn = checkOptions.trihn), (puissance = checkOptions.puissance);
 
         let itemData = {
@@ -1147,22 +1151,25 @@ export class ActorSheetSR extends ActorSheet {
     return this.actor.deleteEmbeddedDocuments("Item", [itemId]);
   }
   async _onDropItem(event, data) {
-    if ( !this.actor.isOwner ) return false;
+    if (!this.actor.isOwner) return false;
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
 
     // Handle item sorting within the same Actor
-    if ( this.actor.uuid === item.parent?.uuid ) return this._onSortItem(event, itemData);
+    if (this.actor.uuid === item.parent?.uuid)
+      return this._onSortItem(event, itemData);
 
     // Create the owned item
-    if(item instanceof Symbiose){
-      if(this.document instanceof ShaaniSR){
+    if (item instanceof Symbiose) {
+      if (this.document instanceof ShaaniSR) {
         return this._onDropItemCreate(itemData);
       } else {
-        return ui.notifications.warn("Une Symbiose ne peut être ajoutées qu'à un Shaani")
+        return ui.notifications.warn(
+          "Une Symbiose ne peut être ajoutées qu'à un Shaani"
+        );
       }
-    } else if(this.document instanceof LootSR) {
-      if(game.user.role == 4) {
+    } else if (this.document instanceof LootSR) {
+      if (game.user.role == 4) {
         return this._onDropItemCreate(itemData);
       } else {
         return;

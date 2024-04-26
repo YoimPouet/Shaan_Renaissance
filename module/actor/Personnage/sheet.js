@@ -37,6 +37,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
       options
     );
   }
+
   async getData(options = this.options) {
     options.id || (options.id = this.id);
     const actorData = this.actor.toObject(!1),
@@ -58,6 +59,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
         user: {
           isGM: game.user.isGM,
         },
+        shaanButtons: this._getHeaderButtons(),
       };
     // Filtres catégorie pouvoir
     this.itemSort(sheetData.items);

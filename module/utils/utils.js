@@ -118,3 +118,4 @@ export const CHARACTER_SCHEMES = {element: ["moi", "lui", "eau", "terre", "anima
 export function isItemSystemData(data) {
     return (0, isObject)(data) && (0, isObject)(data.description) && "string" == typeof data.description.value && Array.isArray(data.rules) && (null === data.slug || "string" == typeof data.slug)
 }
+

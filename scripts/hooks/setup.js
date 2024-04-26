@@ -1,3 +1,4 @@
+import { prepareCompendium } from "../../module/system/prepareCompendium.js";
 import { registerSheets } from "../register-sheets.js";
 export const Setup = {
   listen: () => {
@@ -16,6 +17,8 @@ export const Setup = {
       defaultTokenSettingsDefaults.displayName =
         CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
       defaultTokenSettingsDefaults.displayBars = CONST.TOKEN_DISPLAY_MODES.NONE;
+
+      game.shaanRenaissance.prepareCompendium = new prepareCompendium()
     });
   },
 };

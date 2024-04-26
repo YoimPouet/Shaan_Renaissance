@@ -18,6 +18,7 @@ export const templatePaths = [
   "systems/shaanrenaissance/templates/actors/icons/d10Red.hbs",
   "systems/shaanrenaissance/templates/actors/icons/d10Blue.hbs",
   "systems/shaanrenaissance/templates/actors/icons/d10Yellow.hbs",
+  "systems/shaanrenaissance/templates/actors/icons/d10White.hbs",
 
   // Content
   "systems/shaanrenaissance/templates/actors/Personnage/tabs/biography.hbs",

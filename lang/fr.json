@@ -93,8 +93,8 @@
     "details": "Détails",
     "rules": "Règles",
     "Slug": "Slug",
-    "Shaandars":"Shaandars",
-    "Cost":"Coût"
+    "Shaandars": "Shaandars",
+    "Cost": "Coût"
   },
   "SRdomains": {
     "Technique": "Technique",
@@ -458,7 +458,7 @@
     "DetailsLabel": "Détails",
     "RéseauLabel": "Réseau",
     "MorpheLabel": "Morphe",
-    "Cercle":"Cercle"
+    "Cercle": "Cercle"
   },
   "Item": {
     "Race": "Race",
@@ -508,8 +508,8 @@
         "closedRoll": "Test caché ?"
       }
     },
-    "shaaniTest":{
-      "title":"Actions de Shaani"
+    "shaaniTest": {
+      "title": "Actions de Shaani"
     },
     "addCoins": {
       "title": "Crédos",
@@ -570,15 +570,15 @@
   "SR": {
     "Actor": {
       "Dead": "Mort",
-      "Shaani":{
+      "Shaani": {
         "check": {
-          "title":"Actions de Shaani"
+          "title": "Actions de Shaani"
         },
-        "RemoveMember":{
-          "Title":"Supprimer un membre",
+        "RemoveMember": {
+          "Title": "Supprimer un membre",
           "Content": "Êtes-vous sûr de vouloir supprimer ce membre du Shaani ?"
         },
-        "BlankSlate":"Il n'y a aucun membre dans le Shaani"
+        "BlankSlate": "Il n'y a aucun membre dans le Shaani"
       }
     },
     "Inventory": {

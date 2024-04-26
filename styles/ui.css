@@ -396,3 +396,33 @@ display: flex;
 .chat-card hr {
   margin: 10px 6px 10px 0;
 }
+
+
+/* Créateur */
+.app.createur-perso .window-content{
+  background: url(../assets/sheet/template_shaan_background1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.select-race {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-evenly;
+}
+.select-race .race {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 5px;
+}
+.select-race .race-img {
+
+}
+.select-race img {
+  border: none;
+  max-height: 120px;
+}
