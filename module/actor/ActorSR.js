@@ -1,26 +1,16 @@
-import {
-  CHARACTER_ACTOR_TYPES,
-  CHARACTER_SHEET_TABS,
-  ErrorSR,
-  tupleHasValue,
-} from "../utils/utils.js";
+import { CHARACTER_ACTOR_TYPES, CHARACTER_SHEET_TABS, ErrorSR, tupleHasValue } from "../utils/utils.js";
 import { ActorInventory } from "./Inventory/ActorInventory.js";
 import { ActorConditions } from "./conditions.js";
 import { TokenEffect } from "./token-effect.js";
 export class ActorSR extends Actor {
   constructor(...args) {
-    super(...args),
-    this.shaanis = new Set;
+    super(...args), (this.shaanis = new Set());
   }
   get hasPlayerOwner() {
-    return game.users.some(
-      (u) => !u.isGM && this.testUserPermission(u, "OWNER")
-    );
+    return game.users.some((u) => !u.isGM && this.testUserPermission(u, "OWNER"));
   }
   get temporaryEffects() {
-    const fromConditions = this.conditions.active.map(
-      (c) => new TokenEffect(c)
-    );
+    const fromConditions = this.conditions.active.map((c) => new TokenEffect(c));
 
     return [...super.temporaryEffects, ...fromConditions].flat();
   }
@@ -30,25 +20,21 @@ export class ActorSR extends Actor {
     if (activeGM) return activeGM;
 
     const activeUsers = game.users.filter((u) => u.active);
-    
+
     // 2. The user with this actor assigned
     const primaryPlayer = this.isToken ? null : activeUsers.find((u) => u.character && u.character.id === this.id);
     if (primaryPlayer) return primaryPlayer;
 
     // 3. Anyone who can update the actor
     const firstUpdater = game.users
-        .filter((u) => this.canUserModify(u, "update"))
-        .sort((a, b) => (a.id > b.id ? 1 : -1))
-        .shift();
-    
+      .filter((u) => this.canUserModify(u, "update"))
+      .sort((a, b) => (a.id > b.id ? 1 : -1))
+      .shift();
+
     return firstUpdater || null;
-}
+  }
   isOfType(...types) {
-    return types.some((t) =>
-      "character" === t
-        ? (0, tupleHasValue)(CHARACTER_ACTOR_TYPES, this.type)
-        : this.type === t
-    );
+    return types.some((t) => ("character" === t ? (0, tupleHasValue)(CHARACTER_ACTOR_TYPES, this.type) : this.type === t));
   }
   _initialize(options) {
     this.conditions = new ActorConditions();
@@ -58,10 +44,10 @@ export class ActorSR extends Actor {
     var _a, _b, _c, _d, _e, _f, _g;
     super.prepareBaseData();
     const { flags } = this;
-    this.flags.shaanRenaissance = mergeObject(
+    this.flags.shaanRenaissance = foundry.utils.mergeObject(
       null !== (_a = this.flags.shaanRenaissance) && void 0 !== _a ? _a : {}
     );
-    flags.shaanRenaissance.sheetTabs = mergeObject(
+    flags.shaanRenaissance.sheetTabs = foundry.utils.mergeObject(
       CHARACTER_SHEET_TABS.reduce(
         (tabs, tab) => ({
           ...tabs,
@@ -69,15 +55,11 @@ export class ActorSR extends Actor {
         }),
         {}
       ),
-      null !== (_b = flags.shaanRenaissance.sheetTabs) && void 0 !== _b
-        ? _b
-        : {}
+      null !== (_b = flags.shaanRenaissance.sheetTabs) && void 0 !== _b ? _b : {}
     );
   }
   hasCondition(...slugs) {
-    return slugs.some(
-      (slug) => this.conditions.bySlug(slug, { active: true }).length > 0
-    );
+    return slugs.some((slug) => this.conditions.bySlug(slug, { active: true }).length > 0);
   }
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
@@ -130,16 +112,10 @@ export class ActorSR extends Actor {
       updates = { [`system.${attribute}`]: value };
     }
 
-    const allowed = Hooks.call(
-      "modifyTokenAttribute",
-      { attribute, value, isDelta, isBar },
-      updates
-    );
+    const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates);
     return allowed !== false ? this.update(updates) : this;
   }
-  
 }
 export const ActorProxySR = new Proxy(ActorSR, {
-  construct: (_target, args) =>
-    new CONFIG.shaanRenaissance.Actor.documentClasses[args[0].type](...args),
+  construct: (_target, args) => new CONFIG.shaanRenaissance.Actor.documentClasses[args[0].type](...args),
 });

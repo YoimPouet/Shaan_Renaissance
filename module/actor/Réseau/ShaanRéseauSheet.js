@@ -50,49 +50,41 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
     this.defineInitiative(sheetData, actorData);
 
     sheetData.enrichedGMnotes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.gm"),
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.gm"),
       { async: true }
     );
-    sheetData.enrichedTypeMembres = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "typesMembres"),
-      { async: true }
-    );
-    sheetData.enrichedMotivations = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "motivation"),
-      { async: true }
-    );
-    sheetData.enrichedMoyens = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "moyens"),
-      { async: true }
-    );
+    sheetData.enrichedTypeMembres = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "typesMembres"), {
+      async: true,
+    });
+    sheetData.enrichedMotivations = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "motivation"), {
+      async: true,
+    });
+    sheetData.enrichedMoyens = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "moyens"), {
+      async: true,
+    });
     sheetData.enrichedNotes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.notes"),
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.notes"),
       { async: true }
     );
     sheetData.enrichedAllies = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.allies"),
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.allies"),
       { async: true }
     );
     sheetData.enrichedEnemies = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.enemies"),
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.enemies"),
       { async: true }
     );
-    sheetData.enrichedSchemes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.schèmes"),
-      { async: true }
-    );
-    sheetData.enrichedAlchemy = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.alchimie"),
-      { async: true }
-    );
-    sheetData.enrichedEnchants = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.enchantement"),
-      { async: true }
-    );
+    sheetData.enrichedSchemes = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.schèmes"), {
+      async: true,
+    });
+    sheetData.enrichedAlchemy = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.alchimie"), {
+      async: true,
+    });
+    sheetData.enrichedEnchants = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.enchantement"), {
+      async: true,
+    });
 
-    sheetData.tabVisibility = deepClone(
-      this.actor.flags.shaanRenaissance.sheetTabs
-    );
+    sheetData.tabVisibility = deepClone(this.actor.flags.shaanRenaissance.sheetTabs);
 
     console.log(sheetData);
     return sheetData;
@@ -112,11 +104,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
             title =
               null !==
                 (_d =
-                  null !==
-                    (_b =
-                      null === (_a = actor.token) || void 0 === _a
-                        ? void 0
-                        : _a.name) && void 0 !== _b
+                  null !== (_b = null === (_a = actor.token) || void 0 === _a ? void 0 : _a.name) && void 0 !== _b
                     ? _b
                     : null === (_c = actor.prototypeToken) || void 0 === _c
                     ? void 0
@@ -132,36 +120,22 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
     )
       return;
     if (this.isEditable) {
-      html
-        .find("button[data-action=add-coins]")
-        .click(this._onAddCoins.bind(this));
-      html
-        .find("button[data-action=remove-coins]")
-        .click(this._onRemoveCoins.bind(this));
+      html.find("button[data-action=add-coins]").click(this._onAddCoins.bind(this));
+      html.find("button[data-action=remove-coins]").click(this._onRemoveCoins.bind(this));
       const title = $(".sheet-navigation .active").attr("title");
       title && html.find(".navigation-title").text(title);
-      html
-        .find(".sheet-navigation")
-        .on("mouseover", ".item,.manage-tabs", (event) => {
-          const title = event.target.title;
-          title &&
-            $(event.target)
-              .parents(".sheet-navigation")
-              .find(".navigation-title")
-              .text(title);
-        }),
-        html
-          .find(".sheet-navigation")
-          .on("mouseout", ".item,.manage-tabs", (event) => {
-            const parent = $(event.target).parents(".sheet-navigation"),
-              title = parent.find(".item.active").attr("title");
-            title && parent.find(".navigation-title").text(title);
-          });
+      html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
+        const title = event.target.title;
+        title && $(event.target).parents(".sheet-navigation").find(".navigation-title").text(title);
+      }),
+        html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
+          const parent = $(event.target).parents(".sheet-navigation"),
+            title = parent.find(".item.active").attr("title");
+          title && parent.find(".navigation-title").text(title);
+        });
       html.find(".open-compendium").on("click", (event) => {
         if (event.currentTarget.dataset.compendium) {
-          const compendium = game.packs.get(
-            event.currentTarget.dataset.compendium
-          );
+          const compendium = game.packs.get(event.currentTarget.dataset.compendium);
           console.log(compendium);
           compendium && compendium.render(!0);
         }
@@ -169,13 +143,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
     }
     html.find(".item-increase-quantity").on("click", (event) => {
       var _a;
-      const itemId =
-          null !==
-            (_a = $(event.currentTarget)
-              .parents(".item")
-              .attr("data-item-id")) && void 0 !== _a
-            ? _a
-            : "",
+      const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
       console.log(event);
       if (!event.shiftKey && !event.ctrlKey) {
@@ -205,13 +173,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
     }),
       html.find(".item-decrease-quantity").on("click", (event) => {
         var _a;
-        const itemId =
-            null !==
-              (_a = $(event.currentTarget)
-                .parents(".item")
-                .attr("data-item-id")) && void 0 !== _a
-              ? _a
-              : "",
+        const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
         console.log(item.system.quantity);
         if (!event.shiftKey && !event.ctrlKey) {
@@ -242,10 +204,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
             ]);
         }
       });
-    PersonnageSheetTabManager.initialize(
-      this.actor,
-      html.find("a[data-action=manage-tabs]")[0]
-    );
+    PersonnageSheetTabManager.initialize(this.actor, html.find("a[data-action=manage-tabs]")[0]);
   }
   _onAddCoins(event) {
     new AddCoinsPopup(this.actor).render(true);

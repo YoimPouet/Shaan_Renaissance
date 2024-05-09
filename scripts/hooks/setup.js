@@ -1,4 +1,3 @@
-import { prepareCompendium } from "../../module/system/prepareCompendium.js";
 import { registerSheets } from "../register-sheets.js";
 export const Setup = {
   listen: () => {
@@ -12,13 +11,9 @@ export const Setup = {
       game.settings.settings.get("core.notesDisplayToggle").default = true;
 
       // Set Hover by Owner as defaults for Default Token Configuration
-      const defaultTokenSettingsDefaults =
-        game.settings.settings.get("core.defaultToken").default;
-      defaultTokenSettingsDefaults.displayName =
-        CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+      const defaultTokenSettingsDefaults = game.settings.settings.get("core.defaultToken").default;
+      defaultTokenSettingsDefaults.displayName = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
       defaultTokenSettingsDefaults.displayBars = CONST.TOKEN_DISPLAY_MODES.NONE;
-
-      game.shaanRenaissance.prepareCompendium = new prepareCompendium()
     });
   },
 };

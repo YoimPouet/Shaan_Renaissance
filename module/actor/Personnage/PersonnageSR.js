@@ -6,7 +6,7 @@ export class PersonnageSR extends ActorSR {
     var _a, _b;
     super.prepareBaseData();
     const { flags } = this;
-    flags.shaanRenaissance.schemes = mergeObject(
+    flags.shaanRenaissance.schemes = foundry.utils.mergeObject(
       Object.keys(CHARACTER_SCHEMES).reduce((schemes, key) => {
         schemes[key] = {};
 
@@ -19,25 +19,17 @@ export class PersonnageSR extends ActorSR {
             };
           });
         } else {
-          schemes[key] = Object.keys(CHARACTER_SCHEMES[key]).reduce(
-            (subSchemes, subKey) => {
-              subSchemes[subKey] = CHARACTER_SCHEMES[key][subKey].reduce(
-                (subSubSchemes, subSubKey) => {
-                  subSubSchemes[subSubKey] = {
-                    type: subSubKey,
-                    learned: false,
-                    title: game.i18n.localize(
-                      `SRSchemes.titles.${subSubSchemes}`
-                    ),
-                  };
-                  return subSubSchemes;
-                },
-                {}
-              );
-              return subSchemes;
-            },
-            {}
-          );
+          schemes[key] = Object.keys(CHARACTER_SCHEMES[key]).reduce((subSchemes, subKey) => {
+            subSchemes[subKey] = CHARACTER_SCHEMES[key][subKey].reduce((subSubSchemes, subSubKey) => {
+              subSubSchemes[subSubKey] = {
+                type: subSubKey,
+                learned: false,
+                title: game.i18n.localize(`SRSchemes.titles.${subSubSchemes}`),
+              };
+              return subSubSchemes;
+            }, {});
+            return subSchemes;
+          }, {});
         }
         schemes.maitrise = false;
         schemes.bonusSpe = 0;
@@ -49,11 +41,11 @@ export class PersonnageSR extends ActorSR {
       flags.shaanRenaissance.schemes || {}
     );
   }
-  _onUpdate(changed, options, user){
-    super._onUpdate(changed, options, user)
+  _onUpdate(changed, options, user) {
+    super._onUpdate(changed, options, user);
     for (const shaani of this.shaanis) {
       for (const domainKey in shaani.system.details.shaandars) {
-        const shaandars = shaani.system.details.shaandars
+        const shaandars = shaani.system.details.shaandars;
         const domain = shaandars[domainKey];
         let shaandarIndex = -1;
         for (let i = 0; i < domain.length; i++) {
@@ -66,34 +58,32 @@ export class PersonnageSR extends ActorSR {
         const newShaandar = {
           _id: this._id,
           system: { ...domain[shaandarIndex]?.system, skills: this.system.skills },
-
         };
-  
-        for (const shaandar of domain){
-          if(shaandar._id == this._id){
-              domain[shaandarIndex] = newShaandar;
-              shaani.update({"system.details.shaandars":shaandars})
+
+        for (const shaandar of domain) {
+          if (shaandar._id == this._id) {
+            domain[shaandarIndex] = newShaandar;
+            shaani.update({ "system.details.shaandars": shaandars });
           }
         }
       }
 
-      if(shaani.sheet.rendered){
-        shaani.sheet.render(false)
+      if (shaani.sheet.rendered) {
+        shaani.sheet.render(false);
       }
     }
-
   }
-  _onDelete(options, userId){
+  _onDelete(options, userId) {
     super._onDelete(options, userId);
 
     for (const shaani of this.shaanis) {
-        const updater = shaani.primaryUpdater;
-        if (game.user === updater) {
-            shaani.removeMembers(this.uuid);
-        } else if (!updater) {
-            shaani.reset();
-            ui.actors.render();
-        }
+      const updater = shaani.primaryUpdater;
+      if (game.user === updater) {
+        shaani.removeMembers(this.uuid);
+      } else if (!updater) {
+        shaani.reset();
+        ui.actors.render();
+      }
     }
   }
 }

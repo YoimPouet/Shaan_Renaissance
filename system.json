@@ -16,8 +16,7 @@
   "version": "v1.5",
   "compatibility": {
     "minimum": "11",
-    "verified": "11",
-    "maximum": "11"
+    "verified": "11"
   },
   "esmodules": ["scripts/shaanRenaissance.js"],
   "scripts": ["greensock/dist/gsap.min.js", "lib/tooltipster.bundle.min.js"],
@@ -129,15 +128,7 @@
     {
       "name": "Personnage",
       "sorting": "m",
-      "packs": [
-        "races",
-        "peuples",
-        "castes",
-        "metiers",
-        "pouvoirs",
-        "acquis",
-        "conditionitems"
-      ]
+      "packs": ["races", "peuples", "castes", "metiers", "pouvoirs", "acquis", "conditionitems"]
     },
     {
       "name": "Macros",
@@ -160,8 +151,10 @@
     }
   ],
   "background": "systems/shaanrenaissance/assets/banniere_foundry.png",
-  "gridDistance": 5,
-  "gridUnits": "m",
+  "grid": {
+    "distance": 1,
+    "units": "m"
+  },
   "initiative": "1d10 + @attributes.initiative.value",
   "url": "https://github.com/YoimPouet/shaanrenaissance",
   "manifest": "https://raw.githubusercontent.com/YoimPouet/shaanrenaissance/foundryv11/system.json",

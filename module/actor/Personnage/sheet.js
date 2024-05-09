@@ -1,10 +1,5 @@
 import * as Dice from "../../jets/dice.js";
-import {
-  ErrorSR,
-  htmlClosest,
-  htmlQuery,
-  htmlQueryAll,
-} from "../../utils/utils.js";
+import { ErrorSR, htmlClosest, htmlQuery, htmlQueryAll } from "../../utils/utils.js";
 import { ActorSheetSR } from "../sheet.js";
 import { ItemSummaryRenderer } from "../sheet/item-summary-renderer.js";
 import { AddCoinsPopup } from "../sheet/popups/add-coins-popup.js";
@@ -70,48 +65,55 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
 
     // Editors
     sheetData.enrichedGMnotes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.gm"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.gm"),
+      {
+        async: true,
+      }
     );
     sheetData.enrichedBiography = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.histoire"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.histoire"),
+      {
+        async: true,
+      }
     );
     sheetData.enrichedApparence = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.apparence"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.apparence"),
+      {
+        async: true,
+      }
     );
     sheetData.enrichedNotes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.notes"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.notes"),
+      {
+        async: true,
+      }
     );
     sheetData.enrichedAllies = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.allies"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.allies"),
+      {
+        async: true,
+      }
     );
     sheetData.enrichedEnemies = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "biography.campagne.enemies"),
-      { async: true }
+      foundry.utils.getProperty(this.actor.system, "biography.campagne.enemies"),
+      {
+        async: true,
+      }
     );
-    sheetData.enrichedSchemes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.schèmes"),
-      { async: true }
-    );
-    sheetData.enrichedAlchemy = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.alchimie"),
-      { async: true }
-    );
-    sheetData.enrichedEnchants = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "Magic.enchantement"),
-      { async: true }
-    );
+    sheetData.enrichedSchemes = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.schèmes"), {
+      async: true,
+    });
+    sheetData.enrichedAlchemy = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.alchimie"), {
+      async: true,
+    });
+    sheetData.enrichedEnchants = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "Magic.enchantement"), {
+      async: true,
+    });
 
     if (sheetData.actor.system.skills) {
       this.SchemesSystem(sheetData);
     }
-    sheetData.tabVisibility = deepClone(
-      this.actor.flags.shaanRenaissance.sheetTabs
-    );
+    sheetData.tabVisibility = foundry.utils.deepClone(this.actor.flags.shaanRenaissance.sheetTabs);
     console.log(sheetData);
     return sheetData;
   }
@@ -119,53 +121,32 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
     var _a, _b, _c;
     super.activateListeners(html);
     const $html = html[0];
-    if ((this.itemRenderer.activateListeners($html), !this.options.editable))
-      return;
+    if ((this.itemRenderer.activateListeners($html), !this.options.editable)) return;
     if (this.isEditable) {
-      html
-        .find("button[data-action=add-coins]")
-        .click(this._onAddCoins.bind(this));
-      html
-        .find("button[data-action=remove-coins]")
-        .click(this._onRemoveCoins.bind(this));
+      html.find("button[data-action=add-coins]").click(this._onAddCoins.bind(this));
+      html.find("button[data-action=remove-coins]").click(this._onRemoveCoins.bind(this));
       html.find("a.trihnTest").click(this._onTrihnTest.bind(this));
       const title = $(".sheet-navigation .active").attr("title");
       title && html.find(".navigation-title").text(title);
-      html
-        .find(".sheet-navigation")
-        .on("mouseover", ".item,.manage-tabs", (event) => {
-          const title = event.target.title;
-          title &&
-            $(event.target)
-              .parents(".sheet-navigation")
-              .find(".navigation-title")
-              .text(title);
-        }),
-        html
-          .find(".sheet-navigation")
-          .on("mouseout", ".item,.manage-tabs", (event) => {
-            const parent = $(event.target).parents(".sheet-navigation"),
-              title = parent.find(".item.active").attr("title");
-            title && parent.find(".navigation-title").text(title);
-          });
+      html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
+        const title = event.target.title;
+        title && $(event.target).parents(".sheet-navigation").find(".navigation-title").text(title);
+      }),
+        html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
+          const parent = $(event.target).parents(".sheet-navigation"),
+            title = parent.find(".item.active").attr("title");
+          title && parent.find(".navigation-title").text(title);
+        });
       html.find(".open-compendium").on("click", (event) => {
         if (event.currentTarget.dataset.compendium) {
-          const compendium = game.packs.get(
-            event.currentTarget.dataset.compendium
-          );
+          const compendium = game.packs.get(event.currentTarget.dataset.compendium);
           compendium && compendium.render(!0);
         }
       });
     }
     html.find(".item-increase-quantity").on("click", (event) => {
       var _a;
-      const itemId =
-          null !==
-            (_a = $(event.currentTarget)
-              .parents(".item")
-              .attr("data-item-id")) && void 0 !== _a
-            ? _a
-            : "",
+      const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
       if (!event.shiftKey && !event.ctrlKey) {
         this.actor.updateEmbeddedDocuments("Item", [
@@ -194,13 +175,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
     }),
       html.find(".item-decrease-quantity").on("click", (event) => {
         var _a;
-        const itemId =
-            null !==
-              (_a = $(event.currentTarget)
-                .parents(".item")
-                .attr("data-item-id")) && void 0 !== _a
-              ? _a
-              : "",
+        const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
         if (!event.shiftKey && !event.ctrlKey) {
           item.system.quantity > 0 &&
@@ -232,10 +207,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
       });
     const scheme = html.find(".scheme[type=checkbox]");
     scheme.on("change");
-    PersonnageSheetTabManager.initialize(
-      this.actor,
-      html.find("a[data-action=manage-tabs]")[0]
-    );
+    PersonnageSheetTabManager.initialize(this.actor, html.find("a[data-action=manage-tabs]")[0]);
   }
   SchemesSystem(sheetData) {
     let actor = sheetData.actor;
@@ -248,8 +220,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
     const schemes_portee = schemes.portee;
     const schemes_cibles = schemes.cibles;
     const schemes_frequence = schemes.frequence;
-    schemes.bonusSpe =
-      actor.system.skills.Magie.specialisations.maitrisedesschemes.bonus;
+    schemes.bonusSpe = actor.system.skills.Magie.specialisations.maitrisedesschemes.bonus;
     schemes.domaine = actor.system.skills.Magie.rank;
     const domaine_schemes_count = {
       ...schemes_duree,
@@ -266,20 +237,14 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
     ) {
       let learnedCountDomaine = 0 - 4;
       for (const key in domaine_schemes_count) {
-        if (
-          domaine_schemes_count.hasOwnProperty(key) &&
-          domaine_schemes_count[key].learned === true
-        ) {
+        if (domaine_schemes_count.hasOwnProperty(key) && domaine_schemes_count[key].learned === true) {
           learnedCountDomaine++;
         }
       }
       schemes.learnedCountDomaine = schemes.domaine - learnedCountDomaine;
       let learnedCountSpe = 0;
       for (const key in schemes_action) {
-        if (
-          schemes_action.hasOwnProperty(key) &&
-          schemes_action[key].learned === true
-        ) {
+        if (schemes_action.hasOwnProperty(key) && schemes_action[key].learned === true) {
           learnedCountSpe++;
         }
       }
@@ -324,8 +289,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
       return item.type == "Race";
     });
     let lastElement = race[race.length - 1];
-    if (actor.conditions.unconscious)
-      return ui.notifications.warn("Ce personnage est Inconscient");
+    if (actor.conditions.unconscious) return ui.notifications.warn("Ce personnage est Inconscient");
 
     race.forEach((element) => {
       if (element != lastElement) {
@@ -334,12 +298,9 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
       }
     });
     race = lastElement.name;
-    if (actor.conditions.paralyzed && trihn === "Corps")
-      return ui.notifications.warn("Ce personnage est Paralysé");
-    if (actor.conditions.dominated && trihn === "Esprit")
-      return ui.notifications.warn("Ce personnage est Dominé");
-    if (actor.conditions.bewitched && trihn === "Ame")
-      return ui.notifications.warn("Ce personnage est Envoûté");
+    if (actor.conditions.paralyzed && trihn === "Corps") return ui.notifications.warn("Ce personnage est Paralysé");
+    if (actor.conditions.dominated && trihn === "Esprit") return ui.notifications.warn("Ce personnage est Dominé");
+    if (actor.conditions.bewitched && trihn === "Ame") return ui.notifications.warn("Ce personnage est Envoûté");
 
     Dice.trihnTest({
       actor,
