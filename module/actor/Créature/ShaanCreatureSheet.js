@@ -28,7 +28,7 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
         owner: this.actor.isOwner,
         title: this.title,
         actor: actorData,
-        data: actorData.system,
+        system: actorData.system,
         items: actorData.items,
         config: CONFIG.shaanRenaissance,
         user: {
@@ -47,14 +47,11 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
     var _a, _b, _c;
     super.activateListeners(html);
     const $html = html[0];
-    if ((this.itemRenderer.activateListeners($html), !this.options.editable))
-      return;
+    if ((this.itemRenderer.activateListeners($html), !this.options.editable)) return;
     if (this.isEditable) {
       html.find(".open-compendium").on("click", (event) => {
         if (event.currentTarget.dataset.compendium) {
-          const compendium = game.packs.get(
-            event.currentTarget.dataset.compendium
-          );
+          const compendium = game.packs.get(event.currentTarget.dataset.compendium);
           console.log(compendium);
           compendium && compendium.render(!0);
         }
@@ -68,13 +65,7 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
     }
     html.find(".item-increase-quantity").on("click", (event) => {
       var _a;
-      const itemId =
-          null !==
-            (_a = $(event.currentTarget)
-              .parents(".item")
-              .attr("data-item-id")) && void 0 !== _a
-            ? _a
-            : "",
+      const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
       console.log(event);
       if (!event.shiftKey && !event.ctrlKey) {
@@ -104,13 +95,7 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
     }),
       html.find(".item-decrease-quantity").on("click", (event) => {
         var _a;
-        const itemId =
-            null !==
-              (_a = $(event.currentTarget)
-                .parents(".item")
-                .attr("data-item-id")) && void 0 !== _a
-              ? _a
-              : "",
+        const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
         console.log(item.system.quantity);
         if (!event.shiftKey && !event.ctrlKey) {

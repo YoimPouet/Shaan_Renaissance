@@ -46,7 +46,7 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
         owner: this.actor.isOwner,
         title: this.title,
         actor: actorData,
-        data: actorData.system,
+        system: actorData.system,
         items: actorData.items,
         flags: actorData.flags,
         prototypeToken: actorData.prototypeToken,

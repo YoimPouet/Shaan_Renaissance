@@ -2,11 +2,7 @@
   <div class="form-group">
     <label>Type de Trihn</label>
     <select name="trihn" value="{{trihn}}">
-      {{#select trihn}}
-        {{#each config.createTrihn.type as |trihnType|}}
-          <option value="{{@key}}">{{trihnType}}</option>
-        {{/each}}
-      {{/select}}
+      {{selectOptions config.createTrihn.type selected=trihn}}
     </select>
   </div>
   <div class="form-group">

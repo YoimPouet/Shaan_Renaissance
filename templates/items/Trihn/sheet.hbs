@@ -1,27 +1,23 @@
 <form class="item sheet crb-style trihn" autocomplete="off">
-    <header class="sheet-header">
-        <h2 class="item-name">
-            <input name="name" type="text" value="{{item.name}}" placeholder="Nom du item" spellcheck="false" />
-        </h2>
-    </header>
-    <div class="trihn-details">
-        <span class="trihn-type">
-            <label class="details-label" for="{{options.id}}-trihn-type">{{localize "SRLabels.TrihnType"}}</label>
-            <select id="{{options.id}}-trihn-type" name="system.trihnType">
-                {{#select data.trihnType}}
-                {{#each item.system.trihnTypes}}
-                    <option value="{{@key}}">{{@key}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </span>
-        <div class="puissance">
-            <label class="details-label" for="{{options.id}}-trihn-puissance">{{localize "SRLabels.Puissance"}}</label>
-            <input id="{{options.id}}-trihn-puissance" type="number" name="system.puissance" value="{{data.puissance}}"/>
-        </div>
-        <div class="emplacement">
-            <label class="details-label" for="{{options.id}}-trihn-emplacement">{{localize "SRLabels.Emplacement"}}</label>
-            <input id="{{options.id}}-trihn-emplacement" name="system.emplacement" value="{{data.emplacement}}"/>
-        </div>
+  <header class="sheet-header">
+    <h2 class="item-name">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Nom du item" spellcheck="false" />
+    </h2>
+  </header>
+  <div class="trihn-details">
+    <span class="trihn-type">
+      <label class="details-label" for="{{options.id}}-trihn-type">{{localize "SRLabels.TrihnType"}}</label>
+      <select id="{{options.id}}-trihn-type" name="system.trihnType">
+        {{selectOptions item.system.trihnTypes selected=system.trihnType}}
+      </select>
+    </span>
+    <div class="puissance">
+      <label class="details-label" for="{{options.id}}-trihn-puissance">{{localize "SRLabels.Puissance"}}</label>
+      <input id="{{options.id}}-trihn-puissance" type="number" name="system.puissance" value="{{system.puissance}}" />
     </div>
+    <div class="emplacement">
+      <label class="details-label" for="{{options.id}}-trihn-emplacement">{{localize "SRLabels.Emplacement"}}</label>
+      <input id="{{options.id}}-trihn-emplacement" name="system.emplacement" value="{{system.emplacement}}" />
+    </div>
+  </div>
 </form>

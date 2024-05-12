@@ -46,7 +46,7 @@ shaanRenaissance.Item = {
     Caste: CreatorSet,
     Métier: CreatorSet,
     condition: ConditionSR,
-    Symbiose: Symbiose
+    Symbiose: Symbiose,
   },
 };
 shaanRenaissance.macros = {
@@ -175,7 +175,7 @@ shaanRenaissance.pouvoirs = {
     controle: "Contrôle",
     perception: "Perception",
     recuperation: "Récupération",
-    communication: "Communication"
+    communication: "Communication",
   },
   pouvoirFréquence: {
     none: "",
@@ -200,9 +200,8 @@ shaanRenaissance.pouvoirs = {
     testparjour: "1 Test par Jour",
     uneheureptcorps: "1 Heure et 1 point de Corps",
     deuxactoumoinscorps: "2 Actions ou 1 Actions et -1 de Corps",
-    untestdeuxactoumoinscorps:
-      "1 Test toutes les 2 Actions ou 1 Test et -1 points de corps par Action",
-    deuxactionsou3actionsmoinscorps: "2 Actions et -2 points de Corps ou 3 Actions et -1 point de Corps"
+    untestdeuxactoumoinscorps: "1 Test toutes les 2 Actions ou 1 Test et -1 points de corps par Action",
+    deuxactionsou3actionsmoinscorps: "2 Actions et -2 points de Corps ou 3 Actions et -1 point de Corps",
   },
   pouvoirPortée: {
     none: "",
@@ -317,229 +316,129 @@ shaanRenaissance.bestiaryBrowser = {
 shaanRenaissance.activeEffectChanges = {
   spés: {
     Technique: {
-      "data.skills.Technique.specialisations.engrenages.acquis":
-        "SRActiveEffect.changes.engrenagesAcquis",
-      "data.skills.Technique.specialisations.pilotage.acquis":
-        "SRActiveEffect.changes.pilotageAcquis",
-      "data.skills.Technique.specialisations.recuperation.acquis":
-        "SRActiveEffect.changes.recuperationAcquis",
-      "data.skills.Technique.specialisations.sensdelapierre.acquis":
-        "SRActiveEffect.changes.sensdelapierreAcquis",
-      "data.skills.Technique.specialisations.sensdubois.acquisbonus":
-        "SRActiveEffect.changes.sensduboisAcquis",
-      "data.skills.Technique.specialisations.sensducuir.acquis":
-        "SRActiveEffect.changes.sensducuirAcquis",
-      "data.skills.Technique.specialisations.sensdumetal.acquis":
-        "SRActiveEffect.changes.sensdumetalAcquis",
-      "data.skills.Technique.specialisations.sensdutissu.acquis":
-        "SRActiveEffect.changes.sensdutissuAcquis",
-      "data.skills.Technique.specialisations.sensduverre.acquis":
-        "SRActiveEffect.changes.sensduverreAcquis",
-      "data.skills.Technique.specialisations.technologie.acquis":
-        "SRActiveEffect.changes.technologieAcquis",
+      "system.skills.Technique.specialisations.engrenages.acquis": "SRActiveEffect.changes.engrenagesAcquis",
+      "system.skills.Technique.specialisations.pilotage.acquis": "SRActiveEffect.changes.pilotageAcquis",
+      "system.skills.Technique.specialisations.recuperation.acquis": "SRActiveEffect.changes.recuperationAcquis",
+      "system.skills.Technique.specialisations.sensdelapierre.acquis": "SRActiveEffect.changes.sensdelapierreAcquis",
+      "system.skills.Technique.specialisations.sensdubois.acquisbonus": "SRActiveEffect.changes.sensduboisAcquis",
+      "system.skills.Technique.specialisations.sensducuir.acquis": "SRActiveEffect.changes.sensducuirAcquis",
+      "system.skills.Technique.specialisations.sensdumetal.acquis": "SRActiveEffect.changes.sensdumetalAcquis",
+      "system.skills.Technique.specialisations.sensdutissu.acquis": "SRActiveEffect.changes.sensdutissuAcquis",
+      "system.skills.Technique.specialisations.sensduverre.acquis": "SRActiveEffect.changes.sensduverreAcquis",
+      "system.skills.Technique.specialisations.technologie.acquis": "SRActiveEffect.changes.technologieAcquis",
     },
     Savoir: {
-      "data.skills.Savoir.specialisations.alchimie.acquis":
-        "SRActiveEffect.changes.alchimieAcquis",
-      "data.skills.Savoir.specialisations.bibliotheque.acquis":
-        "SRActiveEffect.changes.bibliothequeAcquis",
-      "data.skills.Savoir.specialisations.botanique.acquis":
-        "SRActiveEffect.changes.botaniqueAcquis",
-      "data.skills.Savoir.specialisations.culturehumaine.acquis":
-        "SRActiveEffect.changes.culturehumaineAcquis",
-      "data.skills.Savoir.specialisations.esoterisme.acquis":
-        "SRActiveEffect.changes.esoterismeAcquis",
-      "data.skills.Savoir.specialisations.geologie.acquis":
-        "SRActiveEffect.changes.geologieAcquis",
-      "data.skills.Savoir.specialisations.histoiredheos.acquis":
-        "SRActiveEffect.changes.histoiredheosAcquis",
-      "data.skills.Savoir.specialisations.medecine.acquis":
-        "SRActiveEffect.changes.medecineAcquis",
-      "data.skills.Savoir.specialisations.protocoles.acquis":
-        "SRActiveEffect.changes.protocolesAcquis",
-      "data.skills.Savoir.specialisations.zoologie.acquis":
-        "SRActiveEffect.changes.zoologieAcquis",
+      "system.skills.Savoir.specialisations.alchimie.acquis": "SRActiveEffect.changes.alchimieAcquis",
+      "system.skills.Savoir.specialisations.bibliotheque.acquis": "SRActiveEffect.changes.bibliothequeAcquis",
+      "system.skills.Savoir.specialisations.botanique.acquis": "SRActiveEffect.changes.botaniqueAcquis",
+      "system.skills.Savoir.specialisations.culturehumaine.acquis": "SRActiveEffect.changes.culturehumaineAcquis",
+      "system.skills.Savoir.specialisations.esoterisme.acquis": "SRActiveEffect.changes.esoterismeAcquis",
+      "system.skills.Savoir.specialisations.geologie.acquis": "SRActiveEffect.changes.geologieAcquis",
+      "system.skills.Savoir.specialisations.histoiredheos.acquis": "SRActiveEffect.changes.histoiredheosAcquis",
+      "system.skills.Savoir.specialisations.medecine.acquis": "SRActiveEffect.changes.medecineAcquis",
+      "system.skills.Savoir.specialisations.protocoles.acquis": "SRActiveEffect.changes.protocolesAcquis",
+      "system.skills.Savoir.specialisations.zoologie.acquis": "SRActiveEffect.changes.zoologieAcquis",
     },
     Social: {
-      "data.skills.Social.specialisations.arpege.acquis":
-        "SRActiveEffect.changes.arpegeAcquis",
-      "data.skills.Social.specialisations.bluff.acquis":
-        "SRActiveEffect.changes.bluffAcquis",
-      "data.skills.Social.specialisations.commerce.acquis":
-        "SRActiveEffect.changes.commerceAcquis",
-      "data.skills.Social.specialisations.diplomatie.acquis":
-        "SRActiveEffect.changes.diplomatieAcquis",
-      "data.skills.Social.specialisations.enseignement.acquis":
-        "SRActiveEffect.changes.enseignementAcquis",
-      "data.skills.Social.specialisations.langageprimal.acquis":
-        "SRActiveEffect.changes.langageprimalAcquis",
-      "data.skills.Social.specialisations.languesexotiques.acquis":
-        "SRActiveEffect.changes.languesexotiquesAcquis",
-      "data.skills.Social.specialisations.psychologie.acquis":
-        "SRActiveEffect.changes.psychologieAcquis",
-      "data.skills.Social.specialisations.seduction.acquis":
-        "SRActiveEffect.changes.seductionAcquis",
-      "data.skills.Social.specialisations.vieurbaine.acquis":
-        "SRActiveEffect.changes.vieurbaineAcquis",
+      "system.skills.Social.specialisations.arpege.acquis": "SRActiveEffect.changes.arpegeAcquis",
+      "system.skills.Social.specialisations.bluff.acquis": "SRActiveEffect.changes.bluffAcquis",
+      "system.skills.Social.specialisations.commerce.acquis": "SRActiveEffect.changes.commerceAcquis",
+      "system.skills.Social.specialisations.diplomatie.acquis": "SRActiveEffect.changes.diplomatieAcquis",
+      "system.skills.Social.specialisations.enseignement.acquis": "SRActiveEffect.changes.enseignementAcquis",
+      "system.skills.Social.specialisations.langageprimal.acquis": "SRActiveEffect.changes.langageprimalAcquis",
+      "system.skills.Social.specialisations.languesexotiques.acquis": "SRActiveEffect.changes.languesexotiquesAcquis",
+      "system.skills.Social.specialisations.psychologie.acquis": "SRActiveEffect.changes.psychologieAcquis",
+      "system.skills.Social.specialisations.seduction.acquis": "SRActiveEffect.changes.seductionAcquis",
+      "system.skills.Social.specialisations.vieurbaine.acquis": "SRActiveEffect.changes.vieurbaineAcquis",
     },
     Arts: {
-      "data.skills.Arts.specialisations.artsappliques.acquis":
-        "SRActiveEffect.changes.artsappliquesAcquis",
-      "data.skills.Arts.specialisations.artsdufeu.acquis":
-        "SRActiveEffect.changes.artsdufeuAcquis",
-      "data.skills.Arts.specialisations.chant.acquis":
-        "SRActiveEffect.changes.chantAcquis",
-      "data.skills.Arts.specialisations.comedie.acquis":
-        "SRActiveEffect.changes.comedieAcquis",
-      "data.skills.Arts.specialisations.deguisement.acquis":
-        "SRActiveEffect.changes.deguisementAcquis",
-      "data.skills.Arts.specialisations.gastronomie.acquis":
-        "SRActiveEffect.changes.gastronomieAcquis",
-      "data.skills.Arts.specialisations.langageducorps.acquis":
-        "SRActiveEffect.changes.langageducorpsAcquis",
-      "data.skills.Arts.specialisations.lettres.acquis":
-        "SRActiveEffect.changes.lettresAcquis",
-      "data.skills.Arts.specialisations.musique.acquis":
-        "SRActiveEffect.changes.musiqueAcquis",
-      "data.skills.Arts.specialisations.trucages.acquis":
-        "SRActiveEffect.changes.trucagesAcquis",
+      "system.skills.Arts.specialisations.artsappliques.acquis": "SRActiveEffect.changes.artsappliquesAcquis",
+      "system.skills.Arts.specialisations.artsdufeu.acquis": "SRActiveEffect.changes.artsdufeuAcquis",
+      "system.skills.Arts.specialisations.chant.acquis": "SRActiveEffect.changes.chantAcquis",
+      "system.skills.Arts.specialisations.comedie.acquis": "SRActiveEffect.changes.comedieAcquis",
+      "system.skills.Arts.specialisations.deguisement.acquis": "SRActiveEffect.changes.deguisementAcquis",
+      "system.skills.Arts.specialisations.gastronomie.acquis": "SRActiveEffect.changes.gastronomieAcquis",
+      "system.skills.Arts.specialisations.langageducorps.acquis": "SRActiveEffect.changes.langageducorpsAcquis",
+      "system.skills.Arts.specialisations.lettres.acquis": "SRActiveEffect.changes.lettresAcquis",
+      "system.skills.Arts.specialisations.musique.acquis": "SRActiveEffect.changes.musiqueAcquis",
+      "system.skills.Arts.specialisations.trucages.acquis": "SRActiveEffect.changes.trucagesAcquis",
     },
     Shaan: {
-      "data.skills.Shaan.specialisations.embiose.acquis":
-        "SRActiveEffect.changes.embioseAcquis",
-      "data.skills.Shaan.specialisations.empathieanimale.acquis":
-        "SRActiveEffect.changes.empathieanimaleAcquis",
-      "data.skills.Shaan.specialisations.empathieantheenne.acquis":
-        "SRActiveEffect.changes.empathieantheenneAcquis",
-      "data.skills.Shaan.specialisations.empathieminerale.acquis":
-        "SRActiveEffect.changes.empathiemineraleAcquis",
-      "data.skills.Shaan.specialisations.empathievegetale.acquis":
-        "SRActiveEffect.changes.empathievegetaleAcquis",
-      "data.skills.Shaan.specialisations.intuition.acquis":
-        "SRActiveEffect.changes.intuitionAcquis",
-      "data.skills.Shaan.specialisations.reve.acquis":
-        "SRActiveEffect.changes.reveAcquis",
-      "data.skills.Shaan.specialisations.soinsdelame.acquis":
-        "SRActiveEffect.changes.soinsdelameAcquis",
-      "data.skills.Shaan.specialisations.soinsdelesprit.acquis":
-        "SRActiveEffect.changes.soinsdelespritAcquis",
-      "data.skills.Shaan.specialisations.soinsducorps.acquis":
-        "SRActiveEffect.changes.soinsducorpsAcquis",
+      "system.skills.Shaan.specialisations.embiose.acquis": "SRActiveEffect.changes.embioseAcquis",
+      "system.skills.Shaan.specialisations.empathieanimale.acquis": "SRActiveEffect.changes.empathieanimaleAcquis",
+      "system.skills.Shaan.specialisations.empathieantheenne.acquis": "SRActiveEffect.changes.empathieantheenneAcquis",
+      "system.skills.Shaan.specialisations.empathieminerale.acquis": "SRActiveEffect.changes.empathiemineraleAcquis",
+      "system.skills.Shaan.specialisations.empathievegetale.acquis": "SRActiveEffect.changes.empathievegetaleAcquis",
+      "system.skills.Shaan.specialisations.intuition.acquis": "SRActiveEffect.changes.intuitionAcquis",
+      "system.skills.Shaan.specialisations.reve.acquis": "SRActiveEffect.changes.reveAcquis",
+      "system.skills.Shaan.specialisations.soinsdelame.acquis": "SRActiveEffect.changes.soinsdelameAcquis",
+      "system.skills.Shaan.specialisations.soinsdelesprit.acquis": "SRActiveEffect.changes.soinsdelespritAcquis",
+      "system.skills.Shaan.specialisations.soinsducorps.acquis": "SRActiveEffect.changes.soinsducorpsAcquis",
     },
     Magie: {
-      "data.skills.Magie.specialisations.arcanes.acquis":
-        "SRActiveEffect.changes.arcanesAcquis",
-      "data.skills.Magie.specialisations.conjuration.acquis":
-        "SRActiveEffect.changes.conjurationAcquis",
-      "data.skills.Magie.specialisations.defensemagique.acquis":
-        "SRActiveEffect.changes.defensemagiqueAcquis",
-      "data.skills.Magie.specialisations.enchantement.acquis":
-        "SRActiveEffect.changes.enchantementAcquis",
-      "data.skills.Magie.specialisations.invocation.acquis":
-        "SRActiveEffect.changes.invocationAcquis",
-      "data.skills.Magie.specialisations.incandescence.acquis":
-        "SRActiveEffect.changes.incandescenceAcquis",
-      "data.skills.Magie.specialisations.maitrisedesschemes.acquis":
-        "SRActiveEffect.changes.maitrisedesschemesAcquis",
-      "data.skills.Magie.specialisations.regenerationdetrihn.acquis":
-        "SRActiveEffect.changes.regenerationdetrihnAcquis",
-      "data.skills.Magie.specialisations.transfert.acquis":
-        "SRActiveEffect.changes.transfertAcquis",
-      "data.skills.Magie.specialisations.voile.acquis":
-        "SRActiveEffect.changes.voileAcquis",
+      "system.skills.Magie.specialisations.arcanes.acquis": "SRActiveEffect.changes.arcanesAcquis",
+      "system.skills.Magie.specialisations.conjuration.acquis": "SRActiveEffect.changes.conjurationAcquis",
+      "system.skills.Magie.specialisations.defensemagique.acquis": "SRActiveEffect.changes.defensemagiqueAcquis",
+      "system.skills.Magie.specialisations.enchantement.acquis": "SRActiveEffect.changes.enchantementAcquis",
+      "system.skills.Magie.specialisations.invocation.acquis": "SRActiveEffect.changes.invocationAcquis",
+      "system.skills.Magie.specialisations.incandescence.acquis": "SRActiveEffect.changes.incandescenceAcquis",
+      "system.skills.Magie.specialisations.maitrisedesschemes.acquis": "SRActiveEffect.changes.maitrisedesschemesAcquis",
+      "system.skills.Magie.specialisations.regenerationdetrihn.acquis": "SRActiveEffect.changes.regenerationdetrihnAcquis",
+      "system.skills.Magie.specialisations.transfert.acquis": "SRActiveEffect.changes.transfertAcquis",
+      "system.skills.Magie.specialisations.voile.acquis": "SRActiveEffect.changes.voileAcquis",
     },
     Rituels: {
-      "data.skills.Rituels.specialisations.ritedarts.acquis":
-        "SRActiveEffect.changes.ritedartsAcquis",
-      "data.skills.Rituels.specialisations.ritedecombat.acquis":
-        "SRActiveEffect.changes.ritedecombatAcquis",
-      "data.skills.Rituels.specialisations.ritedelanimal.acquis":
-        "SRActiveEffect.changes.ritedelanimalAcquis",
-      "data.skills.Rituels.specialisations.ritedemagie.acquis":
-        "SRActiveEffect.changes.ritedemagieAcquis",
-      "data.skills.Rituels.specialisations.ritedenecrose.acquis":
-        "SRActiveEffect.changes.ritedenecroseAcquis",
-      "data.skills.Rituels.specialisations.ritedesavoir.acquis":
-        "SRActiveEffect.changes.ritedesavoirAcquis",
-      "data.skills.Rituels.specialisations.ritedeshaan.acquis":
-        "SRActiveEffect.changes.ritedeshaanAcquis",
-      "data.skills.Rituels.specialisations.ritedesocial.acquis":
-        "SRActiveEffect.changes.ritedesocialAcquis",
-      "data.skills.Rituels.specialisations.ritedesurvie.acquis":
-        "SRActiveEffect.changes.ritedesurvieAcquis",
-      "data.skills.Rituels.specialisations.ritedetechnique.acquis":
-        "SRActiveEffect.changes.ritedetechniqueAcquis",
+      "system.skills.Rituels.specialisations.ritedarts.acquis": "SRActiveEffect.changes.ritedartsAcquis",
+      "system.skills.Rituels.specialisations.ritedecombat.acquis": "SRActiveEffect.changes.ritedecombatAcquis",
+      "system.skills.Rituels.specialisations.ritedelanimal.acquis": "SRActiveEffect.changes.ritedelanimalAcquis",
+      "system.skills.Rituels.specialisations.ritedemagie.acquis": "SRActiveEffect.changes.ritedemagieAcquis",
+      "system.skills.Rituels.specialisations.ritedenecrose.acquis": "SRActiveEffect.changes.ritedenecroseAcquis",
+      "system.skills.Rituels.specialisations.ritedesavoir.acquis": "SRActiveEffect.changes.ritedesavoirAcquis",
+      "system.skills.Rituels.specialisations.ritedeshaan.acquis": "SRActiveEffect.changes.ritedeshaanAcquis",
+      "system.skills.Rituels.specialisations.ritedesocial.acquis": "SRActiveEffect.changes.ritedesocialAcquis",
+      "system.skills.Rituels.specialisations.ritedesurvie.acquis": "SRActiveEffect.changes.ritedesurvieAcquis",
+      "system.skills.Rituels.specialisations.ritedetechnique.acquis": "SRActiveEffect.changes.ritedetechniqueAcquis",
     },
     Survie: {
-      "data.skills.Survie.specialisations.acrobatie.acquis":
-        "SRActiveEffect.changes.acrobatieAcquis",
-      "data.skills.Survie.specialisations.caravane.acquis":
-        "SRActiveEffect.changes.caravaneAcquis",
-      "data.skills.Survie.specialisations.cultureheossienne.acquis":
-        "SRActiveEffect.changes.cultureheossienneAcquis",
-      "data.skills.Survie.specialisations.culturenecrosienne.acquis":
-        "SRActiveEffect.changes.culturenecrosienneAcquis",
-      "data.skills.Survie.specialisations.discretion.acquis":
-        "SRActiveEffect.changes.discretionAcquis",
-      "data.skills.Survie.specialisations.educationphysique.acquis":
-        "SRActiveEffect.changes.educationphysiqueAcquis",
-      "data.skills.Survie.specialisations.monture.acquis":
-        "SRActiveEffect.changes.montureAcquis",
-      "data.skills.Survie.specialisations.navigation.acquis":
-        "SRActiveEffect.changes.navigationAcquis",
-      "data.skills.Survie.specialisations.viesauvage.acquis":
-        "SRActiveEffect.changes.viesauvageAcquis",
-      "data.skills.Survie.specialisations.vigilance.acquis":
-        "SRActiveEffect.changes.vigilanceAcquis",
+      "system.skills.Survie.specialisations.acrobatie.acquis": "SRActiveEffect.changes.acrobatieAcquis",
+      "system.skills.Survie.specialisations.caravane.acquis": "SRActiveEffect.changes.caravaneAcquis",
+      "system.skills.Survie.specialisations.cultureheossienne.acquis": "SRActiveEffect.changes.cultureheossienneAcquis",
+      "system.skills.Survie.specialisations.culturenecrosienne.acquis": "SRActiveEffect.changes.culturenecrosienneAcquis",
+      "system.skills.Survie.specialisations.discretion.acquis": "SRActiveEffect.changes.discretionAcquis",
+      "system.skills.Survie.specialisations.educationphysique.acquis": "SRActiveEffect.changes.educationphysiqueAcquis",
+      "system.skills.Survie.specialisations.monture.acquis": "SRActiveEffect.changes.montureAcquis",
+      "system.skills.Survie.specialisations.navigation.acquis": "SRActiveEffect.changes.navigationAcquis",
+      "system.skills.Survie.specialisations.viesauvage.acquis": "SRActiveEffect.changes.viesauvageAcquis",
+      "system.skills.Survie.specialisations.vigilance.acquis": "SRActiveEffect.changes.vigilanceAcquis",
     },
     Combat: {
-      "data.skills.Combat.specialisations.armeslancees.acquis":
-        "SRActiveEffect.changes.armeslanceesAcquis",
-      "data.skills.Combat.specialisations.armesdemelee.acquis":
-        "SRActiveEffect.changes.armesdemeleeAcquis",
-      "data.skills.Combat.specialisations.armesaprojectiles.acquis":
-        "SRActiveEffect.changes.armesaprojectilesAcquis",
-      "data.skills.Combat.specialisations.armimales.acquis":
-        "SRActiveEffect.changes.armimalesAcquis",
-      "data.skills.Combat.specialisations.enginsdeguerre.acquis":
-        "SRActiveEffect.changes.enginsdeguerreAcquis",
-      "data.skills.Combat.specialisations.esquive.acquis":
-        "SRActiveEffect.changes.esquiveAcquis",
-      "data.skills.Combat.specialisations.forcer.acquis":
-        "SRActiveEffect.changes.forcerAcquis",
-      "data.skills.Combat.specialisations.intimidation.acquis":
-        "SRActiveEffect.changes.intimidationAcquis",
-      "data.skills.Combat.specialisations.pugilat.acquis":
-        "SRActiveEffect.changes.pugilatAcquis",
-      "data.skills.Combat.specialisations.strategie.acquis":
-        "SRActiveEffect.changes.strategieAcquis",
+      "system.skills.Combat.specialisations.armeslancees.acquis": "SRActiveEffect.changes.armeslanceesAcquis",
+      "system.skills.Combat.specialisations.armesdemelee.acquis": "SRActiveEffect.changes.armesdemeleeAcquis",
+      "system.skills.Combat.specialisations.armesaprojectiles.acquis": "SRActiveEffect.changes.armesaprojectilesAcquis",
+      "system.skills.Combat.specialisations.armimales.acquis": "SRActiveEffect.changes.armimalesAcquis",
+      "system.skills.Combat.specialisations.enginsdeguerre.acquis": "SRActiveEffect.changes.enginsdeguerreAcquis",
+      "system.skills.Combat.specialisations.esquive.acquis": "SRActiveEffect.changes.esquiveAcquis",
+      "system.skills.Combat.specialisations.forcer.acquis": "SRActiveEffect.changes.forcerAcquis",
+      "system.skills.Combat.specialisations.intimidation.acquis": "SRActiveEffect.changes.intimidationAcquis",
+      "system.skills.Combat.specialisations.pugilat.acquis": "SRActiveEffect.changes.pugilatAcquis",
+      "system.skills.Combat.specialisations.strategie.acquis": "SRActiveEffect.changes.strategieAcquis",
     },
     Nécrose: {
-      "data.skills.Nécrose.specialisations.armeshumaines.acquis":
-        "SRActiveEffect.changes.armeshumainesAcquis",
-      "data.skills.Nécrose.specialisations.biomorphie.acquis":
-        "SRActiveEffect.changes.biomorphieAcquis",
-      "data.skills.Nécrose.specialisations.cauchemar.acquis":
-        "SRActiveEffect.changes.cauchemarAcquis",
-      "data.skills.Nécrose.specialisations.contrebande.acquis":
-        "SRActiveEffect.changes.contrebandeAcquis",
-      "data.skills.Nécrose.specialisations.corruption.acquis":
-        "SRActiveEffect.changes.corruptionAcquis",
-      "data.skills.Nécrose.specialisations.explosifs.acquis":
-        "SRActiveEffect.changes.explosifsAcquis",
-      "data.skills.Nécrose.specialisations.fraude.acquis":
-        "SRActiveEffect.changes.fraudeAcquis",
-      "data.skills.Nécrose.specialisations.harcelement.acquis":
-        "SRActiveEffect.changes.harcelementAcquis",
-      "data.skills.Nécrose.specialisations.larcin.acquis":
-        "SRActiveEffect.changes.larcinAcquis",
-      "data.skills.Nécrose.specialisations.pactenecrotique.acquis":
-        "SRActiveEffect.changes.pactenecrotiqueAcquis",
+      "system.skills.Nécrose.specialisations.armeshumaines.acquis": "SRActiveEffect.changes.armeshumainesAcquis",
+      "system.skills.Nécrose.specialisations.biomorphie.acquis": "SRActiveEffect.changes.biomorphieAcquis",
+      "system.skills.Nécrose.specialisations.cauchemar.acquis": "SRActiveEffect.changes.cauchemarAcquis",
+      "system.skills.Nécrose.specialisations.contrebande.acquis": "SRActiveEffect.changes.contrebandeAcquis",
+      "system.skills.Nécrose.specialisations.corruption.acquis": "SRActiveEffect.changes.corruptionAcquis",
+      "system.skills.Nécrose.specialisations.explosifs.acquis": "SRActiveEffect.changes.explosifsAcquis",
+      "system.skills.Nécrose.specialisations.fraude.acquis": "SRActiveEffect.changes.fraudeAcquis",
+      "system.skills.Nécrose.specialisations.harcelement.acquis": "SRActiveEffect.changes.harcelementAcquis",
+      "system.skills.Nécrose.specialisations.larcin.acquis": "SRActiveEffect.changes.larcinAcquis",
+      "system.skills.Nécrose.specialisations.pactenecrotique.acquis": "SRActiveEffect.changes.pactenecrotiqueAcquis",
     },
   },
   protections: {
-    "data.protections.esprit.value": "SRLabels.Esprit",
-    "data.protections.ame.value": "SRLabels.Ame",
-    "data.protections.corps.value": "SRLabels.Corps",
+    "system.protections.esprit.value": "SRLabels.Esprit",
+    "system.protections.ame.value": "SRLabels.Ame",
+    "system.protections.corps.value": "SRLabels.Corps",
   },
 };

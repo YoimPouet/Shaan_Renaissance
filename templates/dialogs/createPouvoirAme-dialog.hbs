@@ -2,11 +2,7 @@
   <div class="form-group">
     <label>Type de Pouvoir</label>
     <select name="type" value="{{type}}">
-    {{#select type}}
-      {{#each config.createPouvoir.ame as |pouvoirType|}}
-      <option value="{{@key}}">{{@key}}</option> 
-      {{/each}}
-    {{/select}}
+      {{selectOptions config.createPouvoir.ame selected=type}}
     </select>
   </div>
 </form>

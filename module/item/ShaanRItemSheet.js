@@ -30,7 +30,7 @@ export default class ShaanRItemSheet extends ItemSheet {
         parent: this.item.parent,
         title: this.title,
         item: itemData,
-        data: itemData.system,
+        system: itemData.system,
         effects: itemData.effects,
         config: CONFIG.shaanRenaissance,
         user: {
@@ -57,9 +57,7 @@ export default class ShaanRItemSheet extends ItemSheet {
     const tr = a.closest("tr");
     let effect;
     if (tr) {
-      effect = tr.dataset.effectId
-        ? owner.effects.get(tr.dataset.effectId)
-        : null;
+      effect = tr.dataset.effectId ? owner.effects.get(tr.dataset.effectId) : null;
     }
     console.log(effect);
 

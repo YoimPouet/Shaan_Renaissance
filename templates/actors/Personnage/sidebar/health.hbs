@@ -1,5 +1,5 @@
 <div class="sidebar_title">
-    <h2><span>{{localize "SRLabels.Trihns"}}</span><a class="regen-hp" title="{{localize "SR.RegenTitle"}}"><i class="fa-solid fa-bed"></i></a><input type="checkbox" id="isNecrosian" style="display:none;" name="system.attributes.isNecrosian" {{checked data.attributes.isNecrosian}}><label for="isNecrosian" style="cursor:pointer;float:right;margin-right:3px;"><i class="fa-solid fa-skull"></i></label></h2>
+    <h2><span>{{localize "SRLabels.Trihns"}}</span><a class="regen-hp" title="{{localize "SR.RegenTitle"}}"><i class="fa-solid fa-bed"></i></a><input type="checkbox" id="isNecrosian" style="display:none;" name="system.attributes.isNecrosian" {{checked system.attributes.isNecrosian}}><label for="isNecrosian" style="cursor:pointer;float:right;margin-right:3px;"><i class="fa-solid fa-skull"></i></label></h2>
 </div>
 <div class="HP">
     <div class="hp-big">
@@ -10,10 +10,10 @@
                 <h3 class="sidebar_label">{{localize "SRLabels.Esprit"}}</h3>
             </span>
             <div class="data-value hpActuel-esprit" title="Esprit Actuel">
-                <input class="select-input" name="system.attributes.hpEsprit.value" id="{{option.id}}-pc-hp-esprit-value" type="number" value="{{data.attributes.hpEsprit.value}}" max="{{data.attributes.hpEsprit.max}}">
+                <input class="select-input" name="system.attributes.hpEsprit.value" id="{{option.id}}-pc-hp-esprit-value" type="number" value="{{system.attributes.hpEsprit.value}}" max="{{system.attributes.hpEsprit.max}}">
             </div>
             <div class="data-value hpMax-esprit" title="Esprit Max">
-            <h2 class="hpMax-Esprit">/{{data.attributes.hpEsprit.max}}</h2>            
+            <h2 class="hpMax-Esprit">/{{system.attributes.hpEsprit.max}}</h2>            
             </div>
             <span class="ame-label">
                 <a class="trihnTest" data-trihn="Ame">
@@ -22,21 +22,21 @@
                 <h3 class="sidebar_label">{{localize "SRLabels.Ame"}}</h3>
             </span>
             <div class="data-value hpActuel-ame" title="Âme Actuel">
-                <input class="select-input" name="system.attributes.hpAme.value" id="{{option.id}}-pc-hp-ame-value" type="number" value="{{data.attributes.hpAme.value}}" max="{{data.attributes.hpAme.max}}">
+                <input class="select-input" name="system.attributes.hpAme.value" id="{{option.id}}-pc-hp-ame-value" type="number" value="{{system.attributes.hpAme.value}}" max="{{system.attributes.hpAme.max}}">
             </div>
-            {{#unless data.attributes.isNecrosian}}
+            {{#unless system.attributes.isNecrosian}}
             <div class="data-value hpMax-ame" title="Âme Max">
-            <h2 class="hpMax-Ame">/{{data.attributes.hpAme.max}}</h2>            
+            <h2 class="hpMax-Ame">/{{system.attributes.hpAme.max}}</h2>            
             </div>
             {{/unless}}
-            {{#if data.attributes.isNecrosian}}
+            {{#if system.attributes.isNecrosian}}
             <div class="data-value hpMax-ame" title="Âme Max">
             <span style="color:var(--tertiary);margin:0">/</span><input
                 class="select-input"
                 name="system.attributes.hpAme.max"
                 id="{{option.id}}-pc-hp-ame-max"
                 type="number"
-                value="{{data.attributes.hpAme.max}}"
+                value="{{system.attributes.hpAme.max}}"
             />
             </div>
             {{/if}}
@@ -47,10 +47,10 @@
                 <h3 class="sidebar_label">{{localize "SRLabels.Corps"}}</h3>
                 </span>
                 <div class="data-value hpActuel-corps" title="Corps Actuel">
-                    <input class="select-input" name="system.attributes.hpCorps.value" id="{{option.id}}-pc-hp-corps-value" type="number" value="{{data.attributes.hpCorps.value}}" max="{{data.attributes.hpCorps.max}}">
+                    <input class="select-input" name="system.attributes.hpCorps.value" id="{{option.id}}-pc-hp-corps-value" type="number" value="{{system.attributes.hpCorps.value}}" max="{{system.attributes.hpCorps.max}}">
                 </div>
                 <div class="data-value hpMax-corps" title="Corps Max">
-                    <h2 class="hpMax-Corps">/{{data.attributes.hpCorps.max}}</h2>
+                    <h2 class="hpMax-Corps">/{{system.attributes.hpCorps.max}}</h2>
                 </div>
     </div>
 </div>

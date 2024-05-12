@@ -4,26 +4,21 @@ export class SRActiveEffectConfig extends ActiveEffectConfig {
   }
   async getData(options = {}) {
     const context = await super.getData(options);
-    context.descriptionHTML = await TextEditor.enrichHTML(
-      this.object.description,
-      (context.config = CONFIG.shaanRenaissance),
-      { async: true, secrets: this.object.isOwner }
-    );
+    context.descriptionHTML = await TextEditor.enrichHTML(this.object.description, (context.config = CONFIG.shaanRenaissance), {
+      async: true,
+      secrets: this.object.isOwner,
+    });
     const legacyTransfer = CONFIG.ActiveEffect.legacyTransferral;
     const labels = {
       transfer: {
-        name: game.i18n.localize(
-          `EFFECT.Transfer${legacyTransfer ? "Legacy" : ""}`
-        ),
-        hint: game.i18n.localize(
-          `EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`
-        ),
+        name: game.i18n.localize(`EFFECT.Transfer${legacyTransfer ? "Legacy" : ""}`),
+        hint: game.i18n.localize(`EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`),
       },
     };
     const data = {
       labels,
       effect: this.object, // Backwards compatibility
-      data: this.object,
+      system: this.object,
       isActorEffect: this.object.parent.documentName === "Actor",
       isItemEffect: this.object.parent.documentName === "Item",
       submitText: "EFFECT.Submit",

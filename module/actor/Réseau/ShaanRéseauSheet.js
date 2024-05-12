@@ -38,7 +38,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
         owner: this.actor.isOwner,
         title: this.title,
         actor: actorData,
-        data: actorData.system,
+        system: actorData.system,
         items: actorData.items,
         config: CONFIG.shaanRenaissance,
         user: {

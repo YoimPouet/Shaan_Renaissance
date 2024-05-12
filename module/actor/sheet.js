@@ -17,59 +17,37 @@ export class ActorSheetSR extends ActorSheet {
       }) !== undefined
     ) {
       (sheetData.items.Category = {}),
-        (sheetData.items.Category.Armement = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Armement = actorData.items.filter(function (item) {
           return item.type == "Armement" && item.system.morphe == false;
         })),
-        (sheetData.items.Category.Armimales = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Armimales = actorData.items.filter(function (item) {
           return item.type == "Armimale";
         })),
-        (sheetData.items.Category.Artefacts = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Artefacts = actorData.items.filter(function (item) {
           return item.type == "Artefact";
         })),
-        (sheetData.items.Category.Manuscrits = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Manuscrits = actorData.items.filter(function (item) {
           return item.type == "Manuscrit";
         })),
-        (sheetData.items.Category.Outils = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Outils = actorData.items.filter(function (item) {
           return item.type == "Outil" && item.system.morphe == false;
         })),
-        (sheetData.items.Category.Protections = actorData.items.filter(
-          function (item) {
-            return item.type == "Protection" && item.system.morphe == false;
-          }
-        )),
-        (sheetData.items.Category.Relations = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Protections = actorData.items.filter(function (item) {
+          return item.type == "Protection" && item.system.morphe == false;
+        })),
+        (sheetData.items.Category.Relations = actorData.items.filter(function (item) {
           return item.type == "Relation";
         })),
-        (sheetData.items.Category.Richesses = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Richesses = actorData.items.filter(function (item) {
           return item.type == "Richesse";
         })),
-        (sheetData.items.Category.Technologie = actorData.items.filter(
-          function (item) {
-            return item.type == "Technologie" && item.system.morphe == false;
-          }
-        )),
-        (sheetData.items.Category.Transports = actorData.items.filter(function (
-          item
-        ) {
+        (sheetData.items.Category.Technologie = actorData.items.filter(function (item) {
+          return item.type == "Technologie" && item.system.morphe == false;
+        })),
+        (sheetData.items.Category.Transports = actorData.items.filter(function (item) {
           return item.type == "Transport";
         }));
-      sheetData.items.Category.Bâtiments = actorData.items.filter(function (
-        item
-      ) {
+      sheetData.items.Category.Bâtiments = actorData.items.filter(function (item) {
         return item.type == "Bâtiment";
       });
       sheetData.SummonedTrihns = actorData.items.filter(function (item) {
@@ -109,10 +87,7 @@ export class ActorSheetSR extends ActorSheet {
           );
         })),
         (sheetData.pouvoirNecrose = actorData.items.filter(function (item) {
-          return (
-            (item.type == "Pouvoir" && item.system.trihn == "Nécrose") ||
-            item.system.pouvoir.value == "Tourment de Nécrose"
-          );
+          return (item.type == "Pouvoir" && item.system.trihn == "Nécrose") || item.system.pouvoir.value == "Tourment de Nécrose";
         }));
     }
   }
@@ -125,37 +100,25 @@ export class ActorSheetSR extends ActorSheet {
     let avantLastElement = race[race.length - 2];
 
     race.forEach((element) => {
-      if (
-        sheetData.data.attributes &&
-        sheetData.data.attributes.isIndar === false
-      ) {
+      if (sheetData.system.attributes && sheetData.system.attributes.isIndar === false) {
         if (element != lastElement) {
           let itemId = element._id;
           return this.actor.deleteEmbeddedDocuments("Item", [itemId]);
         }
-      } else if (
-        sheetData.data.attributes &&
-        sheetData.data.attributes.isIndar === true
-      ) {
+      } else if (sheetData.system.attributes && sheetData.system.attributes.isIndar === true) {
         if (element != lastElement && element != avantLastElement) {
           let itemId = element._id;
           return this.actor.deleteEmbeddedDocuments("Item", [itemId]);
         }
       }
     });
-    if (
-      sheetData.data.attributes &&
-      sheetData.data.attributes.isIndar == true
-    ) {
+    if (sheetData.system.attributes && sheetData.system.attributes.isIndar == true) {
       sheetData.Race = lastElement;
       sheetData.RaceSecondaire = avantLastElement;
     } else {
       sheetData.Race = lastElement;
     }
-    if (
-      typeof sheetData.data.attributes !== "undefined" &&
-      typeof sheetData.Race !== "undefined"
-    ) {
+    if (typeof sheetData.system.attributes !== "undefined" && typeof sheetData.Race !== "undefined") {
       if (sheetData.Race.name === "Nécrosien") {
         this.actor.update({
           data: {
@@ -205,35 +168,35 @@ export class ActorSheetSR extends ActorSheet {
     sheetData.Metier = lastElement;
   }
   defineMaxHealth(sheetData) {
-    if (typeof sheetData.data.attributes !== "undefined") {
-      if (sheetData.data.attributes.isNecrosian) {
+    if (typeof sheetData.system.attributes !== "undefined") {
+      if (sheetData.system.attributes.isNecrosian) {
         this.actor.update({
           data: {
             attributes: {
               hpEsprit: {
                 max:
                   Math.max(
-                    sheetData.data.skills.Technique.rank,
-                    sheetData.data.skills.Savoir.rank,
-                    sheetData.data.skills.Social.rank
+                    sheetData.system.skills.Technique.rank,
+                    sheetData.system.skills.Savoir.rank,
+                    sheetData.system.skills.Social.rank
                   ) +
                   Math.min(
-                    sheetData.data.skills.Technique.rank,
-                    sheetData.data.skills.Savoir.rank,
-                    sheetData.data.skills.Social.rank
+                    sheetData.system.skills.Technique.rank,
+                    sheetData.system.skills.Savoir.rank,
+                    sheetData.system.skills.Social.rank
                   ),
               },
               hpCorps: {
                 max:
                   Math.max(
-                    sheetData.data.skills.Rituels.rank,
-                    sheetData.data.skills.Survie.rank,
-                    sheetData.data.skills.Combat.rank
+                    sheetData.system.skills.Rituels.rank,
+                    sheetData.system.skills.Survie.rank,
+                    sheetData.system.skills.Combat.rank
                   ) +
                   Math.min(
-                    sheetData.data.skills.Rituels.rank,
-                    sheetData.data.skills.Survie.rank,
-                    sheetData.data.skills.Combat.rank
+                    sheetData.system.skills.Rituels.rank,
+                    sheetData.system.skills.Survie.rank,
+                    sheetData.system.skills.Combat.rank
                   ),
               },
             },
@@ -246,40 +209,40 @@ export class ActorSheetSR extends ActorSheet {
               hpEsprit: {
                 max:
                   Math.max(
-                    sheetData.data.skills.Technique.rank,
-                    sheetData.data.skills.Savoir.rank,
-                    sheetData.data.skills.Social.rank
+                    sheetData.system.skills.Technique.rank,
+                    sheetData.system.skills.Savoir.rank,
+                    sheetData.system.skills.Social.rank
                   ) +
                   Math.min(
-                    sheetData.data.skills.Technique.rank,
-                    sheetData.data.skills.Savoir.rank,
-                    sheetData.data.skills.Social.rank
+                    sheetData.system.skills.Technique.rank,
+                    sheetData.system.skills.Savoir.rank,
+                    sheetData.system.skills.Social.rank
                   ),
               },
               hpAme: {
                 max:
                   Math.max(
-                    sheetData.data.skills.Arts.rank,
-                    sheetData.data.skills.Shaan.rank,
-                    sheetData.data.skills.Magie.rank
+                    sheetData.system.skills.Arts.rank,
+                    sheetData.system.skills.Shaan.rank,
+                    sheetData.system.skills.Magie.rank
                   ) +
                   Math.min(
-                    sheetData.data.skills.Arts.rank,
-                    sheetData.data.skills.Shaan.rank,
-                    sheetData.data.skills.Magie.rank
+                    sheetData.system.skills.Arts.rank,
+                    sheetData.system.skills.Shaan.rank,
+                    sheetData.system.skills.Magie.rank
                   ),
               },
               hpCorps: {
                 max:
                   Math.max(
-                    sheetData.data.skills.Rituels.rank,
-                    sheetData.data.skills.Survie.rank,
-                    sheetData.data.skills.Combat.rank
+                    sheetData.system.skills.Rituels.rank,
+                    sheetData.system.skills.Survie.rank,
+                    sheetData.system.skills.Combat.rank
                   ) +
                   Math.min(
-                    sheetData.data.skills.Rituels.rank,
-                    sheetData.data.skills.Survie.rank,
-                    sheetData.data.skills.Combat.rank
+                    sheetData.system.skills.Rituels.rank,
+                    sheetData.system.skills.Survie.rank,
+                    sheetData.system.skills.Combat.rank
                   ),
               },
             },
@@ -289,16 +252,13 @@ export class ActorSheetSR extends ActorSheet {
     }
   }
   defineInitiative(sheetData, actorData) {
-    if (typeof sheetData.data.attributes !== "undefined") {
-      const domain = sheetData.data.attributes.initiative.statistic,
-        domainValue =
-          actorData.system.skills[domain].rank +
-          actorData.system.skills[domain].temp;
-      sheetData.data.attributes.initiative.value = domainValue;
+    console.log(sheetData);
+    if (typeof sheetData.system.attributes !== "undefined") {
+      const domain = sheetData.system.attributes.initiative.statistic,
+        domainValue = actorData.system.skills[domain].rank + actorData.system.skills[domain].temp;
+      sheetData.system.attributes.initiative.value = domainValue;
       if (game.actors.get(actorData._id)) {
-        game.actors
-          .get(actorData._id)
-          .getRollData().attributes.initiative.value = domainValue;
+        game.actors.get(actorData._id).getRollData().attributes.initiative.value = domainValue;
       }
     }
   }
@@ -326,8 +286,7 @@ export class ActorSheetSR extends ActorSheet {
 
     imageLink.addEventListener("click", () => {
       const actor = this.actor;
-      const title =
-        actor?.token?.name || actor?.prototypeToken?.name || actor.name;
+      const title = actor?.token?.name || actor?.prototypeToken?.name || actor.name;
 
       new ImagePopout(actor.img, {
         title,
@@ -341,10 +300,7 @@ export class ActorSheetSR extends ActorSheet {
   // ICI
   _onSpéTest(event) {
     let actor = this.actor;
-    let domain = $(event.target.closest(".pc"))
-      .children(".specialisations-title")
-      .find(".specialisations-label")
-      .text();
+    let domain = $(event.target.closest(".pc")).children(".specialisations-title").find(".specialisations-label").text();
     let spécialisation = $(event.target)
       .text()
       .toLowerCase()
@@ -370,10 +326,7 @@ export class ActorSheetSR extends ActorSheet {
 
   _onSpéTestNécr(event) {
     let actor = this.actor;
-    let domain = $(event.target.closest(".pc"))
-      .children(".specialisations-title")
-      .find(".specialisations-label")
-      .text();
+    let domain = $(event.target.closest(".pc")).children(".specialisations-title").find(".specialisations-label").text();
     let spécialisation = $(event.target)
       .text()
       .toLowerCase()
@@ -393,8 +346,7 @@ export class ActorSheetSR extends ActorSheet {
       return item.type == "Race";
     });
     let lastElement = race[race.length - 1];
-    if (actor.conditions.unconscious)
-      return ui.notifications.warn("Ce personnage est Inconscient");
+    if (actor.conditions.unconscious) return ui.notifications.warn("Ce personnage est Inconscient");
 
     race.forEach((element) => {
       if (element != lastElement) {
@@ -435,8 +387,7 @@ export class ActorSheetSR extends ActorSheet {
       return item.type == "Race";
     });
     let lastElement = race[race.length - 1];
-    if (actor.conditions.unconscious)
-      return ui.notifications.warn("Ce personnage est Inconscient");
+    if (actor.conditions.unconscious) return ui.notifications.warn("Ce personnage est Inconscient");
 
     race.forEach((element) => {
       if (element != lastElement) {
@@ -459,38 +410,14 @@ export class ActorSheetSR extends ActorSheet {
     let actor = this.actor;
     let hp = actor.system.attributes;
     hp.hpEsprit.max =
-      Math.max(
-        actor.system.skills.Technique.rank,
-        actor.system.skills.Savoir.rank,
-        actor.system.skills.Social.rank
-      ) +
-      Math.min(
-        actor.system.skills.Technique.rank,
-        actor.system.skills.Savoir.rank,
-        actor.system.skills.Social.rank
-      );
+      Math.max(actor.system.skills.Technique.rank, actor.system.skills.Savoir.rank, actor.system.skills.Social.rank) +
+      Math.min(actor.system.skills.Technique.rank, actor.system.skills.Savoir.rank, actor.system.skills.Social.rank);
     hp.hpAme.max =
-      Math.max(
-        actor.system.skills.Arts.rank,
-        actor.system.skills.Shaan.rank,
-        actor.system.skills.Magie.rank
-      ) +
-      Math.min(
-        actor.system.skills.Arts.rank,
-        actor.system.skills.Shaan.rank,
-        actor.system.skills.Magie.rank
-      );
+      Math.max(actor.system.skills.Arts.rank, actor.system.skills.Shaan.rank, actor.system.skills.Magie.rank) +
+      Math.min(actor.system.skills.Arts.rank, actor.system.skills.Shaan.rank, actor.system.skills.Magie.rank);
     hp.hpCorps.max =
-      Math.max(
-        actor.system.skills.Rituels.rank,
-        actor.system.skills.Survie.rank,
-        actor.system.skills.Combat.rank
-      ) +
-      Math.min(
-        actor.system.skills.Rituels.rank,
-        actor.system.skills.Survie.rank,
-        actor.system.skills.Combat.rank
-      );
+      Math.max(actor.system.skills.Rituels.rank, actor.system.skills.Survie.rank, actor.system.skills.Combat.rank) +
+      Math.min(actor.system.skills.Rituels.rank, actor.system.skills.Survie.rank, actor.system.skills.Combat.rank);
 
     Dice.RegenHP({
       actor,
@@ -553,10 +480,7 @@ export class ActorSheetSR extends ActorSheet {
             buttons: {
               normal: {
                 label: game.i18n.localize("chat.actions.create"),
-                callback: (html) =>
-                  resolve(
-                    _processAcquisCreateOptions(html[0].querySelector("form"))
-                  ),
+                callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
               },
               cancel: {
                 label: game.i18n.localize("chat.actions.cancel"),
@@ -602,11 +526,7 @@ export class ActorSheetSR extends ActorSheet {
         actor,
       });
 
-      async function trihnCreate({
-        actor = null,
-        trihn = null,
-        puissance = null,
-      } = {}) {
+      async function trihnCreate({ actor = null, trihn = null, puissance = null } = {}) {
         const actorData = actor ? actor.system : null;
         let checkOptions = await GetPouvoirOptions({ trihn, puissance });
 
@@ -654,10 +574,7 @@ export class ActorSheetSR extends ActorSheet {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.create"),
-                  callback: (html) =>
-                    resolve(
-                      _processAcquisCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),
@@ -729,10 +646,7 @@ export class ActorSheetSR extends ActorSheet {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.create"),
-                  callback: (html) =>
-                    resolve(
-                      _processAcquisCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),
@@ -803,10 +717,7 @@ export class ActorSheetSR extends ActorSheet {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.create"),
-                  callback: (html) =>
-                    resolve(
-                      _processAcquisCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),
@@ -877,10 +788,7 @@ export class ActorSheetSR extends ActorSheet {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.create"),
-                  callback: (html) =>
-                    resolve(
-                      _processAcquisCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),
@@ -972,10 +880,7 @@ export class ActorSheetSR extends ActorSheet {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.graft"),
-                  callback: (html) =>
-                    resolve(
-                      _processGraftCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processGraftCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),
@@ -1008,14 +913,8 @@ export class ActorSheetSR extends ActorSheet {
       acquis: item,
     });
 
-    async function AcquisChat({
-      actor = null,
-      acquis = null,
-      extraMessageData = {},
-      sendMessage = true,
-    } = {}) {
-      const messageTemplate =
-        "systems/shaanrenaissance/templates/chat/acquis-chat.hbs";
+    async function AcquisChat({ actor = null, acquis = null, extraMessageData = {}, sendMessage = true } = {}) {
+      const messageTemplate = "systems/shaanrenaissance/templates/chat/acquis-chat.hbs";
 
       if (sendMessage) {
         ToCustomMessage(actor, acquis, messageTemplate, {
@@ -1024,12 +923,7 @@ export class ActorSheetSR extends ActorSheet {
         });
       }
 
-      async function ToCustomMessage(
-        actor = null,
-        acquis,
-        template,
-        extraData
-      ) {
+      async function ToCustomMessage(actor = null, acquis, template, extraData) {
         let templateContext = {
           ...extraData,
           acquisData: acquis,
@@ -1059,14 +953,8 @@ export class ActorSheetSR extends ActorSheet {
       pouvoir: item,
     });
 
-    async function PouvoirChat({
-      actor = null,
-      pouvoir = null,
-      extraMessageData = {},
-      sendMessage = true,
-    } = {}) {
-      const messageTemplate =
-        "systems/shaanrenaissance/templates/chat/pouvoir-chat.hbs";
+    async function PouvoirChat({ actor = null, pouvoir = null, extraMessageData = {}, sendMessage = true } = {}) {
+      const messageTemplate = "systems/shaanrenaissance/templates/chat/pouvoir-chat.hbs";
 
       if (sendMessage) {
         ToCustomMessage(actor, pouvoir, messageTemplate, {
@@ -1075,12 +963,7 @@ export class ActorSheetSR extends ActorSheet {
         });
       }
 
-      async function ToCustomMessage(
-        actor = null,
-        pouvoir,
-        template,
-        extraData
-      ) {
+      async function ToCustomMessage(actor = null, pouvoir, template, extraData) {
         let templateContext = {
           ...extraData,
           pouvoirData: pouvoir,
@@ -1124,9 +1007,7 @@ export class ActorSheetSR extends ActorSheet {
     const item = this.actor.items.get(itemId);
     const isUsed = item.system.isUsed;
     console.log(item);
-    const effects = this.actor.effects.filter((effect) =>
-      effect.origin.endsWith(itemId)
-    );
+    const effects = this.actor.effects.filter((effect) => effect.origin.endsWith(itemId));
     console.log(effects);
     for (const effect of effects) {
       const isDisabled = effect.disabled;
@@ -1156,17 +1037,14 @@ export class ActorSheetSR extends ActorSheet {
     const itemData = item.toObject();
 
     // Handle item sorting within the same Actor
-    if (this.actor.uuid === item.parent?.uuid)
-      return this._onSortItem(event, itemData);
+    if (this.actor.uuid === item.parent?.uuid) return this._onSortItem(event, itemData);
 
     // Create the owned item
     if (item instanceof Symbiose) {
       if (this.document instanceof ShaaniSR) {
         return this._onDropItemCreate(itemData);
       } else {
-        return ui.notifications.warn(
-          "Une Symbiose ne peut être ajoutées qu'à un Shaani"
-        );
+        return ui.notifications.warn("Une Symbiose ne peut être ajoutées qu'à un Shaani");
       }
     } else if (this.document instanceof LootSR) {
       if (game.user.role == 4) {

@@ -39,10 +39,9 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
     this.itemSort(sheetData.items);
     this.itemFilter(sheetData, actorData);
 
-    sheetData.enrichedGMnotes = await TextEditor.enrichHTML(
-      getProperty(this.actor.system, "details.description"),
-      { async: true }
-    );
+    sheetData.enrichedGMnotes = await TextEditor.enrichHTML(foundry.utils.getProperty(this.actor.system, "details.description"), {
+      async: true,
+    });
 
     console.log(sheetData);
     return sheetData;
@@ -61,11 +60,7 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
             title =
               null !==
                 (_d =
-                  null !==
-                    (_b =
-                      null === (_a = actor.token) || void 0 === _a
-                        ? void 0
-                        : _a.name) && void 0 !== _b
+                  null !== (_b = null === (_a = actor.token) || void 0 === _a ? void 0 : _a.name) && void 0 !== _b
                     ? _b
                     : null === (_c = actor.prototypeToken) || void 0 === _c
                     ? void 0
@@ -82,32 +77,20 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
       return;
 
     if (this.isEditable) {
-      html
-        .find("button[data-action=add-coins]")
-        .click(this._onAddCoins.bind(this));
-      html
-        .find("button[data-action=remove-coins]")
-        .click(this._onRemoveCoins.bind(this));
+      html.find("button[data-action=add-coins]").click(this._onAddCoins.bind(this));
+      html.find("button[data-action=remove-coins]").click(this._onRemoveCoins.bind(this));
       html.find("a.item-take").click(this._onTakeAcquis.bind(this));
       html.find("a.item-buy").click(this._onBuyAcquis.bind(this));
     }
     html.find(".open-compendium").on("click", (event) => {
       if (event.currentTarget.dataset.compendium) {
-        const compendium = game.packs.get(
-          event.currentTarget.dataset.compendium
-        );
+        const compendium = game.packs.get(event.currentTarget.dataset.compendium);
         compendium && compendium.render(!0);
       }
     });
     html.find(".item-increase-quantity").on("click", (event) => {
       var _a;
-      const itemId =
-          null !==
-            (_a = $(event.currentTarget)
-              .parents(".item")
-              .attr("data-item-id")) && void 0 !== _a
-            ? _a
-            : "",
+      const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
       if (!event.shiftKey && !event.ctrlKey) {
         this.actor.updateEmbeddedDocuments("Item", [
@@ -136,13 +119,7 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
     }),
       html.find(".item-decrease-quantity").on("click", (event) => {
         var _a;
-        const itemId =
-            null !==
-              (_a = $(event.currentTarget)
-                .parents(".item")
-                .attr("data-item-id")) && void 0 !== _a
-              ? _a
-              : "",
+        const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
         if (!event.shiftKey && !event.ctrlKey) {
           item.system.quantity > 0 &&
@@ -201,11 +178,7 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
   }
   async lootNPCs(event) {
     event.preventDefault();
-    if (
-      canvas.tokens.controlled.some(
-        (token) => token.actor?.id !== this.actor.id
-      )
-    ) {
+    if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
       await new LootNPCsPopup(this.actor).render(true);
     } else {
       ui.notifications.warn("Aucun token n'est sélectionné.");
@@ -213,22 +186,13 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
   }
   async _onTakeAcquis(event) {
     const LootActorID = this.actor._id;
-    const actors = (0, getSelectedOrOwnActors)([
-      "Personnage",
-      "PNJ",
-      "Créature",
-      "Shaani",
-      "Réseau",
-    ]);
+    const actors = (0, getSelectedOrOwnActors)(["Personnage", "PNJ", "Créature", "Shaani", "Réseau"]);
     const itemID = event.currentTarget.closest(".item").dataset.itemId,
       item = await this.getAcquisItem(itemID, LootActorID);
     console.log(item);
     if (0 !== actors.length) {
-      for (const actor of actors)
-        await actor.createEmbeddedDocuments("Item", [item.toObject()]);
-      1 === actors.length &&
-      game.user.character &&
-      actors[0] === game.user.character
+      for (const actor of actors) await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+      1 === actors.length && game.user.character && actors[0] === game.user.character
         ? ui.notifications.info(
             game.i18n.format("SR.CompendiumBrowser.AddedItemToCharacter", {
               item: item.name,
@@ -241,10 +205,7 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
             })
           );
       return this.actor.deleteEmbeddedDocuments("Item", [itemID]);
-    } else
-      ui.notifications.error(
-        game.i18n.format("SR.ErrorMessage.NoTokenSelected")
-      );
+    } else ui.notifications.error(game.i18n.format("SR.ErrorMessage.NoTokenSelected"));
   }
   async _onBuyAcquis(event) {
     let LootActoruuID = this.actor.uuid;
@@ -252,29 +213,17 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
     if (this.actor.isToken) {
       LootActoruuID = this.actor.token.uuid;
     }
-    const actors = (0, getSelectedOrOwnActors)([
-      "Personnage",
-      "PNJ",
-      "Créature",
-      "Shaani",
-      "Réseau",
-    ]);
+    const actors = (0, getSelectedOrOwnActors)(["Personnage", "PNJ", "Créature", "Shaani", "Réseau"]);
     const itemID = event.currentTarget.closest(".item").dataset.itemId,
       item = await this.getAcquisItem(itemID, LootActoruuID);
-    if (0 === actors.length)
-      return void ui.notifications.error(
-        game.i18n.format("SR.ErrorMessage.NoTokenSelected")
-      );
+    if (0 === actors.length) return void ui.notifications.error(game.i18n.format("SR.ErrorMessage.NoTokenSelected"));
     let purchasesSucceeded = 0;
     for (const actor of actors) {
-      if (Number(actor.system.attributes.crédos) - Number(item.system.acquis.valeur.replace(' crédos', '')) <= 0) {
-        return ui.notifications.warn(
-          "Vous ne pouvez pas vous permettre cet achat."
-        );
+      if (Number(actor.system.attributes.crédos) - Number(item.system.acquis.valeur.replace(" crédos", "")) <= 0) {
+        return ui.notifications.warn("Vous ne pouvez pas vous permettre cet achat.");
       } else {
-        await actor.inventory.removeCoins(Number(item.system.acquis.valeur.replace(' crédos', ''))),
-          (purchasesSucceeded += 1);
-        await this.actor.inventory.addCoins(Number(item.system.acquis.valeur.replace(' crédos', ''))),
+        await actor.inventory.removeCoins(Number(item.system.acquis.valeur.replace(" crédos", ""))), (purchasesSucceeded += 1);
+        await this.actor.inventory.addCoins(Number(item.system.acquis.valeur.replace(" crédos", ""))),
           await actor.createEmbeddedDocuments("Item", [item.toObject()]);
       }
     }
@@ -287,13 +236,10 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
             })
           )
         : ui.notifications.warn(
-            game.i18n.format(
-              "SR.CompendiumBrowser.FailedToBuyItemWithCharacter",
-              {
-                item: item.name,
-                character: actors[0].name,
-              }
-            )
+            game.i18n.format("SR.CompendiumBrowser.FailedToBuyItemWithCharacter", {
+              item: item.name,
+              character: actors[0].name,
+            })
           )
       : purchasesSucceeded === actors.length
       ? ui.notifications.info(
@@ -302,22 +248,16 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
           })
         )
       : ui.notifications.warn(
-          game.i18n.format(
-            "SR.CompendiumBrowser.FailedToBuyItemWithSomeCharacters",
-            {
-              item: item.name,
-            }
-          )
+          game.i18n.format("SR.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
+            item: item.name,
+          })
         );
     return this.actor.deleteEmbeddedDocuments("Item", [itemID]);
   }
   async getAcquisItem(itemID, actor) {
     const item = await fromUuid(`${actor}.Item.${itemID}`);
     console.log(item);
-    if (!(item instanceof ItemSR))
-      return ui.notifications.warn(
-        "Unexpected failure retrieving compendium item"
-      );
+    if (!(item instanceof ItemSR)) return ui.notifications.warn("Unexpected failure retrieving compendium item");
     return item;
   }
 }

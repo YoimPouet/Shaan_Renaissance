@@ -30,7 +30,7 @@ export default class ShaanNPCSheet extends ActorSheetSR {
         owner: this.actor.isOwner,
         title: this.title,
         actor: actorData,
-        data: actorData.system,
+        system: actorData.system,
         items: actorData.items,
         config: CONFIG.shaanRenaissance,
         user: {
@@ -50,21 +50,14 @@ export default class ShaanNPCSheet extends ActorSheetSR {
     super.activateListeners(html);
     const $html = html[0];
 
-    html
-        .find("button[data-action=add-coins]")
-        .click(this._onAddCoins.bind(this));
-      html
-        .find("button[data-action=remove-coins]")
-        .click(this._onRemoveCoins.bind(this));
+    html.find("button[data-action=add-coins]").click(this._onAddCoins.bind(this));
+    html.find("button[data-action=remove-coins]").click(this._onRemoveCoins.bind(this));
 
-    if ((this.itemRenderer.activateListeners($html), !this.options.editable))
-      return;
+    if ((this.itemRenderer.activateListeners($html), !this.options.editable)) return;
     if (this.isEditable) {
       html.find(".open-compendium").on("click", (event) => {
         if (event.currentTarget.dataset.compendium) {
-          const compendium = game.packs.get(
-            event.currentTarget.dataset.compendium
-          );
+          const compendium = game.packs.get(event.currentTarget.dataset.compendium);
           console.log(compendium);
           compendium && compendium.render(!0);
         }
@@ -72,13 +65,7 @@ export default class ShaanNPCSheet extends ActorSheetSR {
     }
     html.find(".item-increase-quantity").on("click", (event) => {
       var _a;
-      const itemId =
-          null !==
-            (_a = $(event.currentTarget)
-              .parents(".item")
-              .attr("data-item-id")) && void 0 !== _a
-            ? _a
-            : "",
+      const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
       console.log(event);
       if (!event.shiftKey && !event.ctrlKey) {
@@ -108,13 +95,7 @@ export default class ShaanNPCSheet extends ActorSheetSR {
     }),
       html.find(".item-decrease-quantity").on("click", (event) => {
         var _a;
-        const itemId =
-            null !==
-              (_a = $(event.currentTarget)
-                .parents(".item")
-                .attr("data-item-id")) && void 0 !== _a
-              ? _a
-              : "",
+        const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
         console.log(item.system.quantity);
         if (!event.shiftKey && !event.ctrlKey) {
@@ -226,10 +207,7 @@ export default class ShaanNPCSheet extends ActorSheetSR {
               buttons: {
                 normal: {
                   label: game.i18n.localize("chat.actions.create"),
-                  callback: (html) =>
-                    resolve(
-                      _processAcquisCreateOptions(html[0].querySelector("form"))
-                    ),
+                  callback: (html) => resolve(_processAcquisCreateOptions(html[0].querySelector("form"))),
                 },
                 cancel: {
                   label: game.i18n.localize("chat.actions.cancel"),

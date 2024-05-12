@@ -8,23 +8,23 @@
         </div>
         <div class="vide">
             <div class="isIndarDiv">
-            <input type="checkbox" class="isIndar" id="isIndar" name="system.attributes.isIndar" {{checked data.attributes.isIndar}}>
+            <input type="checkbox" class="isIndar" id="isIndar" name="system.attributes.isIndar" {{checked system.attributes.isIndar}}>
             <label for="isIndar">Indar</label>    
             </div>       
             <div class="isMorphDiv">
-            <input type="checkbox" class="isMorph" id="isMorph" name="system.attributes.isMorph" {{checked data.attributes.isMorph}}>
+            <input type="checkbox" class="isMorph" id="isMorph" name="system.attributes.isMorph" {{checked system.attributes.isMorph}}>
             <label for="isMorph">Morphe</label>
             </div>
         </div>
         <div class="pc pc_shaani">
             <label class="details-input details-label" for="{{options.id}}-pc-shaani">{{localize "SR.Shaani"}}</label>
-            <input type="text" class="details-input" title="{{localize "SR.ShaaniTitle"}}" id="{{options.id}}-pc-shaani" name="system.general.shaani.value" value="{{data.general.shaani.value}}"/>
+            <input type="text" class="details-input" title="{{localize "SR.ShaaniTitle"}}" id="{{options.id}}-pc-shaani" name="system.general.shaani.value" value="{{system.general.shaani.value}}"/>
         </div>
         <div class="detail-sheet">
             {{!-- race --}}
             <div class="pc pc_race item" data-item-id="{{Race._id}}" style="display: flex; flex-direction:row">
-                <div class="input {{#ifnoteq data.attributes.isIndar true}}notIndar{{/ifnoteq}}{{#ifeq data.attributes.isIndar true}} indar {{/ifeq}}">
-                    <label class="details-label">{{localize "Item.Race"}} {{#ifeq data.attributes.isIndar true}}{{localize "SRLabels.primaire"}}{{/ifeq}}</label>
+                <div class="input {{#ifnoteq system.attributes.isIndar true}}notIndar{{/ifnoteq}}{{#ifeq system.attributes.isIndar true}} indar {{/ifeq}}">
+                    <label class="details-label">{{localize "Item.Race"}} {{#ifeq system.attributes.isIndar true}}{{localize "SRLabels.primaire"}}{{/ifeq}}</label>
                     <h3>
                         <span class="value">{{Race.name}}</span>
                         {{#if @root.editable}}
@@ -36,9 +36,9 @@
                         {{/if}}
                     </h3>
                 </div>
-                {{#ifeq data.attributes.isIndar true}}
-                <div class="input {{#ifeq data.attributes.isIndar true}} indar {{/ifeq}}" data-item-id="{{RaceSecondaire._id}}">
-                    <label class="details-label">{{localize "Item.Race"}} {{#ifeq data.attributes.isIndar true}}{{localize "SRLabels.secondaire"}}{{/ifeq}}</label>
+                {{#ifeq system.attributes.isIndar true}}
+                <div class="input {{#ifeq system.attributes.isIndar true}} indar {{/ifeq}}" data-item-id="{{RaceSecondaire._id}}">
+                    <label class="details-label">{{localize "Item.Race"}} {{#ifeq system.attributes.isIndar true}}{{localize "SRLabels.secondaire"}}{{/ifeq}}</label>
                     <h3>
                         <span class="value">{{RaceSecondaire.name}}</span>
                         {{#if @root.editable}}

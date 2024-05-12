@@ -3,13 +3,13 @@
     <div class="check-type">{{localize "chat.trihnTest.title" type=type}}</div>
   </h2>
   <div class="domainDice">
-        <img src="systems/shaanrenaissance/assets/icons/dice-result/{{roll.data.trihn}}/d10_{{#ifeq roll.data.trihn "Esprit"}}jaune{{/ifeq}}{{#ifeq roll.data.trihn "Ame"}}bleu{{/ifeq}}{{#ifeq roll.data.trihn "Corps"}}rouge{{/ifeq}}_{{roll._total}}.png">
+        <img src="systems/shaanrenaissance/assets/icons/dice-result/{{roll.system.trihn}}/d10_{{#ifeq roll.system.trihn "Esprit"}}jaune{{/ifeq}}{{#ifeq roll.system.trihn "Ame"}}bleu{{/ifeq}}{{#ifeq roll.system.trihn "Corps"}}rouge{{/ifeq}}_{{roll._total}}.png">
     </div>
     <hr/>
     <div class="domainInfos">
-      <span>{{localize "chat.trihnTest.trihnActuel"}} {{roll.data.trihn}} - <b>{{roll.data.maxTest}}</b></span>
-      {{#if roll.data.difficulty}}
-        <span>{{localize "chat.trihnTest.difficulty"}} {{roll.data.difficulty}}</span>
+      <span>{{localize "chat.trihnTest.trihnActuel"}} {{roll.system.trihn}} - <b>{{roll.system.maxTest}}</b></span>
+      {{#if roll.system.difficulty}}
+        <span>{{localize "chat.trihnTest.difficulty"}} {{roll.system.difficulty}}</span>
       {{/if}}
       {{> "systems/shaanrenaissance/templates/chat/partials/chat-conditions.hbs"}}
 

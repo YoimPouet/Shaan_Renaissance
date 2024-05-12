@@ -1,11 +1,5 @@
 import { CONDITION_SLUGS } from "../item/condition/values.js";
-import {
-  ErrorSR,
-  fontAwesomeIcon,
-  htmlQueryAll,
-  objectHasKey,
-  setHasElement,
-} from "../utils/utils.js";
+import { ErrorSR, htmlQueryAll, objectHasKey, setHasElement } from "../utils/utils.js";
 
 const debouncedRender = foundry.utils.debounce(() => {
   canvas.tokens.hud.render();
@@ -13,8 +7,7 @@ const debouncedRender = foundry.utils.debounce(() => {
 
 export class StatusEffects {
   static initialize() {
-    CONFIG.shaanRenaissance.statusEffects.iconDir =
-      "systems/shaanrenaissance/icons/conditions/";
+    CONFIG.shaanRenaissance.statusEffects.iconDir = "systems/shaanrenaissance/icons/conditions/";
     this.updateStatusIcons();
   }
   static get conditions() {
@@ -43,8 +36,7 @@ export class StatusEffects {
     const token = canvas.tokens.get(tokenData._id);
     if (!token) return;
     const iconGrid = html.querySelector(".status-effects");
-    if (!iconGrid)
-      throw (0, ErrorSR)("Unexpected error retrieving status effects grid");
+    if (!iconGrid) throw (0, ErrorSR)("Unexpected error retrieving status effects grid");
     const actor = token.actor;
     const activeConditions = (actor && actor.conditions.active) || [];
 
@@ -54,17 +46,12 @@ export class StatusEffects {
     const statusIcons = iconGrid.querySelectorAll(".effect-control");
     for (const icon of statusIcons) {
       const picture = document.createElement("picture");
-      picture.classList.add("effect-control"),
-        (picture.dataset.statusId = icon.dataset.statusId),
-        (picture.title = icon.title);
+      picture.classList.add("effect-control"), (picture.dataset.statusId = icon.dataset.statusId), (picture.title = icon.title);
       const iconSrc = icon.getAttribute("src");
       picture.setAttribute("src", iconSrc);
       const newIcon = document.createElement("img");
-      (newIcon.src = iconSrc),
-        picture.append(newIcon),
-        icon.replaceWith(picture);
-      const slug =
-          null !== (_d = picture.dataset.statusId) && void 0 !== _d ? _d : "",
+      (newIcon.src = iconSrc), picture.append(newIcon), icon.replaceWith(picture);
+      const slug = null !== (_d = picture.dataset.statusId) && void 0 !== _d ? _d : "",
         affecting = affectingConditions.filter((c) => c.slug === slug);
       if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
         picture.classList.add("active");
@@ -73,9 +60,7 @@ export class StatusEffects {
     this.activateListeners.call(this, iconGrid);
   }
   static updateStatusIcons() {
-    (CONFIG.statusEffects = Object.entries(
-      CONFIG.shaanRenaissance.statusEffects.conditions
-    ).map(([id, label]) => ({
+    (CONFIG.statusEffects = Object.entries(CONFIG.shaanRenaissance.statusEffects.conditions).map(([id, label]) => ({
       id,
       label,
       icon: `systems/shaanrenaissance/icons/conditions/${id}.webp`,
@@ -87,9 +72,7 @@ export class StatusEffects {
       });
   }
   static showStatusLabel(control) {
-    const titleBar = control
-      .closest(".status-effects")
-      ?.querySelector(".title-bar");
+    const titleBar = control.closest(".status-effects")?.querySelector(".title-bar");
     if (titleBar && control.title) {
       titleBar.innerText = control.title;
       titleBar.classList.toggle("active");
@@ -121,9 +104,7 @@ export class StatusEffects {
         // Remove or decrement condition
         if (event.ctrlKey && slug !== "dead") {
           // Remove all conditions
-          const conditionIds = actor.conditions
-            .bySlug(slug, { temporary: false })
-            .map((c) => c.id);
+          const conditionIds = actor.conditions.bySlug(slug, { temporary: false }).map((c) => c.id);
           await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
         } else {
           await this.toggleStatus(token, control, event);
@@ -144,20 +125,14 @@ export class StatusEffects {
     const imgElement = control.querySelector("img");
     const iconSrc = imgElement?.getAttribute("src");
 
-    const affecting = actor.conditions
-      .bySlug(slug, { active: true, temporary: false })
-      .find((c) => !c.system.references.parent);
+    const affecting = actor.conditions.bySlug(slug, { active: true, temporary: false }).find((c) => !c.system.references.parent);
     const conditionIds = [];
 
     if (event.type === "click" && !affecting) {
       if (objectHasKey(CONFIG.shaanRenaissance.conditionTypes, slug)) {
-        const newCondition =
-          game.shaanRenaissance.ConditionManager.getCondition(slug).toObject();
+        const newCondition = game.shaanRenaissance.ConditionManager.getCondition(slug).toObject();
         await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
-      } else if (
-        iconSrc &&
-        (event.shiftKey || control.dataset.statusId === "dead")
-      ) {
+      } else if (iconSrc && (event.shiftKey || control.dataset.statusId === "dead")) {
         await token.toggleEffect(iconSrc, { overlay: true, active: true });
       }
     } else if (event.type === "contextmenu") {
