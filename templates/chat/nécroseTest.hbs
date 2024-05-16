@@ -41,14 +41,14 @@
     {{/ifeq}}
     <hr/>
     <div class="domainInfos">
-      <span>{{localize "chat.domainTest.options.domain"}} {{roll.system.domain}} - <b class="domain">{{roll.system.domainLevel}}</b></span>
-      {{#ifeq roll.system.isPure false}}
-      <span>{{localize "chat.domainTest.options.spécialisation"}} {{localize roll.system.spécialisation}}</span>
-      <span>{{localize "chat.domainTest.options.bonus"}}: {{#ifeq roll.system.spéBonus null}}+ 0{{/ifeq}}{{#if roll.system.spéBonus }}+ <b class="spéBonus">{{roll.system.spéBonus}}</b>{{/if}}</span>
-      <span>{{localize "chat.domainTest.options.acquis"}}: {{#ifeq roll.system.spéAcquis null}}+ 0{{/ifeq}}{{#if roll.system.spéAcquis}}+ <b class="acquisBonus">{{roll.system.spéAcquis }}</b>{{/if}}</span>
+      <span>{{localize "chat.domainTest.options.domain"}} {{roll.data.domain}} - <b class="domain">{{roll.data.domainLevel}}</b></span>
+      {{#ifeq roll.data.isPure false}}
+      <span>{{localize "chat.domainTest.options.spécialisation"}} {{localize roll.data.spécialisation}}</span>
+      <span>{{localize "chat.domainTest.options.bonus"}}: {{#ifeq roll.data.spéBonus null}}+ 0{{/ifeq}}{{#if roll.data.spéBonus }}+ <b class="spéBonus">{{roll.data.spéBonus}}</b>{{/if}}</span>
+      <span>{{localize "chat.domainTest.options.acquis"}}: {{#ifeq roll.data.spéAcquis null}}+ 0{{/ifeq}}{{#if roll.data.spéAcquis}}+ <b class="acquisBonus">{{roll.data.spéAcquis }}</b>{{/if}}</span>
       {{/ifeq}}
-      {{#if roll.system.difficulty}}
-        <span>{{localize "chat.domainTest.options.difficulty"}} {{roll.system.difficulty}}</span>
+      {{#if roll.data.difficulty}}
+        <span>{{localize "chat.domainTest.options.difficulty"}} {{roll.data.difficulty}}</span>
       {{/if}}
       {{> "systems/shaanrenaissance/templates/chat/partials/chat-conditions.hbs"}}
     </div>

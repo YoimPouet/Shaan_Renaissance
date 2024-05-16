@@ -2,9 +2,9 @@
 
     <!-- Effect Header -->
     <header class="sheet-header">
-        <img class="effect-icon" src="{{ system.img }}" data-edit="icon">
+        <img class="effect-icon" src="{{ data.img }}" data-edit="img">
         <h1 class="effect-title">
-            <input name="name" type="text" value="{{system.name}}" placeholder="{{ localize 'Name' }}"/>
+            <input name="name" type="text" value="{{data.name}}" placeholder="{{ localize 'Name' }}"/>
         </h1>
     </header>
 
@@ -20,7 +20,7 @@
         <div class="form-group">
             <label>{{ localize "EFFECT.IconTint" }}</label>
             <div class="form-fields">
-                <color-picker name="tint" value="{{system.tint}}"></color-picker>
+                <color-picker name="tint" value="{{data.tint}}"></color-picker>
             </div>
         </div>
 

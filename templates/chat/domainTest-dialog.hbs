@@ -1,27 +1,25 @@
 <form>
   <div class="form-group">
-    <select class="domainCheck-domain domain" name="domain" >
-      {{#select domain}}
+    <select class="domainCheck-domain domain" name="domain">
       {{#each actor.system.skills as |domainItem|}}
-      {{#ifnoteq @key "Nécrose"}}
-      <option value="{{@key}}">{{@key}}</option>
-      {{/ifnoteq}}
+        {{#ifnoteq @key "Nécrose"}}
+          <option value="{{@key}}">{{@key}}</option>
+        {{/ifnoteq}}
       {{/each}}
-      {{/select}}
     </select>
     <select name="spécialisation" class="spe">
       <option value="pur">{{localize "SR.jetPur"}}</option>
       {{#each actor.system.skills as |domainItem|}}
-      <optgroup label="{{@key}}">
+        <optgroup label="{{@key}}">
           {{#each domainItem.specialisations as |spé|}}
             <option value="{{@key}}">{{localize @key}}</option>
           {{/each}}
-      </optgroup> 
+        </optgroup>
       {{/each}}
     </select>
   </div>
   <div class="form-group">
     <label>{{localize "chat.domainTest.options.difficulty"}}</label>
-    <input type="text" name="difficulty" value="{{difficulty}}"/>
+    <input type="text" name="difficulty" value="{{difficulty}}" />
   </div>
 </form>

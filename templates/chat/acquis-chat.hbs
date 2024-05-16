@@ -1,31 +1,30 @@
 <div class="SR acquis-chat chat-card" data-actor-id="{{actorID}}">
   <header>
-    <img class="acquis-image" src="{{acquissystem.img}}" />
+    <img class="acquis-image" src="{{acquisData.img}}" />
     <h2 class="acquis-name">
-      {{acquissystem.name}}
+      {{acquisData.name}}
     </h2>
   </header>
   {{log this}}
   <div class="acquis-infos">
-    <span class="label">{{localize "SRLabels.type"}}: </span><span class="detail">{{acquissystem.type}}</span><br />
-    {{#if acquissystem.system.acquis.spécisalisations}}
+    <span class="label">{{localize "SRLabels.type"}}: </span><span class="detail">{{acquisData.type}}</span><br />
+    {{#if acquisData.system.acquis.spécisalisations}}
       <span class="label">{{localize "SR.spécialisations"}}: </span><span
         class="detail"
-      >{{acquissystem.system.acquis.spécialisations}}</span><br />
+      >{{acquisData.system.acquis.spécialisations}}</span><br />
     {{/if}}
-    {{#if acquissystem.system.acquis.valeur}}
-      <span class="label">{{localize "SR.valeur"}}: </span><span class="detail">{{acquissystem.system.acquis.valeur}}</span><br />
+    {{#if acquisData.system.acquis.valeur}}
+      <span class="label">{{localize "SR.valeur"}}: </span><span class="detail">{{acquisData.system.acquis.valeur}}</span><br />
     {{/if}}
-    {{#if acquissystem.system.acquis.prestige}}
-      <span class="label">{{localize "SR.prestige"}}: </span><span
-        class="detail"
-      >{{acquissystem.system.acquis.prestige}}</span><br />
+    {{#if acquisData.system.acquis.prestige}}
+      <span class="label">{{localize "SR.prestige"}}: </span><span class="detail">{{acquisData.system.acquis.prestige}}</span><br
+      />
     {{/if}}
-    {{#if acquissystem.system.description.value}}
+    {{#if acquisData.system.description.value}}
       <hr />
       <span class="label">{{localize "SR.Déscription"}}: </span><span
         class="detail"
-      >{{acquissystem.system.description.value}}</span><br />
+      >{{acquisData.system.description.value}}</span><br />
     {{/if}}
   </div>
 </div>

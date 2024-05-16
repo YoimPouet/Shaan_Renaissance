@@ -17,7 +17,7 @@ export default class ShaanTrihnSheet extends ItemSheet {
         owner: this.item.isOwner,
         title: this.title,
         item: itemData,
-        data: itemData.system,
+        system: itemData.system,
         items: itemData.items,
         config: CONFIG.shaanRenaissance,
         user: {
