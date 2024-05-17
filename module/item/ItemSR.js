@@ -43,7 +43,10 @@ export class ItemSR extends Item {
     ) {
       const chatData = duplicate(data);
       return (
-        (htmlOptions.rollData = mergeObject(this.getRollData(), null !== (_c = htmlOptions.rollData) && void 0 !== _c ? _c : {})),
+        (htmlOptions.rollData = foundry.utils.mergeObject(
+          this.getRollData(),
+          null !== (_c = htmlOptions.rollData) && void 0 !== _c ? _c : {}
+        )),
         (chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
           ...htmlOptions,
           async: !0,
@@ -58,7 +61,7 @@ export class ItemSR extends Item {
     const systemData = {
       ...this.system,
     };
-    return this.processChatData(htmlOptions, deepClone(systemData));
+    return this.processChatData(htmlOptions, foundry.utils.deepClone(systemData));
   }
   static async createDialog(data = {}, options = {}) {
     var _a;

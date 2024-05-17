@@ -84,7 +84,7 @@ export default class ShaanRéseauSheet extends ActorSheetSR {
       async: true,
     });
 
-    sheetData.tabVisibility = deepClone(this.actor.flags.shaanRenaissance.sheetTabs);
+    sheetData.tabVisibility = foundry.utils.deepClone(this.actor.flags.shaanRenaissance.sheetTabs);
 
     console.log(sheetData);
     return sheetData;

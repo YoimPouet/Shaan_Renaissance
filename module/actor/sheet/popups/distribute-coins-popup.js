@@ -6,8 +6,7 @@ export class DistributeCoinsPopup extends FormApplication {
       (options.id = "distribute-coins"),
       (options.classes = []),
       (options.title = "Distribute Coins"),
-      (options.template =
-        "systems/shaanrenaissance/templates/actors/Loot/partials/distribute-coins.hbs"),
+      (options.template = "systems/shaanrenaissance/templates/actors/Loot/partials/distribute-coins.hbs"),
       (options.width = "auto"),
       options
     );
@@ -22,8 +21,7 @@ export class DistributeCoinsPopup extends FormApplication {
       playerCount = selectedActors.length;
     console.log(playerCount);
     const credos = thisActor.system.attributes.crédos;
-    if (credos == 0)
-      return ui.notifications.warn("Il n'y a aucun crédos dans le Butin");
+    if (credos == 0) return ui.notifications.warn("Il n'y a aucun crédos dans le Butin");
     thisActor.inventory.removeCoins(credos);
     const coinShare = credos / playerCount;
     let message = "Distribution de ";
@@ -32,12 +30,7 @@ export class DistributeCoinsPopup extends FormApplication {
     for (const actor of selectedActors) {
       await actor.inventory.addCoins(coinShare);
       const index = selectedActors.indexOf(actor);
-      message +=
-        0 === index
-          ? `${actor.name}`
-          : index < playerCount - 1
-          ? `, ${actor.name}`
-          : ` et ${actor.name}.`;
+      message += 0 === index ? `${actor.name}` : index < playerCount - 1 ? `, ${actor.name}` : ` et ${actor.name}.`;
     }
     ChatMessage.create({
       user: game.user.id,
@@ -48,28 +41,19 @@ export class DistributeCoinsPopup extends FormApplication {
   async _onSubmit(event, options = {}) {
     var _a;
     const actorIds = Array.from(this.form.elements).flatMap((element) =>
-      element instanceof HTMLInputElement &&
-      "actorIds" === element.name &&
-      element.checked
-        ? element.value
-        : []
+      element instanceof HTMLInputElement && "actorIds" === element.name && element.checked ? element.value : []
     );
     return (
-      (options.updateData = mergeObject(
-        null !== (_a = options.updateData) && void 0 !== _a ? _a : {},
-        {
-          actorIds,
-        }
-      )),
+      (options.updateData = foundry.utils.mergeObject(null !== (_a = options.updateData) && void 0 !== _a ? _a : {}, {
+        actorIds,
+      })),
       super._onSubmit(event, options)
     );
   }
   async getData() {
     const sheetData = await super.getData();
     console.log(sheetData);
-    const playerActors = game.actors.filter(
-      (actor) => actor.hasPlayerOwner && actor.isOfType("character")
-    );
+    const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.isOfType("character"));
 
     return (
       (sheetData.actorInfo = playerActors.map((actor) => ({
@@ -77,12 +61,7 @@ export class DistributeCoinsPopup extends FormApplication {
         name: actor.name,
         checked: game.users.players.some((user) => {
           var _a;
-          return (
-            user.active &&
-            (null === (_a = user.character) || void 0 === _a
-              ? void 0
-              : _a.id) === actor.id
-          );
+          return user.active && (null === (_a = user.character) || void 0 === _a ? void 0 : _a.id) === actor.id;
         }),
       }))),
       sheetData
