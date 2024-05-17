@@ -171,7 +171,7 @@ export class ActorSheetSR extends ActorSheet {
     if (typeof sheetData.system.attributes !== "undefined") {
       if (sheetData.system.attributes.isNecrosian) {
         this.actor.update({
-          data: {
+          system: {
             attributes: {
               hpEsprit: {
                 max:
@@ -204,7 +204,7 @@ export class ActorSheetSR extends ActorSheet {
         });
       } else {
         this.actor.update({
-          data: {
+          system: {
             attributes: {
               hpEsprit: {
                 max:

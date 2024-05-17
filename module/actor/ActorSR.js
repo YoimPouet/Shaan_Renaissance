@@ -104,7 +104,7 @@ export class ActorSR extends Actor {
     let updates;
     if (isBar) {
       if (isDelta) {
-        value = Math.clamped(-30, Number(current.value) + value, current.max);
+        value = Math.clamp(-30, Number(current.value) + value, current.max);
       }
       updates = { [`system.${attribute}.value`]: value };
     } else {

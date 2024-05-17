@@ -2,7 +2,6 @@
   <h2 class="title">
     <div class="check-type">{{localize "chat.necroseTest.title" type=type}}</div>
   </h2>
-  {{log @root}}
   {{#ifeq @root.race "Humain"}}
   <div class="domainDiceH">
     {{#each roll.dice as |die|}}
