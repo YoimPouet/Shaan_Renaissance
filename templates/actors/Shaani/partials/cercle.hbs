@@ -38,12 +38,10 @@
       <div class="souche corps">
         <span class="souche-label">Corps</span>
         <select name="system.soucheCorps">
-          {{#select system.soucheCorps}}
-            <option value=""></option>
-            {{#each members as |member i|}}
-              <option value="{{i}}">{{member.actor.name}}</option>
-            {{/each}}
-          {{/select}}
+          <option value=""></option>
+          {{#each members as |member i|}}
+            <option value="{{i}}">{{member.actor.name}}</option>
+          {{/each}}
         </select>
         <div class="trihn-container corps">
           <input type="number" name="system.attributes.hpCorps.value" value="{{system.attributes.hpCorps.value}}" />
