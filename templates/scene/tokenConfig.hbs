@@ -27,12 +27,7 @@
         <div class="form-group">
             <label>{{localize "TOKEN.CharActor"}}</label>
             <select class="actor-template" name="actorId">
-                {{#select object.actorId}}
-                <option value="">{{ localize "None" }}</option>
-                {{#each actors}}
-                <option value="{{this._id}}">{{this.name}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions actors selected=object.actorId valueAttr="_id" labelAttr="name" blank=(localize 'None')}}
             </select>
         </div>
         {{/unless}}
@@ -77,6 +72,13 @@
                 {{numberInput object.elevation name="elevation" placeholder=gridUnits}}
             </div>
         </div>
+
+        <div class="form-group slim">
+            <label>{{ localize "Sort" }}</label>
+            <div class="form-fields">
+                {{numberInput object.sort name="sort" step=1}}
+            </div>
+        </div>
         {{/unless}}
 
         <div class="form-group slim">
@@ -87,6 +89,14 @@
                 <label>{{localize "Rotation"}}</label>
                 {{numberInput object.rotation name="rotation" placeholder=(localize "Degrees")}}
             </div>
+        </div>
+
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.OcclusionRadius"}} <span class="units">({{gridUnits}})</span></label>
+            <div class="form-fields">
+                {{numberInput object.occludable.radius name="occludable.radius" placeholder=gridUnits min="0" step="any"}}
+            </div>
+            <p class="notes">{{localize "TOKEN.OcclusionRadiusHint" name=object.name}}</p>
         </div>
 
         <div class="form-group">
@@ -103,9 +113,7 @@
         <div class="form-group">
             <label>{{localize "TOKEN.ImagePath"}}</label>
             <div class="form-fields">
-                {{filePicker target="texture.src" type="imagevideo"}}
-                <input class="image" type="text" name="texture.src" placeholder="path/image.png"
-                       value="{{object.texture.src}}">
+                <file-picker name="texture.src" type="imagevideo" value="{{object.texture.src}}"></file-picker>
             </div>
         </div>
 
@@ -134,6 +142,39 @@
             <p class="hint">{{localize "TOKEN.DimensionsHint"}}</p>
         </div>
 
+        {{#if showHexagonalShapes}}
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.HexagonalShape"}}</label>
+            <div class="form-fields">
+                <select name="hexagonalShape">
+                    {{selectOptions hexagonalShapes selected=object.hexagonalShape}}
+                </select>
+            </div>
+            <p class="hint">{{localize "TOKEN.HexagonalShapeHint"}}</p>
+        </div>
+        {{/if}}
+
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.ImageFitMode"}}</label>
+            <div class="form-fields">
+                <select name="texture.fit">
+                    {{selectOptions textureFitModes selected=object.texture.fit}}
+                </select>
+            </div>
+            <p class="hint">{{localize "TOKEN.ImageFitModeHint"}}</p>
+        </div>
+
+        <div class="form-group slim">
+            <label>{{localize "Anchor"}}</label>
+            <div class="form-fields">
+                <label>X</label>
+                {{numberInput object.texture.anchorX name="texture.anchorX" placeholder="0.5"}}
+                <label>Y</label>
+                {{numberInput object.texture.anchorY name="texture.anchorY" placeholder="0.5"}}
+            </div>
+            <p class="hint">{{localize "TOKEN.AnchorHint"}}</p>
+        </div>
+
         <div class="form-group">
             <label>{{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span></label>
             <div class="form-fields">
@@ -154,7 +195,7 @@
         <div class="form-group">
             <label>{{ localize "TOKEN.TintColor" }}</label>
             <div class="form-fields">
-                {{ colorPicker name="texture.tint" value=object.texture.tint }}
+                <color-picker name="texture.tint" value="{{object.texture.tint}}">
             </div>
         </div>
 
@@ -164,13 +205,21 @@
                 {{ rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05" }}
             </div>
         </div>
+
+        <fieldset>
+            <legend>{{localize "TOKEN.RING.SHEET.legend"}}</legend>
+            {{formField fields.ring.fields.enabled value=object.ring.enabled localize=true}}
+            {{formField fields.ring.fields.colors.fields.ring value=object.ring.colors.ring localize=true}}
+            {{formField fields.ring.fields.colors.fields.background value=object.ring.colors.background localize=true}}
+            {{formField fields.ring.fields.subject.fields.texture value=object.ring.subject.texture localize=true}}
+        </fieldset>
     </div>
 
     <!-- Vision -->
     {{> "templates/scene/parts/token-vision.html"}}
 
     <!-- Light -->
-    {{> "templates/scene/parts/token-lighting.html"}}
+    {{> "templates/scene/parts/token-lighting.hbs"}}
 
     <!-- Resource Bars -->
     {{> "systems/shaanrenaissance/templates/scene/parts/token-resources.hbs"}} 
