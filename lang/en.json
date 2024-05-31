@@ -1,4 +1,14 @@
 {
+  "TYPES":{
+    "Actor":{
+      "Personnage": "Personnage",
+      "PNJ": "PNJ",
+      "Créature": "Créature",
+      "Réseau": "Réseau",
+      "Shaani":"Shaani",
+      "Loot":"Loot"
+    }
+  },
   "ACTOR": {
     "Personnage": "Personnage",
     "Pnj": "PNJ"
