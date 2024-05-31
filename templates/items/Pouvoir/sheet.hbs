@@ -28,7 +28,7 @@
                 <h3>
                     <label for="{{options.id}}-pouvoir-type-select">{{localize "SR.pouvoirType"}}</label><br>
                     <select class="select" name="system.PouvoirType.value" id="{{options.id}}-pouvoir-type-select">
-                        {{selectOptions config.pouvoirs.pouvoirType selected=system.pouvoirType.value localized=true}}
+                        {{selectOptions config.pouvoirs.pouvoirType selected=system.PouvoirType.value localized=true}}
                 </select>
                 </h3>
                 </div>
@@ -45,7 +45,7 @@
                 <h3>
                     <label for="{{options.id}}-pouvoir-fréquence-select">{{localize "SR.pouvoirFréquence"}}</label><br>
                     <select class="select" name="system.fréquence.value" id="{{options.id}}-pouvoir-fréquence-select">
-                        {{selectOptions config.pouvoirs.pouvoirFréquence selected=system.frequence localized=true}}
+                        {{selectOptions config.pouvoirs.pouvoirFréquence selected=system.fréquence.value localized=true}}
                     </select>
                 </h3>
                 </div>
