@@ -1,8 +1,5 @@
 export class CombatSR extends Combat {
-  async rollInitiative(
-    ids,
-    { formula = null, updateTurn = true, messageOptions = {} } = {}
-  ) {
+  async rollInitiative(ids, { formula = null, updateTurn = true, messageOptions = {} } = {}) {
     // Structure input data
     ids = typeof ids === "string" ? [ids] : ids;
     const currentId = this.combatant?.id;
@@ -18,7 +15,7 @@ export class CombatSR extends Combat {
 
       // Produce an initiative roll for the Combatant
       const roll = combatant.getInitiativeRoll(formula);
-      await roll.evaluate({ async: true });
+      await roll.evaluate();
       if (roll.terms[0].total == 10) {
         let Limbes = roll.total - 10;
         roll._total = Limbes;
@@ -43,15 +40,12 @@ export class CombatSR extends Combat {
         },
         messageOptions
       );
+
       const chatData = await roll.toMessage(messageData, { create: false });
 
       // If the combatant is hidden, use a private roll unless an alternative rollMode was explicitly requested
       chatData.rollMode =
-        "rollMode" in messageOptions
-          ? messageOptions.rollMode
-          : combatant.hidden
-          ? CONST.DICE_ROLL_MODES.PRIVATE
-          : chatRollMode;
+        "rollMode" in messageOptions ? messageOptions.rollMode : combatant.hidden ? CONST.DICE_ROLL_MODES.PRIVATE : chatRollMode;
 
       // Play 1 sound for the whole rolled set
       if (i > 0) chatData.sound = null;

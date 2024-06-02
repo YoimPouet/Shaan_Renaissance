@@ -1,16 +1,12 @@
+import { CreatureSR } from "../actor/Créature/document.js";
+import { NpcSR } from "../actor/PNJ/document.js";
 import { CheckDialog } from "../system/check/dialog.js";
 
-export async function Initiative({
-  actor = null,
-  extraMessageData = {},
-  sendMessage = true,
-} = {}) {
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/initiative.hbs";
+export async function Initiative({ actor = null, extraMessageData = {}, sendMessage = true } = {}) {
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/initiative.hbs";
   const actorData = actor ? actor.system : null;
   const domain = actorData.attributes.initiative.statistic;
-  const domainLevel =
-    actorData.skills[domain].rank + actorData.skills[domain].temp;
+  const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
 
   let rollFormula = `1d10 + @domainLevel`;
 
@@ -20,7 +16,7 @@ export async function Initiative({
     domainLevel: domainLevel,
   };
 
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -50,8 +46,7 @@ export async function domainTest({
   state = null,
   race = null,
 } = {}) {
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/domainTest.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/domainTest.hbs";
   const actorData = actor ? actor.system : null;
 
   let checkOptions = await GetRollOptions({
@@ -68,20 +63,11 @@ export async function domainTest({
   const spé = checkOptions.spécialisation;
   difficulty = checkOptions.difficulty;
 
-  if (
-    actor.conditions.paralyzed &&
-    (domain === "Rituels" || domain === "Survie" || domain === "Combat")
-  )
+  if (actor.conditions.paralyzed && (domain === "Rituels" || domain === "Survie" || domain === "Combat"))
     return ui.notifications.warn("Ce personnage est Paralysé");
-  if (
-    actor.conditions.dominated &&
-    (domain === "Technique" || domain === "Savoir" || domain === "Social")
-  )
+  if (actor.conditions.dominated && (domain === "Technique" || domain === "Savoir" || domain === "Social"))
     return ui.notifications.warn("Ce personnage est Dominé");
-  if (
-    actor.conditions.bewitched &&
-    (domain === "Arts" || domain === "Shaan" || domain === "Magie")
-  )
+  if (actor.conditions.bewitched && (domain === "Arts" || domain === "Shaan" || domain === "Magie"))
     return ui.notifications.warn("Ce personnage est Envoûté");
 
   let corps = "1d10[Corps]";
@@ -89,8 +75,7 @@ export async function domainTest({
   let esprit = "1d10[Esprit]";
   let rollFormula = `{${corps}, ${ame}, ${esprit}}`;
 
-  const domainLevel =
-    actorData.skills[domain].rank + actorData.skills[domain].temp;
+  const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
   let spéDomain;
   let données;
   for (const [category, details] of Object.entries(actorData.skills)) {
@@ -125,63 +110,68 @@ export async function domainTest({
         }
       }
     }
-    switch (max) {
-      case "profane":
-        if (données.bonus >= 1) {
-          spéBonusF = 1;
-        }
-        if (données.acquis >= 1) {
-          spéAcquisF = 1;
-        }
-        break;
-      case "apprenti":
-        if (données.bonus >= 2) {
-          spéBonusF = 2;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 2) {
-          spéAcquisF = 2;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "initié":
-        if (données.bonus >= 3) {
-          spéBonusF = 3;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 3) {
-          spéAcquisF = 3;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "maitre":
-        if (données.bonus >= 4) {
-          spéBonusF = 4;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 4) {
-          spéAcquisF = 4;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "legende":
-        if (données.bonus >= 5) {
-          spéBonusF = 5;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 5) {
-          spéAcquisF = 5;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
+    if (!(actor instanceof NpcSR) && !(actor instanceof CreatureSR)) {
+      switch (max) {
+        case "profane":
+          if (données.bonus >= 1) {
+            spéBonusF = 1;
+          }
+          if (données.acquis >= 1) {
+            spéAcquisF = 1;
+          }
+          break;
+        case "apprenti":
+          if (données.bonus >= 2) {
+            spéBonusF = 2;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 2) {
+            spéAcquisF = 2;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "initié":
+          if (données.bonus >= 3) {
+            spéBonusF = 3;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 3) {
+            spéAcquisF = 3;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "maitre":
+          if (données.bonus >= 4) {
+            spéBonusF = 4;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 4) {
+            spéAcquisF = 4;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "legende":
+          if (données.bonus >= 5) {
+            spéBonusF = 5;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 5) {
+            spéAcquisF = 5;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+      }
+    } else {
+      spéBonusF = données.bonus;
+      spéAcquisF = données.acquis;
     }
   }
 
@@ -207,7 +197,7 @@ export async function domainTest({
       isPure: false,
     };
   }
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -219,17 +209,9 @@ export async function domainTest({
   let déAme = rollResult.dice[dice.length - 2];
   let déEsprit = rollResult.dice[dice.length - 1];
 
-  if (
-    déCorps.total == déAme.total &&
-    déAme.total == déEsprit.total &&
-    déEsprit != 0
-  ) {
+  if (déCorps.total == déAme.total && déAme.total == déEsprit.total && déEsprit != 0) {
     rollResult.symbiose = "Réussite";
-  } else if (
-    déCorps == déAme.total &&
-    déAme.total == déEsprit.total &&
-    déEsprit == 0
-  ) {
+  } else if (déCorps == déAme.total && déAme.total == déEsprit.total && déEsprit == 0) {
     rollResult.symbiose = "Echec";
   } else {
     rollResult.symbiose = "Not";
@@ -321,8 +303,7 @@ export async function domainTest({
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
-            callback: (html) =>
-              resolve(_processdomainTestOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processdomainTestOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -357,20 +338,13 @@ export async function SpéTest({
   state = null,
   race,
 } = {}) {
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/domainTest.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/domainTest.hbs";
   const actorData = actor ? actor.system : null;
-  const domainLevel =
-    actorData.skills[domain].rank + actorData.skills[domain].temp;
-  const spéBonus =
-    actorData.skills[domain].specialisations[spécialisation].bonus;
-  const spéAcquis =
-    actorData.skills[domain].specialisations[spécialisation].acquis;
+  const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
+  const spéBonus = actorData.skills[domain].specialisations[spécialisation].bonus;
+  const spéAcquis = actorData.skills[domain].specialisations[spécialisation].acquis;
 
-  let optionsSettings = game.settings.get(
-    "shaanrenaissance",
-    "showCheckOptions"
-  );
+  let optionsSettings = game.settings.get("shaanrenaissance", "showCheckOptions");
   if (askForOptions != optionsSettings) {
     let checkOptions = await GetRollOptions({
       domain,
@@ -410,63 +384,68 @@ export async function SpéTest({
       }
     }
   }
-  switch (max) {
-    case "profane":
-      if (spéBonus >= 1) {
-        spéBonusF = 1;
-      }
-      if (spéAcquis >= 1) {
-        spéAcquisF = 1;
-      }
-      break;
-    case "apprenti":
-      if (spéBonus >= 2) {
-        spéBonusF = 2;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 2) {
-        spéAcquisF = 2;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "initié":
-      if (spéBonus >= 3) {
-        spéBonusF = 3;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 3) {
-        spéAcquisF = 3;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "maitre":
-      if (spéBonus >= 4) {
-        spéBonusF = 4;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 4) {
-        spéAcquisF = 4;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "legende":
-      if (spéBonus >= 5) {
-        spéBonusF = 5;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 5) {
-        spéAcquisF = 5;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
+  if (!(actor instanceof NpcSR) && !(actor instanceof CreatureSR)) {
+    switch (max) {
+      case "profane":
+        if (spéBonus >= 1) {
+          spéBonusF = 1;
+        }
+        if (spéAcquis >= 1) {
+          spéAcquisF = 1;
+        }
+        break;
+      case "apprenti":
+        if (spéBonus >= 2) {
+          spéBonusF = 2;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 2) {
+          spéAcquisF = 2;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "initié":
+        if (spéBonus >= 3) {
+          spéBonusF = 3;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 3) {
+          spéAcquisF = 3;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "maitre":
+        if (spéBonus >= 4) {
+          spéBonusF = 4;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 4) {
+          spéAcquisF = 4;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "legende":
+        if (spéBonus >= 5) {
+          spéBonusF = 5;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 5) {
+          spéAcquisF = 5;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+    }
+  } else {
+    spéBonusF = spéBonus;
+    spéAcquisF = spéAcquis;
   }
 
   let rollData = {
@@ -479,7 +458,7 @@ export async function SpéTest({
     difficulty: difficulty,
     isPure: false,
   };
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -491,17 +470,9 @@ export async function SpéTest({
   let déAme = rollResult.dice[dice.length - 2];
   let déEsprit = rollResult.dice[dice.length - 1];
 
-  if (
-    déCorps.total == déAme.total &&
-    déAme.total == déEsprit.total &&
-    déEsprit != 0
-  ) {
+  if (déCorps.total == déAme.total && déAme.total == déEsprit.total && déEsprit != 0) {
     rollResult.symbiose = "Réussite";
-  } else if (
-    déCorps == déAme.total &&
-    déAme.total == déEsprit.total &&
-    déEsprit == 0
-  ) {
+  } else if (déCorps == déAme.total && déAme.total == déEsprit.total && déEsprit == 0) {
     rollResult.symbiose = "Echec";
   } else {
     rollResult.symbiose = "Not";
@@ -531,21 +502,16 @@ export async function SpéTest({
   spéAcquisF = spéAcquisF || 0;
   spéBonusF = spéBonusF || 0;
   if (score > domainLevel) {
-    isSuccess =
-      spéAcquisF + spéBonusF > difficulty || rollResult.symbiose === "Réussite";
+    isSuccess = spéAcquisF + spéBonusF > difficulty || rollResult.symbiose === "Réussite";
     console.log(spéAcquisF, spéBonusF);
-    score = isSuccess
-      ? spéAcquisF + spéBonusF + (rollResult.symbiose === "Réussite" ? 10 : 0)
-      : score;
+    score = isSuccess ? spéAcquisF + spéBonusF + (rollResult.symbiose === "Réussite" ? 10 : 0) : score;
   } else {
     if (score === 0) {
       isSuccess = false;
     } else {
       score += spéAcquisF + spéBonusF + statuses;
       isSuccess = score > difficulty || rollResult.symbiose === "Réussite";
-      score = isSuccess
-        ? score + (rollResult.symbiose === "Réussite" ? 10 : 0)
-        : score;
+      score = isSuccess ? score + (rollResult.symbiose === "Réussite" ? 10 : 0) : score;
     }
   }
   if (sendMessage) {
@@ -611,8 +577,7 @@ export async function SpéTest({
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
-            callback: (html) =>
-              resolve(_processdomainTestOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processdomainTestOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -643,8 +608,7 @@ export async function necroseTest({
   race = null,
   state = null,
 } = {}) {
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/nécroseTest.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/nécroseTest.hbs";
   const actorData = actor ? actor.system : null;
   const raceName = race;
 
@@ -664,7 +628,7 @@ export async function necroseTest({
 
   let rollFormula;
 
-  console.log(raceName)
+  console.log(raceName);
   if (raceName == "Humain") {
     let nécrose = "1d10[Necrose]";
     let esprit = "1d10[Esprit]";
@@ -674,8 +638,7 @@ export async function necroseTest({
     rollFormula = `${nécrose}`;
   }
 
-  const domainLevel =
-    actorData.skills[domain].rank + actorData.skills[domain].temp;
+  const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
   let spéDomain;
   let données;
   for (const [category, details] of Object.entries(actorData.skills)) {
@@ -710,63 +673,68 @@ export async function necroseTest({
         }
       }
     }
-    switch (max) {
-      case "profane":
-        if (données.bonus >= 1) {
-          spéBonusF = 1;
-        }
-        if (données.acquis >= 1) {
-          spéAcquisF = 1;
-        }
-        break;
-      case "apprenti":
-        if (données.bonus >= 2) {
-          spéBonusF = 2;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 2) {
-          spéAcquisF = 2;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "initié":
-        if (données.bonus >= 3) {
-          spéBonusF = 3;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 3) {
-          spéAcquisF = 3;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "maitre":
-        if (données.bonus >= 4) {
-          spéBonusF = 4;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 4) {
-          spéAcquisF = 4;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
-      case "legende":
-        if (données.bonus >= 5) {
-          spéBonusF = 5;
-        } else {
-          spéBonusF = données.bonus;
-        }
-        if (données.acquis >= 5) {
-          spéAcquisF = 5;
-        } else {
-          spéAcquisF = données.acquis;
-        }
-        break;
+    if (!(actor instanceof NpcSR) && !(actor instanceof CreatureSR)) {
+      switch (max) {
+        case "profane":
+          if (données.bonus >= 1) {
+            spéBonusF = 1;
+          }
+          if (données.acquis >= 1) {
+            spéAcquisF = 1;
+          }
+          break;
+        case "apprenti":
+          if (données.bonus >= 2) {
+            spéBonusF = 2;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 2) {
+            spéAcquisF = 2;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "initié":
+          if (données.bonus >= 3) {
+            spéBonusF = 3;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 3) {
+            spéAcquisF = 3;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "maitre":
+          if (données.bonus >= 4) {
+            spéBonusF = 4;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 4) {
+            spéAcquisF = 4;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+        case "legende":
+          if (données.bonus >= 5) {
+            spéBonusF = 5;
+          } else {
+            spéBonusF = données.bonus;
+          }
+          if (données.acquis >= 5) {
+            spéAcquisF = 5;
+          } else {
+            spéAcquisF = données.acquis;
+          }
+          break;
+      }
+    } else {
+      spéBonusF = données.bonus;
+      spéAcquisF = données.acquis;
     }
   }
 
@@ -792,7 +760,7 @@ export async function necroseTest({
       isPure: false,
     };
   }
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -883,8 +851,7 @@ export async function necroseTest({
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
-            callback: (html) =>
-              resolve(_processdomainTestOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processdomainTestOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -918,15 +885,11 @@ export async function SpéTestNécr({
   description = null,
   state = null,
 } = {}) {
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/spéTestNécr.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/spéTestNécr.hbs";
   const actorData = actor ? actor.system : null;
-  const domainLevel =
-    actorData.skills[domain].rank + actorData.skills[domain].temp;
-  const spéBonus =
-    actorData.skills[domain].specialisations[spécialisation].bonus;
-  const spéAcquis =
-    actorData.skills[domain].specialisations[spécialisation].acquis;
+  const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
+  const spéBonus = actorData.skills[domain].specialisations[spécialisation].bonus;
+  const spéAcquis = actorData.skills[domain].specialisations[spécialisation].acquis;
   const raceName = race;
 
   let spéBonusF;
@@ -950,68 +913,70 @@ export async function SpéTestNécr({
       }
     }
   }
-  switch (max) {
-    case "profane":
-      if (spéBonus >= 1) {
-        spéBonusF = 1;
-      }
-      if (spéAcquis >= 1) {
-        spéAcquisF = 1;
-      }
-      break;
-    case "apprenti":
-      if (spéBonus >= 2) {
-        spéBonusF = 2;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 2) {
-        spéAcquisF = 2;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "initié":
-      if (spéBonus >= 3) {
-        spéBonusF = 3;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 3) {
-        spéAcquisF = 3;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "maitre":
-      if (spéBonus >= 4) {
-        spéBonusF = 4;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 4) {
-        spéAcquisF = 4;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
-    case "legende":
-      if (spéBonus >= 5) {
-        spéBonusF = 5;
-      } else {
-        spéBonusF = spéBonus;
-      }
-      if (spéAcquis >= 5) {
-        spéAcquisF = 5;
-      } else {
-        spéAcquisF = spéAcquis;
-      }
-      break;
+  if (!(actor instanceof NpcSR) && !(actor instanceof CreatureSR)) {
+    switch (max) {
+      case "profane":
+        if (spéBonus >= 1) {
+          spéBonusF = 1;
+        }
+        if (spéAcquis >= 1) {
+          spéAcquisF = 1;
+        }
+        break;
+      case "apprenti":
+        if (spéBonus >= 2) {
+          spéBonusF = 2;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 2) {
+          spéAcquisF = 2;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "initié":
+        if (spéBonus >= 3) {
+          spéBonusF = 3;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 3) {
+          spéAcquisF = 3;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "maitre":
+        if (spéBonus >= 4) {
+          spéBonusF = 4;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 4) {
+          spéAcquisF = 4;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+      case "legende":
+        if (spéBonus >= 5) {
+          spéBonusF = 5;
+        } else {
+          spéBonusF = spéBonus;
+        }
+        if (spéAcquis >= 5) {
+          spéAcquisF = 5;
+        } else {
+          spéAcquisF = spéAcquis;
+        }
+        break;
+    }
+  } else {
+    spéBonusF = spéBonus;
+    spéAcquisF = spéAcquis;
   }
-  let optionsSettings = game.settings.get(
-    "shaanrenaissance",
-    "showCheckOptions"
-  );
+  let optionsSettings = game.settings.get("shaanrenaissance", "showCheckOptions");
   if (askForOptions != optionsSettings) {
     let checkOptions = await GetRollOptions({
       domain,
@@ -1048,7 +1013,7 @@ export async function SpéTestNécr({
     spéAcquis: spéAcquisF,
     difficulty: difficulty,
   };
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -1152,8 +1117,7 @@ export async function SpéTestNécr({
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
-            callback: (html) =>
-              resolve(_processdomainTestOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processdomainTestOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -1176,11 +1140,11 @@ export async function SpéTestNécr({
 }
 export async function shaaniTest({
   actor,
-  esprit = {domain:"",spe:""},
-  ame = {domain:"",spe:""}, 
-  corps = {domain:"",spe:""},
-  extraMessageData ={}
-} = {}){
+  esprit = { domain: "", spe: "" },
+  ame = { domain: "", spe: "" },
+  corps = { domain: "", spe: "" },
+  extraMessageData = {},
+} = {}) {
   const messageTemplate = "systems/shaanrenaissance/templates/actors/Shaani/chat/shaaniTest.hbs";
   const actorData = actor ? actor.system : null;
   corps = "1d10[Corps]";
@@ -1188,9 +1152,9 @@ export async function shaaniTest({
   esprit = "1d10[Esprit]";
   let rollFormula = `{${corps}, ${ame}, ${esprit}}`;
 
-  let checkOptions = await getRollOptions({esprit, ame, corps})
+  let checkOptions = await getRollOptions({ esprit, ame, corps });
 
-  if(checkOptions.cancelled) {
+  if (checkOptions.cancelled) {
     return;
   }
 
@@ -1198,8 +1162,8 @@ export async function shaaniTest({
 
   // Bonus et Acquis
   for (const trihn of Object.values(checkOptions)) {
-    trihn.domaineRank = actorData.skills[trihn.domain].rank;  
-    console.log(actorData)
+    trihn.domaineRank = actorData.skills[trihn.domain].rank;
+    console.log(actorData);
     if (trihn.spe !== "pur") {
       let spéDomain;
       let données;
@@ -1215,110 +1179,104 @@ export async function shaaniTest({
     }
   }
 
-  console.log(checkOptions)
+  console.log(checkOptions);
   let rollData = {
     ...actorData,
-    actions:checkOptions
-  }
-  let rollResult = await new Roll(rollFormula, rollData).roll({async: true});
+    actions: checkOptions,
+  };
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
     dice3d;
   }
 
-  console.log(rollResult)
+  console.log(rollResult);
   let dice = rollResult.dice;
   let déCorps = rollResult.dice[dice.length - 3];
   let déAme = rollResult.dice[dice.length - 2];
   let déEsprit = rollResult.dice[dice.length - 1];
 
   // Esprit
-  if(déEsprit.total < esprit.domaineRank) {
-    esprit.score = déEsprit.total 
-    if(esprit.bonus){
-      esprit.score += esprit.bonus
+  if (déEsprit.total < esprit.domaineRank) {
+    esprit.score = déEsprit.total;
+    if (esprit.bonus) {
+      esprit.score += esprit.bonus;
     }
-    if(esprit.acquis){
-      esprit.score += esprit.acquis
+    if (esprit.acquis) {
+      esprit.score += esprit.acquis;
     }
-  }
-  else if(déEsprit.total === 10){
-    esprit.score = 0
-  }
-  else {
-    esprit.score = 0
-    if(esprit.bonus){
-      esprit.score += esprit.bonus
+  } else if (déEsprit.total === 10) {
+    esprit.score = 0;
+  } else {
+    esprit.score = 0;
+    if (esprit.bonus) {
+      esprit.score += esprit.bonus;
     }
-    if(esprit.acquis){
-      esprit.score += esprit.acquis
+    if (esprit.acquis) {
+      esprit.score += esprit.acquis;
     }
   }
   // Ame
-  if(déAme.total < ame.domaineRank) {
-    ame.score = déAme.total 
-  }
-  else if(déAme.total === 10){
-    ame.score = 0
-  }
-  else {
-    ame.score = 0
-    if(ame.bonus){
-      ame.score += ame.bonus
+  if (déAme.total < ame.domaineRank) {
+    ame.score = déAme.total;
+  } else if (déAme.total === 10) {
+    ame.score = 0;
+  } else {
+    ame.score = 0;
+    if (ame.bonus) {
+      ame.score += ame.bonus;
     }
-    if(ame.acquis){
-      ame.score += ame.acquis
+    if (ame.acquis) {
+      ame.score += ame.acquis;
     }
   }
   // Corps
-  if(déCorps.total < corps.domaineRank) {
-    corps.score = déCorps.total 
-  }
-  else if(déCorps.total === 10){
-    corps.score = 0
-  }
-  else {
-    corps.score = 0
-    if(corps.bonus){
-      corps.score += corps.bonus
+  if (déCorps.total < corps.domaineRank) {
+    corps.score = déCorps.total;
+  } else if (déCorps.total === 10) {
+    corps.score = 0;
+  } else {
+    corps.score = 0;
+    if (corps.bonus) {
+      corps.score += corps.bonus;
     }
-    if(corps.acquis){
-      corps.score += corps.acquis
+    if (corps.acquis) {
+      corps.score += corps.acquis;
     }
   }
 
   RollToCustomMessage(actor, rollResult, messageTemplate, {
     ...extraMessageData,
-    actions:checkOptions,
+    actions: checkOptions,
     actorID: actor.uuid,
   });
 
-
-
   async function getRollOptions({
-    esprit, ame, corps,
-    template = "systems/shaanrenaissance/templates/actors/Shaani/chat/shaaniTest-dialog.hbs"
-  }={}){
-    const html = await renderTemplate(template,{actor,esprit,ame,corps})
+    esprit,
+    ame,
+    corps,
+    template = "systems/shaanrenaissance/templates/actors/Shaani/chat/shaaniTest-dialog.hbs",
+  } = {}) {
+    const html = await renderTemplate(template, { actor, esprit, ame, corps });
     const actorData = actor.toObject(!1);
     const config = CONFIG.shaanRenaissance;
 
     return new Promise((resolve) => {
       const data = {
-        title:game.i18n.localize("chat.shaaniTest.title"),
-        content:html,
+        title: game.i18n.localize("chat.shaaniTest.title"),
+        content: html,
         esprit,
         ame,
         corps,
-        actor:actorData,
+        actor: actorData,
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
             callback: (html) => {
               const form = html[0].querySelector("form");
               resolve(_processShaaniTestOptions(form));
-          },
+            },
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -1331,29 +1289,24 @@ export async function shaaniTest({
       new CheckDialog(data, null).render(true);
     });
   }
-  function _processShaaniTestOptions(form){
+  function _processShaaniTestOptions(form) {
     return {
       esprit: {
-          domain: form['esprit.domain']?.value,
-          spe: form['esprit.spe']?.value
+        domain: form["esprit.domain"]?.value,
+        spe: form["esprit.spe"]?.value,
       },
       ame: {
-        domain: form['ame.domain']?.value,
-        spe: form['ame.spe']?.value
+        domain: form["ame.domain"]?.value,
+        spe: form["ame.spe"]?.value,
       },
       corps: {
-        domain: form['corps.domain']?.value,
-        spe: form['corps.spe']?.value
+        domain: form["corps.domain"]?.value,
+        spe: form["corps.spe"]?.value,
       },
     };
   }
 }
-export async function RollToCustomMessage(
-  actor = null,
-  rollResult,
-  template,
-  extraData
-) {
+export async function RollToCustomMessage(actor = null, rollResult, template, extraData) {
   let templateContext = {
     ...extraData,
     roll: rollResult,
@@ -1366,7 +1319,6 @@ export async function RollToCustomMessage(
       speaker: ChatMessage.getSpeaker({ actor }),
       content: await renderTemplate(template, templateContext),
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     };
   } else {
     chatData = {
@@ -1374,10 +1326,11 @@ export async function RollToCustomMessage(
       speaker: ChatMessage.getSpeaker({ actor }),
       content: await renderTemplate(template, templateContext),
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     };
   }
-  ChatMessage.create(chatData);
+  ChatMessage.applyRollMode(chatData, "roll");
+  const chatMsg = await ChatMessage.create(chatData);
+  console.log(chatMsg);
 }
 
 export async function RegenHP({
@@ -1390,8 +1343,7 @@ export async function RegenHP({
   sendMessage = true,
 } = {}) {
   const actorData = actor ? actor.system : null;
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/regenHP-chat.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/regenHP-chat.hbs";
 
   let checkOptions = await GetRegenOptions({
     malusEsprit,
@@ -1408,15 +1360,13 @@ export async function RegenHP({
   malusCorps = Number(checkOptions.malusCorps);
 
   if (actorData.attributes.hpEsprit.value < 0) {
-    malusEsprit =
-      Number(malusEsprit) - Number(actorData.attributes.hpEsprit.value);
+    malusEsprit = Number(malusEsprit) - Number(actorData.attributes.hpEsprit.value);
   }
   if (actorData.attributes.hpAme.value < 0) {
     malusAme = Number(malusAme) - Number(actorData.attributes.hpAme.value);
   }
   if (actorData.attributes.hpCorps.value < 0) {
-    malusCorps =
-      Number(malusCorps) - Number(actorData.attributes.hpCorps.value);
+    malusCorps = Number(malusCorps) - Number(actorData.attributes.hpCorps.value);
   }
 
   let corps = "1d10[Corps]";
@@ -1431,7 +1381,7 @@ export async function RegenHP({
     malusAme,
     malusCorps,
   };
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -1439,10 +1389,7 @@ export async function RegenHP({
   }
 
   let regenEsprit;
-  if (
-    rollResult.terms[0].rolls[2].dice[0].total == 10 ||
-    rollResult.terms[0].rolls[2].total < 0
-  ) {
+  if (rollResult.terms[0].rolls[2].dice[0].total == 10 || rollResult.terms[0].rolls[2].total < 0) {
     regenEsprit = -1;
   } else {
     regenEsprit = rollResult.terms[0].rolls[2].dice[0].total;
@@ -1452,10 +1399,7 @@ export async function RegenHP({
     hpEspritF = hp.hpEsprit.max;
   }
   let regenAme;
-  if (
-    rollResult.terms[0].rolls[1].dice[0].total == 10 ||
-    rollResult.terms[0].rolls[1].total < 0
-  ) {
+  if (rollResult.terms[0].rolls[1].dice[0].total == 10 || rollResult.terms[0].rolls[1].total < 0) {
     regenAme = -1;
   } else {
     regenAme = rollResult.terms[0].rolls[1].dice[0].total;
@@ -1465,10 +1409,7 @@ export async function RegenHP({
     hpAmeF = hp.hpAme.max;
   }
   let regenCorps;
-  if (
-    rollResult.terms[0].rolls[0].dice[0].total == 10 ||
-    rollResult.terms[0].rolls[0].total < 0
-  ) {
+  if (rollResult.terms[0].rolls[0].dice[0].total == 10 || rollResult.terms[0].rolls[0].total < 0) {
     regenCorps = -1;
   } else {
     regenCorps = rollResult.terms[0].rolls[0].dice[0].total;
@@ -1496,7 +1437,7 @@ export async function RegenHP({
       },
     },
   });
-  actor.sheet.render()
+  actor.sheet.render();
   if (sendMessage) {
     RegenToCustomMessage(actor, rollResult, messageTemplate, {
       ...extraMessageData,
@@ -1509,12 +1450,7 @@ export async function RegenHP({
     });
   }
 
-  async function RegenToCustomMessage(
-    actor = null,
-    rollResult,
-    template,
-    extraData
-  ) {
+  async function RegenToCustomMessage(actor = null, rollResult, template, extraData) {
     let templateContext = {
       ...extraData,
       actor: actor,
@@ -1531,7 +1467,7 @@ export async function RegenHP({
       speaker: ChatMessage.getSpeaker({ actor }),
       content: await renderTemplate(template, templateContext),
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      type: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
     ChatMessage.create(chatData);
   }
@@ -1561,8 +1497,7 @@ export async function RegenHP({
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.roll"),
-            callback: (html) =>
-              resolve(_processHPRegenOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processHPRegenOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -1595,8 +1530,7 @@ export async function trihnTest({
   state = null,
 } = {}) {
   const actorData = actor ? actor.system : null;
-  const messageTemplate =
-    "systems/shaanrenaissance/templates/chat/trihnTest-chat.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/trihnTest-chat.hbs";
 
   let maxTest;
   let dice;
@@ -1617,7 +1551,7 @@ export async function trihnTest({
     trihn,
     maxTest,
   };
-  let rollResult = await new Roll(rollFormula, rollData).roll({ async: true });
+  let rollResult = await new Roll(rollFormula, rollData).roll();
   let dice3d;
   if (game.dice3d != undefined) {
     dice3d = game.dice3d.showForRoll(rollResult, game.user, true);
@@ -1655,12 +1589,7 @@ export async function trihnTest({
       actorID: actor.uuid,
     });
   }
-  async function trihnTestToCustomMessage(
-    actor = null,
-    rollResult,
-    template,
-    extraData
-  ) {
+  async function trihnTestToCustomMessage(actor = null, rollResult, template, extraData) {
     let templateContext = {
       ...extraData,
       actor: actor,
@@ -1676,7 +1605,7 @@ export async function trihnTest({
       speaker: ChatMessage.getSpeaker({ actor }),
       content: await renderTemplate(template, templateContext),
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      type: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
     ChatMessage.create(chatData);
   }
@@ -1685,17 +1614,12 @@ function processStatuses({ actor, race, state, domain } = {}) {
   state = 0;
   if (actor.conditions.advantaged) state += 1;
   if (actor.conditions.stunned) state -= 1;
-  if (actor.conditions.obscurity && (race != "Boreal" || race != "Boréal"))
-    state -= 2;
+  if (actor.conditions.obscurity && (race != "Boreal" || race != "Boréal")) state -= 2;
   if (actor.conditions.weakened) state -= 2;
   if (actor.conditions.deafened) state -= 2;
   if (actor.conditions.dazzled) state -= 2;
   if (actor.conditions.blinded) state -= 4;
-  if (
-    actor.conditions.muted &&
-    (domain === "Social" || domain === "Magie" || domain === "Rituels")
-  )
-    state -= 4;
+  if (actor.conditions.muted && (domain === "Social" || domain === "Magie" || domain === "Rituels")) state -= 4;
 
   console.log(state);
   return state;
