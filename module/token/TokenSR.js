@@ -169,24 +169,4 @@ export class TokenSR extends Token {
     bars.bar3 = bars.addChild(new PIXI.Graphics());
     return bars;
   }
-  getBarAttribute(barName, { alternative } = {}) {
-    let stat;
-    if (barName === "bar1") {
-      stat = "attributes.hpEsprit";
-    } else if (barName === "bar2") {
-      stat = "attributes.hpAme";
-    } else if (barName === "bar3") {
-      stat = "attributes.hpCorps";
-    }
-
-    let data = foundry.utils.getProperty(this.actor.system, stat);
-    data = foundry.utils.duplicate(data);
-
-    return {
-      type: "bar",
-      attribute: stat,
-      value: parseInt(data.value || 0),
-      max: parseInt(data.max || 0),
-    };
-  }
 }

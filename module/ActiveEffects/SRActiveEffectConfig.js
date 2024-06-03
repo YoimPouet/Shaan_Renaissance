@@ -4,10 +4,7 @@ export class SRActiveEffectConfig extends ActiveEffectConfig {
   }
   async getData(options = {}) {
     const context = await super.getData(options);
-    context.descriptionHTML = await TextEditor.enrichHTML(this.object.description, (context.config = CONFIG.shaanRenaissance), {
-      async: true,
-      secrets: this.object.isOwner,
-    });
+    context.descriptionHTML = await TextEditor.enrichHTML(this.object.description, { secrets: this.object.isOwner });
     const legacyTransfer = CONFIG.ActiveEffect.legacyTransferral;
     const labels = {
       transfer: {
@@ -15,18 +12,29 @@ export class SRActiveEffectConfig extends ActiveEffectConfig {
         hint: game.i18n.localize(`EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`),
       },
     };
-    const data = {
+
+    // Status Conditions
+    const statuses = CONFIG.statusEffects.map((s) => {
+      return {
+        id: s.id,
+        label: game.i18n.localize(s.name ?? /** @deprecated since v12 */ s.label),
+        selected: context.data.statuses.includes(s.id) ? "selected" : "",
+      };
+    });
+
+    // Return rendering context
+    return foundry.utils.mergeObject(context, {
       labels,
       effect: this.object, // Backwards compatibility
-      system: this.object,
+      data: this.object,
       isActorEffect: this.object.parent.documentName === "Actor",
       isItemEffect: this.object.parent.documentName === "Item",
       submitText: "EFFECT.Submit",
+      statuses,
       modes: Object.entries(CONST.ACTIVE_EFFECT_MODES).reduce((obj, e) => {
         obj[e[1]] = game.i18n.localize(`EFFECT.MODE_${e[0]}`);
         return obj;
       }, {}),
-    };
-    return foundry.utils.mergeObject(context, data);
+    });
   }
 }

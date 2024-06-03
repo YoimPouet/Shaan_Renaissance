@@ -115,6 +115,22 @@ export class ActorSR extends Actor {
     const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates);
     return allowed !== false ? this.update(updates) : this;
   }
+  async _preCreate(data, options, user) {
+    console.log(data);
+    let icon = data.img;
+    const type = data.type;
+
+    switch (type) {
+      case "Personnage":
+      case "PNJ":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_general.webp";
+        break;
+    }
+
+    // await this.updateSource({ img: icon });
+
+    return await super._preCreate(data, options, user);
+  }
 }
 export const ActorProxySR = new Proxy(ActorSR, {
   construct: (_target, args) => new CONFIG.shaanRenaissance.Actor.documentClasses[args[0].type](...args),

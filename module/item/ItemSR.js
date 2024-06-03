@@ -64,14 +64,47 @@ export class ItemSR extends Item {
     return this.processChatData(htmlOptions, foundry.utils.deepClone(systemData));
   }
   static async createDialog(data = {}, options = {}) {
-    var _a;
     const original = game.system.documentTypes.Item;
-    const withClasses = {
-        ...options,
-        classes: [...(null !== (_a = options.classes) && void 0 !== _a ? _a : []), "dialog-item-create"],
-      },
-      newItem = super.createDialog(data, withClasses);
-    return (game.system.documentTypes.Item = original), newItem;
+    options.classes = [...(options.classes || []), "dialog-item-create"];
+    const newItem = await super.createDialog(data, options);
+    game.system.documentTypes.Item = original;
+    return newItem;
+  }
+  async _preCreate(data, options, user) {
+    console.log(data);
+    let icon = data.img;
+    const type = data.type;
+
+    switch (type) {
+      case "Armement":
+      case "Armimale":
+      case "Artefact":
+      case "Bâtiment":
+      case "Outil":
+      case "Protection":
+      case "Relation":
+      case "Richesse":
+      case "Technologie":
+      case "Transport":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_acquis.webp";
+        break;
+      case "Manuscrit":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_biographie.webp";
+        break;
+      case "Pouvoir":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_pouvoir.webp";
+        break;
+      case "Symbiose":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_symbiose.webp";
+        break;
+      case "Trihn":
+        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_magie.webp";
+        break;
+    }
+
+    await this.updateSource({ img: icon });
+
+    return await super._preCreate(data, options, user);
   }
   prepareActorData() {}
 }

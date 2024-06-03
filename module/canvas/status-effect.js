@@ -53,7 +53,7 @@ export class StatusEffects {
       (newIcon.src = iconSrc), picture.append(newIcon), icon.replaceWith(picture);
       const slug = null !== (_d = picture.dataset.statusId) && void 0 !== _d ? _d : "",
         affecting = affectingConditions.filter((c) => c.slug === slug);
-      if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
+      if (affecting.length > 0 || token.actor?.isDead) {
         picture.classList.add("active");
       }
     }
@@ -122,26 +122,22 @@ export class StatusEffects {
       return;
     }
 
-    const imgElement = control.querySelector("img");
-    const iconSrc = imgElement?.getAttribute("src");
+    const affecting = actor?.conditions.bySlug(slug, { active: true, temporary: false }).find((c) => !c.system.references.parent);
 
-    const affecting = actor.conditions.bySlug(slug, { active: true, temporary: false }).find((c) => !c.system.references.parent);
     const conditionIds = [];
 
     if (event.type === "click" && !affecting) {
       if (objectHasKey(CONFIG.shaanRenaissance.conditionTypes, slug)) {
         const newCondition = game.shaanRenaissance.ConditionManager.getCondition(slug).toObject();
         await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
-      } else if (iconSrc && (event.shiftKey || control.dataset.statusId === "dead")) {
-        await token.toggleEffect(iconSrc, { overlay: true, active: true });
+      } else if (slug === "dead") {
+        await token.actor?.toggleStatusEffect(slug, { overlay: true });
       }
     } else if (event.type === "contextmenu") {
       if (affecting) conditionIds.push(affecting.id);
 
       if (conditionIds.length > 0) {
         await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
-      } else if (token.document.overlayEffect === iconSrc) {
-        await token.document.update({ overlayEffect: "" });
       }
     }
   }
