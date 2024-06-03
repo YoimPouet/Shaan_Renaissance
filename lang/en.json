@@ -1,12 +1,15 @@
 {
-  "TYPES":{
-    "Actor":{
+  "TYPES": {
+    "Actor": {
       "Personnage": "Personnage",
       "PNJ": "PNJ",
       "Créature": "Créature",
       "Réseau": "Réseau",
-      "Shaani":"Shaani",
-      "Loot":"Loot"
+      "Shaani": "Shaani",
+      "Loot": "Loot"
+    },
+    "Item": {
+      "Pouvoir": "Pouvoir"
     }
   },
   "ACTOR": {
@@ -103,8 +106,8 @@
     "details": "Détails",
     "rules": "Règles",
     "Slug": "Slug",
-    "Shaandars":"Shaandars",
-    "Cost":"Coût"
+    "Shaandars": "Shaandars",
+    "Cost": "Coût"
   },
   "SRdomains": {
     "Technique": "Technique",
@@ -468,7 +471,7 @@
     "DetailsLabel": "Détails",
     "RéseauLabel": "Réseau",
     "MorpheLabel": "Morphe",
-    "Cercle":"Cercle"
+    "Cercle": "Cercle"
   },
   "Item": {
     "Race": "Race",
@@ -518,8 +521,8 @@
         "closedRoll": "Test caché ?"
       }
     },
-    "shaaniTest":{
-      "title":"Actions de Shaani"
+    "shaaniTest": {
+      "title": "Actions de Shaani"
     },
     "addCoins": {
       "title": "Crédos",
@@ -557,7 +560,10 @@
     "conditions": {
       "stunned": "Étourdi",
       "blinded": "Aveuglé",
-      "advantaged": "Avantagé"
+      "advantaged": "Avantagé",
+      "weakened": "Affaibli",
+      "deafened": "Assourdi",
+      "dazzled": "Ébloui"
     }
   },
   "SRCreation": {
@@ -580,12 +586,15 @@
   "SR": {
     "Actor": {
       "Dead": "Mort",
-      "Shaani":{
-        "RemoveMember":{
-          "Title":"Supprimer un membre",
+      "Shaani": {
+        "check": {
+          "title": "Actions de Shaani"
+        },
+        "RemoveMember": {
+          "Title": "Supprimer un membre",
           "Content": "Êtes-vous sûr de vouloir supprimer ce membre du Shaani ?"
         },
-        "BlankSlate":"Il n'y a aucun membre dans le Shaani"
+        "BlankSlate": "Il n'y a aucun membre dans le Shaani"
       }
     },
     "Inventory": {
