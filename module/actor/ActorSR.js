@@ -127,7 +127,7 @@ export class ActorSR extends Actor {
         break;
     }
 
-    // await this.updateSource({ img: icon });
+    await this.updateSource({ img: icon });
 
     return await super._preCreate(data, options, user);
   }

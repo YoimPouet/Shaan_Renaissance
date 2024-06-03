@@ -116,18 +116,13 @@ export class TokenSR extends Token {
   }
   drawBars() {
     if (!this.actor || this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) return;
-    // TO DO - Ajouter bar3
-    const bars = ["bar1", "bar2", "bar3"];
-    bars.forEach((b, i) => {
-      if (!this.hasOwnProperty("bars")) return;
-
+    ["bar1", "bar2", "bar3"].forEach((b, i) => {
       const bar = this.bars[b];
-      const attr = this.getBarAttribute(b);
-      if (!attr || attr.type !== "bar") return (bar.visible = false);
+      const attr = this.document.getBarAttribute(b);
+      if (!attr || attr.type !== "bar" || attr.max === 0) return (bar.visible = false);
       this._drawBar(i, bar, attr);
       bar.visible = true;
     });
-    this.bars.visible = this._canViewMode(this.document.displayBars);
   }
   _drawBar(number, bar, data) {
     const val = Number(data.value);
