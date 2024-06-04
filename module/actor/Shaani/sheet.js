@@ -48,10 +48,12 @@ export class ShaaniSheetSR extends ActorSheetSR {
           isGM: game.user.isGM,
         },
       };
+
     this.prepareMembersItems(sheetData);
     this.defineTrihnMax(sheetData);
     this.processDomains(sheetData);
     this.processSkills(sheetData);
+    sheetData.memberNames = sheetData.members.map((member) => member.actor.name);
 
     console.log(sheetData);
     return sheetData;

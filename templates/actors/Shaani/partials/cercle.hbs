@@ -5,12 +5,8 @@
       <div class="souche esprit">
         <span class="souche-label">Esprit</span>
         <select name="system.soucheEsprit">
-          {{#select system.soucheEsprit}}
-            <option value=""></option>
-            {{#each members as |member i|}}
-              <option value="{{i}}">{{member.actor.name}}</option>
-            {{/each}}
-          {{/select}}
+          <option value=""></option>
+          {{selectOptions this.memberNames selected=system.soucheEsprit}}
         </select>
         <div class="trihn-container esprit">
           <input type="number" name="system.attributes.hpEsprit.value" value="{{system.attributes.hpEsprit.value}}" />
@@ -21,12 +17,8 @@
       <div class="souche ame">
         <span class="souche-label">Âme</span>
         <select name="system.soucheAme">
-          {{#select system.soucheAme}}
-            <option value=""></option>
-            {{#each members as |member i|}}
-              <option value="{{i}}">{{member.actor.name}}</option>
-            {{/each}}
-          {{/select}}
+          <option value=""></option>
+          {{selectOptions this.memberNames selected=system.soucheAme}}
         </select>
         <div class="trihn-container ame">
           <input type="number" name="system.attributes.hpAme.value" value="{{system.attributes.hpAme.value}}" />
@@ -39,9 +31,7 @@
         <span class="souche-label">Corps</span>
         <select name="system.soucheCorps">
           <option value=""></option>
-          {{#each members as |member i|}}
-            <option value="{{i}}">{{member.actor.name}}</option>
-          {{/each}}
+          {{selectOptions this.memberNames selected=system.soucheCorps}}
         </select>
         <div class="trihn-container corps">
           <input type="number" name="system.attributes.hpCorps.value" value="{{system.attributes.hpCorps.value}}" />
