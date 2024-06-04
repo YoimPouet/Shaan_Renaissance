@@ -68,104 +68,54 @@ export class compendiumBrowser extends Application {
     );
   }
   initCompendiumList() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
     const settings = {
-        abilities: {},
-        bestiary: {},
-        acquis: {},
-        castes: {},
-        people: {},
-        jobs: {},
-        races: {},
-      },
-      loadDefault = {
-        "shaanrenaissance.pouvoirs": !0,
-        "shaanrenaissance.acquis": !0,
-        "shaanrenaissance.metiers": !0,
-        "shaanrenaissance.castes": !0,
-        "shaanrenaissance.peuples": !0,
-        "shaanrenaissance.races": !0,
-        "shaanrenaissance.bestiary": !0,
-      };
+      abilities: {},
+      bestiary: {},
+      acquis: {},
+      castes: {},
+      people: {},
+      jobs: {},
+      races: {},
+    };
+
+    const loadDefault = {
+      "shaanrenaissance.pouvoirs": true,
+      "shaanrenaissance.acquis": true,
+      "shaanrenaissance.metiers": true,
+      "shaanrenaissance.castes": true,
+      "shaanrenaissance.peuples": true,
+      "shaanrenaissance.races": true,
+      "shaanrenaissance.bestiary": true,
+    };
+
+    const loadPack = (category, collection, label) => {
+      const load = this.settings[category]?.[collection]?.load ?? loadDefault[collection];
+      settings[category][collection] = { load, name: label };
+    };
+
     for (const pack of game.packs) {
       const types = new Set(pack.index.map((entry) => entry.type));
-      if (0 !== types.size) {
+      const label = pack.metadata.label;
+      const collection = pack.collection;
+
+      if (types.size !== 0) {
         if (types.has("Pouvoir")) {
-          const load =
-            null ===
-              (_c =
-                null === (_b = null === (_a = this.settings.abilities) || void 0 === _a ? void 0 : _a[pack.collection]) ||
-                void 0 === _b
-                  ? void 0
-                  : _b.load) && void 0 === _c
-              ? _c
-              : !!loadDefault[pack.collection];
-          settings.abilities[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+          loadPack("abilities", collection, label);
         }
         if (types.has("Caste")) {
-          const load =
-            null ===
-              (_j =
-                null === (_h = null === (_g = this.settings.castes) || void 0 === _g ? void 0 : _g[pack.collection]) ||
-                void 0 === _h
-                  ? void 0
-                  : _h.load) && void 0 !== _j
-              ? _j
-              : !!loadDefault[pack.collection];
-          settings.castes[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+          loadPack("castes", collection, label);
         }
         if (types.has("Métier")) {
-          const load =
-            null ===
-              (_m =
-                null === (_l = null === (_k = this.settings.jobs) || void 0 === _k ? void 0 : _k[pack.collection]) ||
-                void 0 === _l
-                  ? void 0
-                  : _l.load) && void 0 !== _m
-              ? _m
-              : !!loadDefault[pack.collection];
-          settings.jobs[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+          loadPack("jobs", collection, label);
         }
         if (types.has("Race")) {
-          const load =
-            null ===
-              (_q =
-                null === (_p = null === (_o = this.settings.races) || void 0 === _o ? void 0 : _o[pack.collection]) ||
-                void 0 === _p
-                  ? void 0
-                  : _p.load) && void 0 !== _q
-              ? _q
-              : !!loadDefault[pack.collection];
-          settings.races[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+          loadPack("races", collection, label);
         }
         if (types.has("Peuple")) {
-          const load =
-            null ===
-              (_t =
-                null === (_s = null === (_r = this.settings.people) || void 0 === _r ? void 0 : _r[pack.collection]) ||
-                void 0 === _s
-                  ? void 0
-                  : _s.load) && void 0 !== _t
-              ? _t
-              : !!loadDefault[pack.collection];
-          settings.people[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
-        } else if (
-          types.has(
+          loadPack("people", collection, label);
+        }
+        if (
+          [
             "Armement",
             "Armimale",
             "Artefact",
@@ -176,52 +126,30 @@ export class compendiumBrowser extends Application {
             "Richesse",
             "Technologie",
             "Transport",
-            "Bâtiment"
-          )
+            "Bâtiment",
+          ].some((type) => types.has(type))
         ) {
-          const load =
-            null ===
-              (_f =
-                null === (_e = null === (_d = this.settings.acquis) || void 0 === _d ? void 0 : _d[pack.collection]) ||
-                void 0 === _e
-                  ? void 0
-                  : _e.load) || void 0 !== _f
-              ? _f
-              : !!loadDefault[pack.collection];
-          settings.acquis[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+          loadPack("acquis", collection, label);
         }
-        if (types.has("Créature" || "PNJ")) {
-          const load =
-            null ===
-              (_w =
-                null === (_v = null === (_u = this.settings.bestiary) || void 0 === _u ? void 0 : _u[pack.collection]) ||
-                void 0 === _v
-                  ? void 0
-                  : _v.load) ||
-            void 0 === _w ||
-            _w;
-          settings.bestiary[pack.collection] = {
-            load,
-            name: pack.metadata.label,
-          };
+        if (types.has("Créature") || types.has("PNJ")) {
+          loadPack("bestiary", collection, label);
         }
       }
     }
-    for (const tab of this.dataTabsList)
+
+    for (const tab of this.dataTabsList) {
       settings[tab] = Object.fromEntries(
-        Object.entries(settings[tab]).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
-          var _a, _b;
-          return (null !== (_a = null == dataA ? void 0 : dataA.name) && void 0 !== _a ? _a : "") >
-            (null !== (_b = null == dataB ? void 0 : dataB.name) && void 0 !== _b ? _b : "")
-            ? 1
-            : -1;
+        Object.entries(settings[tab]).sort(([, dataA], [, dataB]) => {
+          const nameA = dataA.name ?? "";
+          const nameB = dataB.name ?? "";
+          return nameA.localeCompare(nameB);
         })
       );
+    }
+
     this.settings = settings;
   }
+
   async openTab(tabName, filter) {
     return (this.activeTab = tabName), "settings" !== tabName && filter ? this.tabs[tabName].open(filter) : this.loadTab(tabName);
   }
@@ -343,75 +271,6 @@ export class compendiumBrowser extends Application {
           }
         });
       const title = container.querySelector("div.title");
-      if (
-        (null == title ||
-          title.addEventListener("click", () => {
-            const toggleFilter = (filter) => {
-              filter.isExpanded = !filter.isExpanded;
-              const contentElement = title.nextElementSibling;
-              contentElement instanceof HTMLElement &&
-                (filter.isExpanded ? (contentElement.style.display = "") : (contentElement.style.display = "none"));
-            };
-            switch (filterType) {
-              case "checkboxes":
-                (0, objectHasKey)(currentTab.filterData.checkboxes, filterName) &&
-                  toggleFilter(currentTab.filterData.checkboxes[filterName]);
-                break;
-              case "ranges":
-                if (!currentTab.isOfType("equipment")) return;
-                (0, objectHasKey)(currentTab.filterData.ranges, filterName) &&
-                  toggleFilter(currentTab.filterData.ranges[filterName]);
-                break;
-            }
-          }),
-        "checkboxes" === filterType &&
-          container.querySelectorAll("input[type=checkbox]").forEach((checkboxElement) => {
-            checkboxElement.addEventListener("click", () => {
-              if ((0, objectHasKey)(currentTab.filterData.checkboxes, filterName)) {
-                const optionName = checkboxElement.name,
-                  checkbox = currentTab.filterData.checkboxes[filterName],
-                  option = checkbox.options[optionName];
-                (option.selected = !option.selected),
-                  option.selected
-                    ? checkbox.selected.push(optionName)
-                    : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName)),
-                  this.clearScrollLimit(!0);
-              }
-            });
-          }),
-        "ranges" === filterType &&
-          container.querySelectorAll("input[name*=Bound]").forEach((range) => {
-            range.addEventListener("keyup", (event) => {
-              var _a, _b, _c, _d;
-              if (!currentTab.isOfType("acquis")) return;
-              if ("Enter" !== event.key) return;
-              const ranges = currentTab.filterData.ranges;
-              if (ranges && (0, objectHasKey)(ranges, filterName)) {
-                const range = ranges[filterName],
-                  lowerBound =
-                    null !==
-                      (_b =
-                        null === (_a = container.querySelector("input[name*=lowerBound]")) || void 0 === _a
-                          ? void 0
-                          : _a.value) && void 0 !== _b
-                      ? _b
-                      : "",
-                  upperBound =
-                    null !==
-                      (_d =
-                        null === (_c = container.querySelector("input[name*=upperBound]")) || void 0 === _c
-                          ? void 0
-                          : _c.value) && void 0 !== _d
-                      ? _d
-                      : "",
-                  values = currentTab.parseRangeFilterInput(filterName, lowerBound, upperBound);
-                (range.values = values), (range.changed = !0), this.clearScrollLimit(!0);
-              }
-            });
-          }),
-        "multiselects" === filterType)
-      ) {
-      }
     }
 
     const list = html.querySelector(".tab.active ul.item-list");
