@@ -1,6 +1,8 @@
 export class TokenSR extends Token {
   #unlinkedVideo = false;
+
   #ring;
+
   async _draw(options) {
     this.#cleanData();
 
@@ -163,5 +165,12 @@ export class TokenSR extends Token {
     bars.bar2 = bars.addChild(new PIXI.Graphics());
     bars.bar3 = bars.addChild(new PIXI.Graphics());
     return bars;
+  }
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+
+    this.renderFlags.set({
+      refreshBars: ["displayBars", "bar1", "bar2", "bar3"].some((k) => k in changed),
+    });
   }
 }

@@ -1,12 +1,5 @@
 import { objectHasKey } from "../utils/utils.js";
 export class TokenDocumentSR extends TokenDocument {
-  _onCreate(data, options, userId) {
-    super._onCreate(data, options, userId);
-    if (this.parent.isView) this.object?._onCreate(data, options, userId);
-    this.bar1 = { attribute: "attributes.hpEsprit" };
-    this.bar2 = { attribute: "attributes.hpAme" };
-    this.bar3 = { attribute: "attributes.hpCorps" };
-  }
   hasStatusEffect(statusId) {
     if (statusId === "dead") return !!this.actor?.statuses.has("dead");
     const { actor } = this;
@@ -20,6 +13,7 @@ export class TokenDocumentSR extends TokenDocument {
     return hasCondition;
   }
   getBarAttribute(barName, { alternative } = {}) {
+    this.bar3 = { attribute: "attributes.hpCorps" };
     const attribute = alternative || this[barName]?.attribute;
     if (!attribute || !this.actor) return null;
     const system = this.actor.system;

@@ -88,6 +88,7 @@ export const templatePaths = [
 
   // TOKEN
   "systems/shaanrenaissance/templates/scene/tokenConfig.hbs",
+  "systems/shaanrenaissance/templates/scene/default-token-config.hbs",
   "systems/shaanrenaissance/templates/scene/parts/token-resources.hbs",
 
   // COMPENDIUM BROWSER

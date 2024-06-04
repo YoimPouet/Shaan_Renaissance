@@ -10,12 +10,13 @@ export class TokenConfigSR extends TokenConfig {
 
     // Prepare Token data
     const doc = this.preview ?? this.document;
+    doc.bar3 = { attribute: "attribute.hpCorps" };
     const source = doc.toObject();
     const sourceDetectionModes = new Set(source.detectionModes.map((m) => m.id));
     const preparedDetectionModes = doc.detectionModes.filter((m) => !sourceDetectionModes.has(m.id));
 
     // Return rendering context
-    return {
+    const data = {
       fields: this.document.schema.fields, // Important to use the true document schema,
       lightFields: this.document.schema.fields.light.fields,
       cssClasses: [this.isPrototype ? "prototype" : null].filter((c) => !!c).join(" "),
@@ -28,7 +29,7 @@ export class TokenConfigSR extends TokenConfig {
       barAttributes: TokenDocument.implementation.getTrackedAttributeChoices(attributes),
       bar1: doc.getBarAttribute?.("bar1"),
       bar2: doc.getBarAttribute?.("bar2"),
-      bar3: this.token.getBarAttribute?.("bar3"),
+      bar3: doc.getBarAttribute?.("bar3"),
       colorationTechniques: AdaptiveLightingShader.SHADER_TECHNIQUES,
       visionModes: Object.values(CONFIG.Canvas.visionModes).filter((f) => f.tokenConfig),
       detectionModes: Object.values(CONFIG.Canvas.detectionModes).filter((f) => f.tokenConfig),
@@ -64,6 +65,7 @@ export class TokenConfigSR extends TokenConfig {
         return obj;
       }, {}),
     };
+    return data;
   }
   _getSubmitData(updateData = {}) {
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));

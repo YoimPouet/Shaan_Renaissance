@@ -32,7 +32,7 @@ export class SRTokenHUD extends TokenHUD {
         displayBar2: bar2 && bar2.type !== "none",
         bar2Data: bar2,
         displayBar3: bar3 && bar3.type !== "none",
-        bar3: bar3.attribute,
+        bar3: bar3,
         bar3Data: bar3,
         visibilityClass: data.hidden ? "active" : "",
         effectsClass: this._statusEffects ? "active" : "",

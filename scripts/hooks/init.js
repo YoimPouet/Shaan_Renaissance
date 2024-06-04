@@ -24,7 +24,6 @@ export const Init = {
       game.shaanRenaissance.LicenseViewer = new LicenseViewer();
 
       game.shaanRenaissance.system = { moduleArt: new ModuleArt() };
-      
     });
   },
 };

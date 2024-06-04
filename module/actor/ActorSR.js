@@ -116,7 +116,6 @@ export class ActorSR extends Actor {
     return allowed !== false ? this.update(updates) : this;
   }
   async _preCreate(data, options, user) {
-    console.log(data);
     let icon = data.img;
     const type = data.type;
 

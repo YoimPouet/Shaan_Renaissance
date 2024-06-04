@@ -252,7 +252,6 @@ export class ActorSheetSR extends ActorSheet {
     }
   }
   defineInitiative(sheetData, actorData) {
-    console.log(sheetData);
     if (typeof sheetData.system.attributes !== "undefined") {
       const domain = sheetData.system.attributes.initiative.statistic,
         domainValue = actorData.system.skills[domain].rank + actorData.system.skills[domain].temp;
@@ -313,7 +312,6 @@ export class ActorSheetSR extends ActorSheet {
       .replace("â", "a")
       .replace("î", "i");
     let description = game.i18n.translations.SRspéDesc[spécialisation];
-    console.log(domain, spécialisation);
 
     Dice.SpéTest({
       actor,
@@ -968,8 +966,6 @@ export class ActorSheetSR extends ActorSheet {
           ...extraData,
           pouvoirData: pouvoir,
         };
-        console.log(templateContext);
-        console.log(pouvoir);
 
         let chatData = {
           user: game.user.id,
@@ -978,7 +974,6 @@ export class ActorSheetSR extends ActorSheet {
           sound: CONFIG.sounds.notification,
           type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
-        console.log(chatData);
 
         ChatMessage.create(chatData);
       }
@@ -1006,9 +1001,7 @@ export class ActorSheetSR extends ActorSheet {
     const itemId = event.target.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
     const isUsed = item.system.isUsed;
-    console.log(item);
     const effects = this.actor.effects.filter((effect) => effect.origin.endsWith(itemId));
-    console.log(effects);
     for (const effect of effects) {
       const isDisabled = effect.disabled;
       await effect.update({
