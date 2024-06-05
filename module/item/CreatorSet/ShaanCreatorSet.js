@@ -54,7 +54,6 @@ export default class ShaanCreatorSet extends ItemSheet {
     if (tr) {
       effect = tr.dataset.effectId ? owner.effects.get(tr.dataset.effectId) : null;
     }
-    console.log(effect);
 
     switch (a.dataset.action) {
       case "create":

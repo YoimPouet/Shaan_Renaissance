@@ -503,7 +503,6 @@ export async function SpéTest({
   spéBonusF = spéBonusF || 0;
   if (score > domainLevel) {
     isSuccess = spéAcquisF + spéBonusF > difficulty || rollResult.symbiose === "Réussite";
-    console.log(spéAcquisF, spéBonusF);
     score = isSuccess ? spéAcquisF + spéBonusF + (rollResult.symbiose === "Réussite" ? 10 : 0) : score;
   } else {
     if (score === 0) {
@@ -628,7 +627,6 @@ export async function necroseTest({
 
   let rollFormula;
 
-  console.log(raceName);
   if (raceName == "Humain") {
     let nécrose = "1d10[Necrose]";
     let esprit = "1d10[Esprit]";
@@ -1163,7 +1161,6 @@ export async function shaaniTest({
   // Bonus et Acquis
   for (const trihn of Object.values(checkOptions)) {
     trihn.domaineRank = actorData.skills[trihn.domain].rank;
-    console.log(actorData);
     if (trihn.spe !== "pur") {
       let spéDomain;
       let données;
@@ -1179,7 +1176,6 @@ export async function shaaniTest({
     }
   }
 
-  console.log(checkOptions);
   let rollData = {
     ...actorData,
     actions: checkOptions,
@@ -1191,7 +1187,6 @@ export async function shaaniTest({
     dice3d;
   }
 
-  console.log(rollResult);
   let dice = rollResult.dice;
   let déCorps = rollResult.dice[dice.length - 3];
   let déAme = rollResult.dice[dice.length - 2];
@@ -1330,7 +1325,6 @@ export async function RollToCustomMessage(actor = null, rollResult, template, ex
   }
   ChatMessage.applyRollMode(chatData, "roll");
   const chatMsg = await ChatMessage.create(chatData);
-  console.log(chatMsg);
 }
 
 export async function RegenHP({
@@ -1621,6 +1615,5 @@ function processStatuses({ actor, race, state, domain } = {}) {
   if (actor.conditions.blinded) state -= 4;
   if (actor.conditions.muted && (domain === "Social" || domain === "Magie" || domain === "Rituels")) state -= 4;
 
-  console.log(state);
   return state;
 }

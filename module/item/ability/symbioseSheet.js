@@ -24,7 +24,6 @@ export class symbioseSheet extends ShaanRItemSheet {
         },
       };
 
-    console.log(itemData);
     console.log(sheetData);
     return sheetData;
   }

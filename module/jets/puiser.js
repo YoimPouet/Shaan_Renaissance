@@ -7,23 +7,13 @@ export function addChatListeners(app, html, data) {
 }
 
 async function onPuiser(event) {
-  const actors = (0, getSelectedOrOwnActors)([
-    "Personnage",
-    "PNJ",
-    "Créature",
-    "Shaani",
-    "Réseau",
-  ]);
-  if (actors.length == 0)
-    return ui.notifications.warn("Vous devez sélectionner au moins un token.");
+  const actors = (0, getSelectedOrOwnActors)(["Personnage", "PNJ", "Créature", "Shaani", "Réseau"]);
+  if (actors.length == 0) return ui.notifications.warn("Vous devez sélectionner au moins un token.");
   const chatCard = $(this.parentElement);
   const dice = chatCard.find("input.dice-value");
-  const isParalyzed =
-    chatCard.find(".die.Corps").attr("data-paralyzed") === "true";
-  const isBewitched =
-    chatCard.find(".die.Ame").attr("data-bewitched") === "true";
-  const isDominated =
-    chatCard.find(".die.Esprit").attr("data-dominated") === "true";
+  const isParalyzed = chatCard.find(".die.Corps").attr("data-paralyzed") === "true";
+  const isBewitched = chatCard.find(".die.Ame").attr("data-bewitched") === "true";
+  const isDominated = chatCard.find(".die.Esprit").attr("data-dominated") === "true";
   const domain = Number(chatCard.find("b.domain").text());
   const domainName = chatCard.find("span.domainName").text();
   const spéBonus = Number(chatCard.find("b.spéBonus").text());
@@ -41,11 +31,7 @@ async function onPuiser(event) {
   let puiser1;
   let puiser2;
 
-  if (
-    domainName == "Technique" ||
-    domainName == "Savoir" ||
-    domainName == "Social"
-  ) {
+  if (domainName == "Technique" || domainName == "Savoir" || domainName == "Social") {
     baseDice = {
       value: esprit,
       label: "esprit",
@@ -67,11 +53,7 @@ async function onPuiser(event) {
       color: "rouge",
       checked: false,
     };
-  } else if (
-    domainName == "Arts" ||
-    domainName == "Shaan" ||
-    domainName == "Magie"
-  ) {
+  } else if (domainName == "Arts" || domainName == "Shaan" || domainName == "Magie") {
     baseDice = {
       value: ame,
       label: "ame",
@@ -93,11 +75,7 @@ async function onPuiser(event) {
       color: "rouge",
       checked: false,
     };
-  } else if (
-    domainName == "Rituels" ||
-    domainName == "Survie" ||
-    domainName == "Combat"
-  ) {
+  } else if (domainName == "Rituels" || domainName == "Survie" || domainName == "Combat") {
     baseDice = {
       value: corps,
       label: "corps",
@@ -129,11 +107,7 @@ async function onPuiser(event) {
   if (puiser2.value == 10) {
     puiser2.value = 0;
   }
-  if (
-    baseDice.value > domain &&
-    puiser1.value > domain &&
-    puiser2.value > domain
-  ) {
+  if (baseDice.value > domain && puiser1.value > domain && puiser2.value > domain) {
     return ui.notifications.error("Vous ne pouvez puiser dans aucun Trihn.");
   }
   //   Définition des choix
@@ -149,11 +123,7 @@ async function onPuiser(event) {
       choix.choix2 = puiser2;
     }
   }
-  if (
-    baseDice.value != 0 &&
-    puiser1.value != 0 &&
-    baseDice.value + puiser1.value <= domain
-  ) {
+  if (baseDice.value != 0 && puiser1.value != 0 && baseDice.value + puiser1.value <= domain) {
     choix.choix3 = {
       value: baseDice.value + puiser1.value,
       diceValues: { baseDice: baseDice.value, puiser1: puiser1.value },
@@ -161,11 +131,7 @@ async function onPuiser(event) {
       color: { baseDice: baseDice.color, puiser1: puiser1.color },
     };
   }
-  if (
-    baseDice.value != 0 &&
-    puiser2.value != 0 &&
-    baseDice.value + puiser2.value <= domain
-  ) {
+  if (baseDice.value != 0 && puiser2.value != 0 && baseDice.value + puiser2.value <= domain) {
     choix.choix4 = {
       value: baseDice.value + puiser2.value,
       diceValues: { baseDice: baseDice.value, puiser2: puiser2.value },
@@ -173,12 +139,7 @@ async function onPuiser(event) {
       color: { baseDice: baseDice.color, puiser2: puiser2.color },
     };
   }
-  if (
-    puiser1.value != 0 &&
-    puiser2.value != 0 &&
-    puiser1.value + puiser2.value <= domain &&
-    domain >= 10
-  ) {
+  if (puiser1.value != 0 && puiser2.value != 0 && puiser1.value + puiser2.value <= domain && domain >= 10) {
     choix.choix5 = {
       value: puiser1.value + puiser2.value,
       diceValues: { puiser1: puiser1.value, puiser2: puiser2.value },
@@ -186,14 +147,7 @@ async function onPuiser(event) {
       color: { puiser1: puiser1.color, puiser2: puiser2.color },
     };
   }
-  console.log(choix);
-  if (
-    !choix.choix1 &&
-    !choix.choix2 &&
-    !choix.choix3 &&
-    !choix.choix4 &&
-    !choix.choix5
-  ) {
+  if (!choix.choix1 && !choix.choix2 && !choix.choix3 && !choix.choix4 && !choix.choix5) {
     return ui.notifications.error("Vous ne pouvez puiser dans aucun Trihn.");
   }
   let diceList = { baseDice, puiser1, puiser2 };
@@ -241,32 +195,31 @@ async function onPuiser(event) {
       };
       let chatData;
       let rollMode = game.settings.get("core", "rollMode");
-      let whispers
-      switch(rollMode){
-        case "publicroll" : 
-        whispers = []
-        break;
-        
-        case "gmroll" : 
-        whispers = ChatMessage.getWhisperRecipients("GM")
-        break;
+      let whispers;
+      switch (rollMode) {
+        case "publicroll":
+          whispers = [];
+          break;
 
-        case "blindroll" : 
-        whispers = ChatMessage.getWhisperRecipients("GM")
-        break;
+        case "gmroll":
+          whispers = ChatMessage.getWhisperRecipients("GM");
+          break;
 
-        case "selfroll" : 
-        whispers = [game.user.id]
-        break;
+        case "blindroll":
+          whispers = ChatMessage.getWhisperRecipients("GM");
+          break;
+
+        case "selfroll":
+          whispers = [game.user.id];
+          break;
       }
-      console.log(whispers)
       chatData = {
         user: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor }),
         content: await renderTemplate(messageTemplate, templateContext),
         sound: CONFIG.sounds.notification,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        whisper: whispers
+        whisper: whispers,
       };
       ChatMessage.create(chatData);
     }
@@ -298,8 +251,7 @@ async function onPuiser(event) {
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.puiser"),
-            callback: (html) =>
-              resolve(_processPuiserOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processPuiserOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -318,12 +270,7 @@ async function onPuiser(event) {
       let div = checked.closest("div");
       let checkedId = $(checked)[0].id;
       let flavor = {};
-      if (
-        checkedId == "choix1" ||
-        checkedId == "choix2" ||
-        checkedId == "choix3" ||
-        checkedId == "choix4"
-      ) {
+      if (checkedId == "choix1" || checkedId == "choix2" || checkedId == "choix3" || checkedId == "choix4") {
         flavor.flavor1 = div.querySelector("b").dataset.flavor;
       }
       if (checkedId == "choix5") {
@@ -340,19 +287,11 @@ async function onPuiser(event) {
   }
 }
 async function onPuiserNecrose(event) {
-  const actors = (0, getSelectedOrOwnActors)([
-    "Personnage",
-    "PNJ",
-    "Créature",
-    "Shaani",
-    "Réseau",
-  ]);
-  if (actors.length == 0)
-    return ui.notifications.warn("Vous devez sélectionner au moins un token.");
+  const actors = (0, getSelectedOrOwnActors)(["Personnage", "PNJ", "Créature", "Shaani", "Réseau"]);
+  if (actors.length == 0) return ui.notifications.warn("Vous devez sélectionner au moins un token.");
   const chatCard = $(this.parentElement);
   const dice = chatCard.find("input.dice-value");
-  const isDominated =
-    chatCard.find(".die.Esprit").attr("data-dominated") === "true";
+  const isDominated = chatCard.find(".die.Esprit").attr("data-dominated") === "true";
   const necroseTest = chatCard.find(".necroseTest");
   const domain = Number(chatCard.find("b.domain").text());
   const domainName = chatCard.find("span.domainName").text();
@@ -423,23 +362,23 @@ async function onPuiserNecrose(event) {
       };
       let chatData;
       let rollMode = game.settings.get("core", "rollMode");
-      let whispers
-      switch(rollMode){
-        case "publicroll" : 
-        whispers = []
-        break;
-        
-        case "gmroll" : 
-        whispers = ChatMessage.getWhisperRecipients("GM")
-        break;
+      let whispers;
+      switch (rollMode) {
+        case "publicroll":
+          whispers = [];
+          break;
 
-        case "blindroll" : 
-        whispers = ChatMessage.getWhisperRecipients("GM")
-        break;
+        case "gmroll":
+          whispers = ChatMessage.getWhisperRecipients("GM");
+          break;
 
-        case "selfroll" : 
-        whispers = [game.user.id]
-        break;
+        case "blindroll":
+          whispers = ChatMessage.getWhisperRecipients("GM");
+          break;
+
+        case "selfroll":
+          whispers = [game.user.id];
+          break;
       }
       chatData = {
         user: game.user.id,
@@ -447,7 +386,7 @@ async function onPuiserNecrose(event) {
         content: await renderTemplate(messageTemplate, templateContext),
         sound: CONFIG.sounds.notification,
         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-        whisper: whispers
+        whisper: whispers,
       };
       ChatMessage.create(chatData);
     }
@@ -474,8 +413,7 @@ async function onPuiserNecrose(event) {
         buttons: {
           normal: {
             label: game.i18n.localize("chat.actions.puiser"),
-            callback: (html) =>
-              resolve(_processPuiserOptions(html[0].querySelector("form"))),
+            callback: (html) => resolve(_processPuiserOptions(html[0].querySelector("form"))),
           },
           cancel: {
             label: game.i18n.localize("chat.actions.cancel"),
@@ -509,9 +447,7 @@ async function onPuiserNecrose(event) {
 export const hideChatPuiserButtons = function (message, html, data) {
   const chatCard = html.find(".chat-card");
   if (chatCard.length > 0) {
-    let actor = game.actors.get(
-      chatCard.attr("data-actor-id").replace("Actor.", "")
-    );
+    let actor = game.actors.get(chatCard.attr("data-actor-id").replace("Actor.", ""));
     if (actor && actor.isOwner) {
       return;
     }

@@ -266,7 +266,6 @@ export default class ShaanPersonnageSheet extends ActorSheetSR {
       schemes_cibles.cibles1.learned = true;
       schemes_portee.contact.learned = true;
       schemes.maitrise = true;
-      console.log(schemes, "OUI");
     }
     this.actor.update({ "flags.shaanRenaissance.schemes": schemes });
   }

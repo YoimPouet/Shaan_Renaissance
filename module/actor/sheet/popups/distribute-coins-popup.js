@@ -19,7 +19,6 @@ export class DistributeCoinsPopup extends FormApplication {
         return maybeActor instanceof ActorSR ? maybeActor : [];
       }),
       playerCount = selectedActors.length;
-    console.log(playerCount);
     const credos = thisActor.system.attributes.crédos;
     if (credos == 0) return ui.notifications.warn("Il n'y a aucun crédos dans le Butin");
     thisActor.inventory.removeCoins(credos);
@@ -52,7 +51,6 @@ export class DistributeCoinsPopup extends FormApplication {
   }
   async getData() {
     const sheetData = await super.getData();
-    console.log(sheetData);
     const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.isOfType("character"));
 
     return (

@@ -52,7 +52,6 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
       html.find(".open-compendium").on("click", (event) => {
         if (event.currentTarget.dataset.compendium) {
           const compendium = game.packs.get(event.currentTarget.dataset.compendium);
-          console.log(compendium);
           compendium && compendium.render(!0);
         }
       });
@@ -67,7 +66,6 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
       var _a;
       const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
         item = this.actor.items.get(itemId);
-      console.log(event);
       if (!event.shiftKey && !event.ctrlKey) {
         this.actor.updateEmbeddedDocuments("Item", [
           {
@@ -97,7 +95,6 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
         var _a;
         const itemId = null !== (_a = $(event.currentTarget).parents(".item").attr("data-item-id")) && void 0 !== _a ? _a : "",
           item = this.actor.items.get(itemId);
-        console.log(item.system.quantity);
         if (!event.shiftKey && !event.ctrlKey) {
           item.system.quantity > 0 &&
             this.actor.updateEmbeddedDocuments("Item", [

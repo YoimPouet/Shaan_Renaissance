@@ -487,7 +487,6 @@ export class ShaaniSheetSR extends ActorSheetSR {
     let domain = event.target.closest(".pc").dataset.domain;
     let spécialisation = event.target.dataset.spe;
     let description = game.i18n.translations.SRspéDesc[spécialisation];
-    console.log(domain, spécialisation);
 
     Dice.SpéTest({
       actor,
@@ -566,8 +565,6 @@ export class ShaaniSheetSR extends ActorSheetSR {
           ...extraData,
           pouvoirData: pouvoir,
         };
-        console.log(templateContext);
-        console.log(pouvoir);
 
         let chatData = {
           user: game.user.id,
@@ -576,7 +573,6 @@ export class ShaaniSheetSR extends ActorSheetSR {
           sound: CONFIG.sounds.notification,
           type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
-        console.log(chatData);
 
         ChatMessage.create(chatData);
       }

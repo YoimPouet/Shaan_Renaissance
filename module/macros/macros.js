@@ -31,10 +31,7 @@ export async function RemoveCoins(actors) {
     });
   }
 }
-async function GetCredosOptions({
-  credos,
-  template = "systems/shaanrenaissance/templates/dialogs/add-remove-credos.hbs",
-} = {}) {
+async function GetCredosOptions({ credos, template = "systems/shaanrenaissance/templates/dialogs/add-remove-credos.hbs" } = {}) {
   const html = await renderTemplate(template, {
     credos,
   });
@@ -47,8 +44,7 @@ async function GetCredosOptions({
       buttons: {
         normal: {
           label: game.i18n.localize("chat.actions.valider"),
-          callback: (html) =>
-            resolve(_processCredosOptions(html[0].querySelector("form"))),
+          callback: (html) => resolve(_processCredosOptions(html[0].querySelector("form"))),
         },
         cancel: {
           label: game.i18n.localize("chat.actions.cancel"),
@@ -78,7 +74,6 @@ export async function AddXP(actors) {
     return;
   }
   xp = Number(checkOptions.xp);
-  console.log(xp);
   for (const actor of actors) {
     actor.update({
       "system.details.xp.value": actor.system.details.xp.value + xp,
@@ -86,10 +81,7 @@ export async function AddXP(actors) {
     });
   }
 }
-async function GetXPOptions({
-  xp,
-  template = "systems/shaanrenaissance/templates/dialogs/add-xp.hbs",
-} = {}) {
+async function GetXPOptions({ xp, template = "systems/shaanrenaissance/templates/dialogs/add-xp.hbs" } = {}) {
   const html = await renderTemplate(template, {
     xp,
   });
@@ -102,8 +94,7 @@ async function GetXPOptions({
       buttons: {
         normal: {
           label: game.i18n.localize("chat.actions.valider"),
-          callback: (html) =>
-            resolve(_processXPOptions(html[0].querySelector("form"))),
+          callback: (html) => resolve(_processXPOptions(html[0].querySelector("form"))),
         },
         cancel: {
           label: game.i18n.localize("chat.actions.cancel"),
@@ -133,19 +124,14 @@ export async function AddPrestige(actors) {
     return;
   }
   prestige = Number(checkOptions.prestige);
-  console.log(prestige);
   for (const actor of actors) {
     actor.update({
       "system.attributes.prestige": actor.system.attributes.prestige + prestige,
-      "system.attributes.préstigeMax":
-        actor.system.attributes.préstigeMax + prestige,
+      "system.attributes.préstigeMax": actor.system.attributes.préstigeMax + prestige,
     });
   }
 }
-async function GetPrestigeOptions({
-  prestige,
-  template = "systems/shaanrenaissance/templates/dialogs/add-prestige.hbs",
-} = {}) {
+async function GetPrestigeOptions({ prestige, template = "systems/shaanrenaissance/templates/dialogs/add-prestige.hbs" } = {}) {
   const html = await renderTemplate(template, {
     prestige,
   });
@@ -158,8 +144,7 @@ async function GetPrestigeOptions({
       buttons: {
         normal: {
           label: game.i18n.localize("chat.actions.valider"),
-          callback: (html) =>
-            resolve(_processPrestigeOptions(html[0].querySelector("form"))),
+          callback: (html) => resolve(_processPrestigeOptions(html[0].querySelector("form"))),
         },
         cancel: {
           label: game.i18n.localize("chat.actions.cancel"),

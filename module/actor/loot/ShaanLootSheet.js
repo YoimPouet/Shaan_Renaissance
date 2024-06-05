@@ -189,7 +189,6 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
     const actors = (0, getSelectedOrOwnActors)(["Personnage", "PNJ", "Créature", "Shaani", "Réseau"]);
     const itemID = event.currentTarget.closest(".item").dataset.itemId,
       item = await this.getAcquisItem(itemID, LootActorID);
-    console.log(item);
     if (0 !== actors.length) {
       for (const actor of actors) await actor.createEmbeddedDocuments("Item", [item.toObject()]);
       1 === actors.length && game.user.character && actors[0] === game.user.character
@@ -209,7 +208,6 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
   }
   async _onBuyAcquis(event) {
     let LootActoruuID = this.actor.uuid;
-    console.log(this.actor);
     if (this.actor.isToken) {
       LootActoruuID = this.actor.token.uuid;
     }
@@ -256,7 +254,6 @@ export default class ShaanLootSheetSR extends ActorSheetSR {
   }
   async getAcquisItem(itemID, actor) {
     const item = await fromUuid(`${actor}.Item.${itemID}`);
-    console.log(item);
     if (!(item instanceof ItemSR)) return ui.notifications.warn("Unexpected failure retrieving compendium item");
     return item;
   }

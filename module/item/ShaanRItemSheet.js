@@ -38,7 +38,6 @@ export default class ShaanRItemSheet extends ItemSheet {
         },
       };
 
-    console.log(itemData);
     console.log(sheetData);
     return sheetData;
   }
@@ -59,7 +58,6 @@ export default class ShaanRItemSheet extends ItemSheet {
     if (tr) {
       effect = tr.dataset.effectId ? owner.effects.get(tr.dataset.effectId) : null;
     }
-    console.log(effect);
 
     switch (a.dataset.action) {
       case "create":
