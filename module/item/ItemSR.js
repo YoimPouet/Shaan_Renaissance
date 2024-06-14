@@ -92,7 +92,7 @@ export class ItemSR extends Item {
         icon = "systems/shaanrenaissance/assets/icons/navbar/icon_biographie.webp";
         break;
       case "Pouvoir":
-        icon = "systems/shaanrenaissance/assets/icons/navbar/icon_pouvoir.webp";
+        if (!icon.includes("domaines")) icon = "systems/shaanrenaissance/assets/icons/navbar/icon_pouvoir.webp";
         break;
       case "Symbiose":
         icon = "systems/shaanrenaissance/assets/icons/navbar/icon_symbiose.webp";
