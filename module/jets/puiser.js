@@ -182,7 +182,6 @@ async function onPuiser(event) {
     }
     actor.update(attributes);
     actor.sheet.render();
-    console.log(actor);
 
     if (sendMessage) {
       ToCustomMessage(actor, result, messageTemplate);

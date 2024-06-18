@@ -341,7 +341,6 @@ export async function SpéTest({
   const messageTemplate = "systems/shaanrenaissance/templates/chat/domainTest.hbs";
   const actorData = actor ? actor.system : null;
   const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
-  console.log(actorData.skills[domain].rank, actorData.skills[domain].temp);
   const spéBonus = actorData.skills[domain].specialisations[spécialisation].bonus;
   const spéAcquis = actorData.skills[domain].specialisations[spécialisation].acquis;
 
