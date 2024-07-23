@@ -10,6 +10,9 @@ export default class ShaanReseauSheet extends ActorSheetSR {
   constructor() {
     super(...arguments), (this.itemRenderer = new ItemSummaryRenderer(this));
   }
+  get template() {
+    return `systems/shaanrenaissance/templates/actors/Reseau/sheet.hbs`;
+  }
   static get defaultOptions() {
     const options = super.defaultOptions;
     return (

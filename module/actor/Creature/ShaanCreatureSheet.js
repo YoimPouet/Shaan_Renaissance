@@ -7,6 +7,9 @@ export default class ShaanCreatureSheet extends ActorSheetSR {
   constructor() {
     super(...arguments), (this.itemRenderer = new ItemSummaryRenderer(this));
   }
+  get template() {
+    return `systems/shaanrenaissance/templates/actors/Creature/sheet.hbs`;
+  }
   static get defaultOptions() {
     const options = super.defaultOptions;
     return (
