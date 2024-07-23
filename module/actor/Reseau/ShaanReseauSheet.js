@@ -6,7 +6,7 @@ import { ItemSummaryRenderer } from "../sheet/item-summary-renderer.js";
 import { AddCoinsPopup } from "../sheet/popups/add-coins-popup.js";
 import { RemoveCoinsPopup } from "../sheet/popups/remove-coins-popup.js";
 
-export default class ShaanRéseauSheet extends ActorSheetSR {
+export default class ShaanReseauSheet extends ActorSheetSR {
   constructor() {
     super(...arguments), (this.itemRenderer = new ItemSummaryRenderer(this));
   }

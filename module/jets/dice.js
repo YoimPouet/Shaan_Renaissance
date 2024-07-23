@@ -1,4 +1,4 @@
-import { CreatureSR } from "../actor/Créature/document.js";
+import { CreatureSR } from "../actor/Creature/document.js";
 import { NpcSR } from "../actor/PNJ/document.js";
 import { CheckDialog } from "../system/check/dialog.js";
 
@@ -547,7 +547,7 @@ export async function SpéTest({
     spécialisation = null,
     description = null,
     difficulty = 0,
-    template = "systems/shaanrenaissance/templates/chat/spéTest-dialog.hbs",
+    template = "systems/shaanrenaissance/templates/chat/speTest-dialog.hbs",
   } = {}) {
     const html = await renderTemplate(template, {
       actor,
@@ -607,7 +607,7 @@ export async function necroseTest({
   race = null,
   state = null,
 } = {}) {
-  const messageTemplate = "systems/shaanrenaissance/templates/chat/nécroseTest.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/necroseTest.hbs";
   const actorData = actor ? actor.system : null;
   const raceName = race;
 
@@ -883,7 +883,7 @@ export async function SpéTestNécr({
   description = null,
   state = null,
 } = {}) {
-  const messageTemplate = "systems/shaanrenaissance/templates/chat/spéTestNécr.hbs";
+  const messageTemplate = "systems/shaanrenaissance/templates/chat/speTestNecr.hbs";
   const actorData = actor ? actor.system : null;
   const domainLevel = actorData.skills[domain].rank + actorData.skills[domain].temp;
   const spéBonus = actorData.skills[domain].specialisations[spécialisation].bonus;
@@ -1087,7 +1087,7 @@ export async function SpéTestNécr({
     spéBonusF,
     spéAcquisF,
     difficulty = 0,
-    template = "systems/shaanrenaissance/templates/chat/spéTest-dialog.hbs",
+    template = "systems/shaanrenaissance/templates/chat/speTest-dialog.hbs",
   } = {}) {
     const html = await renderTemplate(template, {
       actor,

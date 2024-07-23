@@ -1,5 +1,5 @@
 import { ActorSR } from "./actor/ActorSR.js";
-import { CreatureSR } from "./actor/Créature/document.js";
+import { CreatureSR } from "./actor/Creature/document.js";
 import { NpcSR } from "./actor/PNJ/document.js";
 import { PersonnageSR } from "./actor/Personnage/PersonnageSR.js";
 import { ShaaniSR } from "./actor/Shaani/document.js";

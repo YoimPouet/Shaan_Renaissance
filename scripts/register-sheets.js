@@ -1,8 +1,8 @@
 import { SRActiveEffectConfig } from "../module/ActiveEffects/SRActiveEffectConfig.js";
-import ShaanCreatureSheet from "../module/actor/Créature/ShaanCreatureSheet.js";
+import ShaanCreatureSheet from "../module/actor/Creature/ShaanCreatureSheet.js";
 import ShaanNPCSheet from "../module/actor/PNJ/ShaanNPCSheet.js";
 import ShaanPersonnageSheet from "../module/actor/Personnage/sheet.js";
-import ShaanRéseauSheet from "../module/actor/Réseau/ShaanRéseauSheet.js";
+import ShaanReseauSheet from "../module/actor/Reseau/ShaanReseauSheet.js";
 import { ShaaniSheetSR } from "../module/actor/Shaani/sheet.js";
 import ShaanLootSheetSR from "../module/actor/loot/ShaanLootSheet.js";
 import ShaanCreatorSet from "../module/item/CreatorSet/ShaanCreatorSet.js";
@@ -13,18 +13,8 @@ import { ShaanConditionSheet } from "../module/item/condition/sheet.js";
 import { TokenConfigSR } from "../module/token/TokenConfigSR.js";
 
 export function registerSheets() {
-  DocumentSheetConfig.registerSheet(
-    ActiveEffect,
-    "shaanrenaissance",
-    SRActiveEffectConfig,
-    { makeDefault: true, label: "test" }
-  );
-  DocumentSheetConfig.registerSheet(
-    TokenDocument,
-    "shaanrenaissance",
-    TokenConfigSR,
-    { makeDefault: true }
-  );
+  DocumentSheetConfig.registerSheet(ActiveEffect, "shaanrenaissance", SRActiveEffectConfig, { makeDefault: true, label: "test" });
+  DocumentSheetConfig.registerSheet(TokenDocument, "shaanrenaissance", TokenConfigSR, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("shaanrenaissance", ShaanRItemSheet, {
     types: [
@@ -76,7 +66,7 @@ export function registerSheets() {
     types: ["Shaani"],
     label: "Shaani",
   });
-  Actors.registerSheet("shaanrenaissance", ShaanRéseauSheet, {
+  Actors.registerSheet("shaanrenaissance", ShaanReseauSheet, {
     types: ["Réseau"],
     label: "Réseau",
   });

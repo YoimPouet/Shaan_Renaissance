@@ -42,11 +42,11 @@ export const templatePaths = [
   "systems/shaanrenaissance/templates/actors/PNJ/partials/NPC-reserve.hbs",
 
   // Creature
-  "systems/shaanrenaissance/templates/actors/Créature/partials/cercle.hbs",
-  "systems/shaanrenaissance/templates/actors/Créature/partials/general.hbs",
-  "systems/shaanrenaissance/templates/actors/Créature/partials/bio.hbs",
-  "systems/shaanrenaissance/templates/actors/Créature/partials/specialisations.hbs",
-  "systems/shaanrenaissance/templates/actors/Créature/partials/armor.hbs",
+  "systems/shaanrenaissance/templates/actors/Creature/partials/cercle.hbs",
+  "systems/shaanrenaissance/templates/actors/Creature/partials/general.hbs",
+  "systems/shaanrenaissance/templates/actors/Creature/partials/bio.hbs",
+  "systems/shaanrenaissance/templates/actors/Creature/partials/specialisations.hbs",
+  "systems/shaanrenaissance/templates/actors/Creature/partials/armor.hbs",
 
   // Shaani
   "systems/shaanrenaissance/templates/actors/Shaani/partials/members.hbs",
@@ -58,19 +58,19 @@ export const templatePaths = [
 
   // Réseau
   // Sidebar
-  "systems/shaanrenaissance/templates/actors/Réseau/sidebar/health.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/sidebar/armor.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/partials/header.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/sidebar/initiative.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/sidebar/jets.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/sidebar/reserve.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/sidebar/health.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/sidebar/armor.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/partials/header.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/sidebar/initiative.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/sidebar/jets.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/sidebar/reserve.hbs",
 
   // Content
-  "systems/shaanrenaissance/templates/actors/Réseau/tabs/details.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/tabs/general.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/tabs/powers.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/partials/background.hbs",
-  "systems/shaanrenaissance/templates/actors/Réseau/partials/specialisations.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/tabs/details.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/tabs/general.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/tabs/powers.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/partials/background.hbs",
+  "systems/shaanrenaissance/templates/actors/Reseau/partials/specialisations.hbs",
 
   // Loot
   "systems/shaanrenaissance/templates/actors/Loot/partials/acquis-categories.hbs",

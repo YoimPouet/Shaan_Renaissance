@@ -1,6 +1,6 @@
 import * as Dice from "../../jets/dice.js";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "../../utils/utils.js";
-import { CreatureSR } from "../Créature/document.js";
+import { CreatureSR } from "../Creature/document.js";
 import { NpcSR } from "../PNJ/document.js";
 import { PersonnageSR } from "../Personnage/PersonnageSR.js";
 import { ActorSheetSR } from "../sheet.js";

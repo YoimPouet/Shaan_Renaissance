@@ -1,17 +1,17 @@
 <div class="tests-sidebar">
   <div class="roll-data domain-test" data-item-id="domainTest" style="display: flex; flex-direction: row;">
     <a class="roll-icon">
-      <img src="systems/shaanrenaissance/assets/sheet/dés_domaine.png" />
+      <img src="systems/shaanrenaissance/assets/sheet/des_domaine.png" />
     </a>
     <h3>{{localize "SRLabels.DomainTest"}}</h3>
   </div>
   <div class="roll-data necrose-test" data-item-id="necroseTest" style="display: flex; flex-direction: row;">
     <a class="roll-icon">
       {{#ifeq system.general.race.value "Humain"}}
-        <img src="systems/shaanrenaissance/assets/sheet/dés_nécroseH.png" />
+        <img src="systems/shaanrenaissance/assets/sheet/des_necroseH.png" />
       {{/ifeq}}
       {{#ifnoteq system.general.race.value "Humain"}}
-        <img src="systems/shaanrenaissance/assets/sheet/dés_nécrose.png" />
+        <img src="systems/shaanrenaissance/assets/sheet/des_necrose.png" />
       {{/ifnoteq}}
     </a>
     <h3>{{localize "SRLabels.NecroseTest"}}</h3>
