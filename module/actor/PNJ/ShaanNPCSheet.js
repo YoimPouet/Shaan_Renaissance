@@ -37,6 +37,11 @@ export default class ShaanNPCSheet extends ActorSheetSR {
           isGM: game.user.isGM,
         },
       };
+
+    // if (!this.editable) {
+    //   console.log(this);
+    //   this._element[0];
+    // }
     this.itemSort(sheetData.items);
     this.itemFilter(sheetData, actorData);
     this.characterFilter(sheetData, actorData);
@@ -44,6 +49,29 @@ export default class ShaanNPCSheet extends ActorSheetSR {
 
     console.log(sheetData);
     return sheetData;
+  }
+  async _render(force, options = {}) {
+    // Verify user permission to view and edit
+    if (!this._canUserView(game.user)) {
+      if (!force) return;
+      const err = game.i18n.format("SHEETS.DocumentSheetPrivate", {
+        type: game.i18n.localize(this.object.constructor.metadata.label),
+      });
+      ui.notifications.warn(err);
+      return;
+    }
+    options.editable = options.editable ?? this.object.isOwner;
+
+    if (!options.editable) {
+      options.height = 500;
+      options.width = 500;
+    }
+
+    // Parent class rendering workflow
+    await super._render(force, options);
+
+    // Register the active Application with the referenced Documents
+    this.object.apps[this.appId] = this;
   }
   activateListeners(html) {
     var _a, _b, _c;

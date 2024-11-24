@@ -40,6 +40,7 @@ export const templatePaths = [
   "systems/shaanrenaissance/templates/actors/PNJ/partials/specialisations.hbs",
   "systems/shaanrenaissance/templates/actors/PNJ/partials/armor.hbs",
   "systems/shaanrenaissance/templates/actors/PNJ/partials/NPC-reserve.hbs",
+  "systems/shaanrenaissance/templates/actors/PNJ/partials/observer.hbs",
 
   // Creature
   "systems/shaanrenaissance/templates/actors/Creature/partials/cercle.hbs",

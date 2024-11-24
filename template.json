@@ -566,14 +566,7 @@
       }
     },
     "character": {
-      "templates": [
-        "common",
-        "spés",
-        "Ressources",
-        "biography",
-        "reserve",
-        "Magic"
-      ],
+      "templates": ["common", "spés", "Ressources", "biography", "reserve", "Magic"],
       "protections": {
         "esprit": {
           "value": 0
@@ -687,17 +680,17 @@
       "templates": ["common", "spés", "biography", "reserve", "Magic"],
       "details": {
         "members": [],
-        "shaandars":{
-          "Technique":[],
-          "Savoir":[],
-          "Social":[],
-          "Arts":[],
-          "Shaan":[],
-          "Magie":[],
-          "Rituels":[],
-          "Survie":[],
-          "Combat":[],
-          "Nécrose":[]
+        "shaandars": {
+          "Technique": [],
+          "Savoir": [],
+          "Social": [],
+          "Arts": [],
+          "Shaan": [],
+          "Magie": [],
+          "Rituels": [],
+          "Survie": [],
+          "Combat": [],
+          "Nécrose": []
         }
       },
       "soucheCorps": null,
@@ -1425,12 +1418,12 @@
       "overrides": []
     },
     "Symbiose": {
-      "templates":[],
-      "frequence":"",
-      "duration":"",
-      "description":"",
-      "cost":"",
-      "source":{"value":""},
+      "templates": [],
+      "frequence": "",
+      "duration": "",
+      "description": "",
+      "cost": "",
+      "source": { "value": "" },
       "isUsed": false
     }
   }

@@ -1,5 +1,6 @@
 <form class="actor sheet crb-style npc" autocomplete="off">
-    <div class="npc-stats">
+    {{#if this.editable}}
+        <div class="npc-stats">
         <section class="npc-HP">
             <span class="TrihnsLabel">{{localize "SRLabels.Trihns"}} <a class="regen-hp" title="{{localize "SR.RegenTitle"}}"><i class="fa-solid fa-bed"></i></a></span>
                 <div class="hp-esprit">
@@ -101,4 +102,9 @@
         </div>
         
     </div>
+    {{else}}
+        <div class="observer-container">
+            {{> "systems/shaanrenaissance/templates/actors/PNJ/partials/observer.hbs"}}
+        </div>
+    {{/if}}
 </form>
