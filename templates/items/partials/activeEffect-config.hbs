@@ -2,7 +2,7 @@
 
     <!-- Effect Header -->
     <header class="sheet-header">
-        <img class="effect-icon" src="{{ data.img }}" data-edit="img">
+        <img class="effect-img" src="{{ data.img }}" data-edit="img">
         <h1 class="effect-title">
             <input name="name" type="text" value="{{data.name}}" placeholder="{{ localize 'Name' }}"/>
         </h1>
@@ -18,9 +18,9 @@
     <!-- Details Tab -->
     <section class="tab" data-tab="details">
         <div class="form-group">
-            <label>{{ localize "EFFECT.IconTint" }}</label>
+            <label>{{ localize "EFFECT.Tint" }}</label>
             <div class="form-fields">
-                <color-picker name="tint" value="{{data.tint}}"></color-picker>
+                <color-picker name="tint" value="{{data.tint}}" placeholder="#ffffff"></color-picker>
             </div>
         </div>
 
@@ -31,14 +31,14 @@
 
         <div class="form-group">
             <label>{{ localize "EFFECT.Disabled" }}</label>
-            <input type="checkbox" name="disabled" {{ checked system.disabled }}/>
+            <input type="checkbox" name="disabled" {{ checked data.disabled }}/>
         </div>
 
         {{#if isActorEffect}}
         <div class="form-group">
             <label>{{ localize "EFFECT.Origin" }}</label>
             <div class="form-fields">
-                <input type="text" name="origin" value="{{ system.origin }}" disabled/>
+                <input type="text" name="origin" value="{{ data.origin }}" disabled/>
             </div>
         </div>
         {{/if}}
@@ -47,11 +47,22 @@
         <div class="form-group">
             <label>{{ labels.transfer.name }}</label>
             <div class="form-fields">
-                <input type="checkbox" name="transfer" {{checked system.transfer}}/>
+                <input type="checkbox" name="transfer" {{checked data.transfer}}/>
             </div>
             <p class="hint">{{ labels.transfer.hint }}</p>
         </div>
         {{/if}}
+
+        <div class="form-group">
+            <label>Status Conditions</label>
+            <div class="form-fields">
+                <multi-select name="statuses">
+                    {{#each statuses as |status|}}
+                    <option value="{{status.id}}" {{status.selected}}>{{status.label}}</option>
+                    {{/each}}
+                </multi-select>
+            </div>
+        </div>
     </section>
 
     <!-- Duration Tab -->
@@ -59,13 +70,13 @@
         <div class="form-group">
             <label>{{ localize "EFFECT.DurationSecs" }}</label>
             <div class="form-fields">
-                <input type="number" name="duration.seconds" value="{{ system.duration.seconds }}"/>
+                <input type="number" name="duration.seconds" value="{{ data.duration.seconds }}"/>
             </div>
         </div>
         <div class="form-group">
             <label>{{ localize "EFFECT.StartTime" }}</label>
             <div class="form-fields">
-                <input type="number" name="duration.startTime" value="{{ system.duration.startTime }}"/>
+                <input type="number" name="duration.startTime" value="{{ data.duration.startTime }}"/>
             </div>
         </div>
         <hr/>
@@ -73,15 +84,15 @@
             <label>{{ localize "EFFECT.DurationTurns" }}</label>
             <div class="form-fields">
                 <label>{{ localize "COMBAT.Rounds" }}</label>
-                <input type="number" name="duration.rounds" value="{{ system.duration.rounds }}"/>
+                <input type="number" name="duration.rounds" value="{{ data.duration.rounds }}"/>
                 <label>{{ localize "COMBAT.Turns" }}</label>
-                <input type="number" name="duration.turns" value="{{ system.duration.turns }}"/>
+                <input type="number" name="duration.turns" value="{{ data.duration.turns }}"/>
             </div>
         </div>
         <div class="form-group">
             <label>{{ localize "EFFECT.Combat" }}</label>
             <div class="form-fields">
-                <input type="text" name="duration.combat" value="{{ system.duration.combat }}" disabled/>
+                <input type="text" name="duration.combat" value="{{ data.duration.combat }}" disabled/>
             </div>
         </div>
 
@@ -89,9 +100,9 @@
             <label>{{ localize "EFFECT.StartTurns" }}</label>
             <div class="form-fields">
                 <label>{{ localize "COMBAT.Round" }}</label>
-                <input type="number" name="duration.startRound" value="{{ system.duration.startRound }}"/>
+                <input type="number" name="duration.startRound" value="{{ data.duration.startRound }}"/>
                 <label>{{ localize "COMBAT.Turn" }}</label>
-                <input type="number" name="duration.startTurn" value="{{ system.duration.startTurn }}"/>
+                <input type="number" name="duration.startTurn" value="{{ data.duration.startTurn }}"/>
             </div>
         </div>
     </section>
@@ -107,22 +118,17 @@
             </div>
         </header>
         <ol class="changes-list">
-            {{#each system.changes as |change i|}}
+            {{log this}}
+            {{#each data.changes as |change i|}}
             <li class="effect-change flexrow" data-index="{{i}}">
-                <div class="key">
-                    <select name="changes.{{i}}.key">
-                        <optgroup label="{{localize "SR.spécialisations"}}">
-                            {{#each ../config.activeEffectChanges.spés as |domain|}}
-                                <optgroup label="{{localize (concat 'SRdomains.' @key)}}">
-                                    {{selectOptions domain selected=change.key localize=true}}
-                                </optgroup>
-                            {{/each}}
-                        </optgroup>
-                        <optgroup label="{{localize "SRLabels.Protections"}}">
-                            {{selectOptions ../config.activeEffectChanges.protections selected=change.key localize=true}}
-                        </optgroup>
-                    </select>
-                </div>
+                <select name="changes.{{i}}.key">
+                    <optgroup label="{{localize "SR.spécialisations"}}">
+                        {{selectOptions ../config.activeEffectChanges.spés selected=change.key}}
+                    </optgroup>
+                    <optgroup label="{{localize "SRLabels.Protections"}}">
+                        {{selectOptions ../config.activeEffectChanges.protections selected=change.key}}
+                    </optgroup>
+                </select>
                 <div class="mode">
                     <select name="changes.{{i}}.mode" data-dtype="Number">
                         {{selectOptions ../modes selected=change.mode}}

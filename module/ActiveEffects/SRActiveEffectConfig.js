@@ -18,12 +18,13 @@ export class SRActiveEffectConfig extends ActiveEffectConfig {
       return {
         id: s.id,
         label: game.i18n.localize(s.name ?? /** @deprecated since v12 */ s.label),
-        selected: context.data.statuses.includes(s.id) ? "selected" : "",
+        selected: context.statuses.includes(s.id) ? "selected" : "",
       };
     });
 
     // Return rendering context
     return foundry.utils.mergeObject(context, {
+      config: CONFIG.shaanRenaissance,
       labels,
       effect: this.object, // Backwards compatibility
       data: this.object,
